@@ -1,0 +1,41 @@
+<!-- src/app/shared/components/sidebar/sidebar.component.html -->
+<aside class="sidebar-container">
+  <!-- Logo de la aplicación -->
+  <div class="sidebar-logo">
+    <img src="assets/images/placeholder-logo.png" alt="Travel App Logo">
+  </div>
+
+  <!-- Menú de navegación -->
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+      <li>
+        <a [routerLink]="['/dashboard']" routerLinkActive="active"
+           class="nav-link">
+          <span class="nav-icon">📊</span> <!-- Icono de Dashboard (puedes reemplazar con PrimeIcons o SVG) -->
+          <span class="nav-text">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/map']" routerLinkActive="active"
+           class="nav-link">
+          <span class="nav-icon">🗺️</span> <!-- Icono de Mapa -->
+          <span class="nav-text">Mapa</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/travel-organizer']" routerLinkActive="active"
+           class="nav-link">
+          <span class="nav-icon">🗓️</span> <!-- Icono de Organizador -->
+          <span class="nav-text">Organizador de Viajes</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/add-place']" routerLinkActive="active"
+           class="nav-link">
+          <span class="nav-icon">➕</span> <!-- Icono de Añadir Lugar -->
+          <span class="nav-text">Añadir Lugar</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>

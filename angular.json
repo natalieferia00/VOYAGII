@@ -27,10 +27,29 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets/layout", 
+                "output": "assets/layout"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets/sakai", 
+                "output": "assets/sakai"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss", 
+              "node_modules/primeng/resources/primeng.min.css", 
+              "node_modules/primeicons/primeicons.css",        
+ 
+              "node_modules/primeng/resources/themes/saga-purple/theme.css",
+              
+          
+              "src/assets/layout/styles/layout.scss", 
+              "src/assets/layout/styles/theme/theme.scss" 
+
             ]
           },
           "configurations": {
@@ -94,5 +113,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "ee581364-3b87-4d48-9dd5-107905a1a893"
   }
 }

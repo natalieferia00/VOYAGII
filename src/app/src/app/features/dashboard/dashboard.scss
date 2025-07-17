@@ -3,19 +3,19 @@
 /* Importa la fuente Inter de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* --- Variables de Color Personalizadas (Mantener aquí si las usas en tus componentes) --- */
-$primary-purple: #4A148C;
-$secondary-purple: #6A1B9A;
-$tertiary-purple: #9C27B0;
+/* --- Variables de Color (Paleta Morado y Gris) --- */
+$primary-purple: #4A148C; /* Morado Oscuro Profundo */
+$secondary-purple: #6A1B9A; /* Morado Medio Vibrante */
+$tertiary-purple: #9C27B0; /* Morado un poco más claro */
 
-$light-gray-bg: #F8F8F8;
-$medium-gray-border: #E0E0E0;
-$dark-gray-text: #424242;
-$light-text: #FFFFFF;
+$light-gray-bg: #F8F8F8; /* Gris muy claro para fondos generales */
+$medium-gray-border: #E0E0E0; /* Gris medio para bordes sutiles */
+$dark-gray-text: #424242; /* Gris oscuro para texto principal */
+$light-text: #FFFFFF; /* Blanco puro */
 
-$accent-red: #E74C3C;
-$accent-blue: #00B5E2;
-$accent-neutral: #6C757D;
+$accent-red: #E74C3C; /* Rojo para acciones de peligro */
+$accent-blue: #00B5E2; /* Azul para información */
+$accent-neutral: #6C757D; /* Gris neutro */
 
 /* --- Variables de Espaciado y Bordes --- */
 $spacing-xl: 32px;
@@ -30,9 +30,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  // El background-color y color serán probablemente sobrescritos por los estilos de Sakai
-  // background-color: $light-gray-bg;
-  // color: $dark-gray-text;
+  background-color: $light-gray-bg;
+  color: $dark-gray-text;
 }
 
 /* Estilos para el scrollbar (opcional) */
