@@ -1,0 +1,32 @@
+.season-chart-container {
+  background: #ffffff;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  canvas {
+    max-width: 100%;
+    background: #ffffff;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+
+  .season-summary {
+    margin-top: 1rem;
+    p {
+      font-size: 0.95rem;
+      margin: 0.25rem 0;
+      strong {
+        color: #5a4fcf;
+      }
+    }
+  }
+}

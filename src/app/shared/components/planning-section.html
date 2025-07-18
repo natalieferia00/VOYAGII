@@ -1,0 +1,25 @@
+<section class="planning-section">
+  <h2>Planificación y Registro de Viajes</h2>
+  <button (click)="showForm = true" *ngIf="!showForm">+ Agregar Planificación</button>
+
+  <app-planning-form
+    *ngIf="showForm"
+    [plan]="editingPlan"
+    (save)="addPlan($event)"
+    (cancel)="showForm = false"
+  ></app-planning-form>
+
+  <div class="plans-grid">
+    <div *ngFor="let plan of travelPlans" class="plan-card">
+      <h3>{{ plan.country }}</h3>
+      <p><strong>Tickets:</strong> ${{ plan.ticketPrice }}</p>
+      <p><strong>Presupuesto Total:</strong> ${{ plan.totalBudget }}</p>
+      <p><strong>Pasajes:</strong> ${{ plan.transportBudget }}</p>
+      <p><strong>Alimentación:</strong> ${{ plan.foodBudget }}</p>
+      <p><strong>Fechas:</strong> {{ plan.startDate }} - {{ plan.endDate }}</p>
+      <p><strong>Días:</strong> {{ plan.daysStayed }}</p>
+      <button (click)="editPlan(plan)">Editar</button>
+      <button (click)="deletePlan(plan.id)">Eliminar</button>
+    </div>
+  </div>
+</section>

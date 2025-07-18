@@ -8,8 +8,6 @@ import { SidebarComponent } from "../../layout/app-sidebar/app-sidebar"; // Aseg
   standalone: true,
   imports: [
     CommonModule, // Elimina la coma extra aquí
-    RouterLink // Añade RouterLink si lo usas en el HTML
-    ,
     SidebarComponent
 ],
   templateUrl: './travel-organizer.html', // Asegúrate de que el nombre del archivo HTML sea correcto (travel-organizer.html o .component.html)

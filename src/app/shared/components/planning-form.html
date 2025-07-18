@@ -1,0 +1,110 @@
+<form class="planning-form" (ngSubmit)="submit()" #formRef="ngForm">
+
+  <div class="form-group">
+    <label for="country">País</label>
+    <input
+      id="country"
+      name="country"
+      type="text"
+      [(ngModel)]="form.country"
+      required
+      placeholder="Ej: Japón"
+    />
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="ticketPrice">Precio de Ticket ($)</label>
+      <input
+        id="ticketPrice"
+        name="ticketPrice"
+        type="number"
+        [(ngModel)]="form.ticketPrice"
+        required
+        placeholder="Ej: 800"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="transportBudget">Presupuesto Pasajes ($)</label>
+      <input
+        id="transportBudget"
+        name="transportBudget"
+        type="number"
+        [(ngModel)]="form.transportBudget"
+        required
+        placeholder="Ej: 200"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="foodBudget">Presupuesto Alimentación ($)</label>
+      <input
+        id="foodBudget"
+        name="foodBudget"
+        type="number"
+        [(ngModel)]="form.foodBudget"
+        required
+        placeholder="Ej: 300"
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="totalBudget">Presupuesto Total ($)</label>
+    <input
+      id="totalBudget"
+      name="totalBudget"
+      type="number"
+      [(ngModel)]="form.totalBudget"
+      required
+      placeholder="Ej: 1500"
+    />
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="startDate">Fecha de Inicio</label>
+      <input
+        id="startDate"
+        name="startDate"
+        type="date"
+        [(ngModel)]="form.startDate"
+        (change)="calculateDays()"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">Fecha de Fin</label>
+      <input
+        id="endDate"
+        name="endDate"
+        type="date"
+        [(ngModel)]="form.endDate"
+        (change)="calculateDays()"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="daysStayed">Días de Estadía</label>
+      <input
+        id="daysStayed"
+        name="daysStayed"
+        type="number"
+        [(ngModel)]="form.daysStayed"
+        readonly
+        placeholder="Se calcula automáticamente"
+      />
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button type="submit" [disabled]="!formRef.form.valid">
+      {{ plan ? 'Actualizar' : 'Agregar' }} Plan
+    </button>
+    <button type="button" class="cancel" (click)="cancelForm()">Cancelar</button>
+  </div>
+
+</form>

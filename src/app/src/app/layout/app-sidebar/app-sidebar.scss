@@ -1,154 +1,110 @@
-/* src/app/shared/components/sidebar/sidebar.component.scss */
-@import '../../../../styles.scss'; // Importa las variables globales (ruta relativa desde este archivo)
+/* src/app/shared/components/sidebar/sidebar.component.css */
 
 .sidebar-container {
-  width: 250px; // Ancho por defecto del sidebar
-  background-color: $light-text; // Fondo blanco
-  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08); // Sombra sutil
-  height: 100vh; // Ocupa toda la altura de la ventana
-  position: sticky; // Se mantiene fijo al hacer scroll
-  top: 0;
-  left: 0;
+  width: 240px;
+  min-height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
-  padding: $spacing-md 0; // Padding superior e inferior
-  overflow-y: auto; // Permite scroll si el contenido del sidebar es largo
-  z-index: 100; // Asegura que esté por encima de otros elementos
-  transition: width 0.3s ease; // Para futuras animaciones de colapsado
-  flex-shrink: 0; // Evita que se encoja cuando el contenido principal necesite espacio
-
-  /* Media Query para Tablets (ej. 1024px y menos) */
-  @media (max-width: 1024px) {
-    width: 80px; // Ancho colapsado para tablets
-  }
-
-  /* Media Query para Móviles (ej. 768px y menos) */
-  @media (max-width: 768px) {
-    width: 100%; // Ocupa todo el ancho en móvil
-    height: 60px; // Altura fija para la barra de navegación inferior
-    position: fixed; // Fijo en la parte inferior de la pantalla
-    bottom: 0;
-    left: 0;
-    flex-direction: row; // Los elementos del menú se alinean en fila
-    justify-content: space-around; // Distribuye el espacio entre los elementos
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1); // Sombra superior
-    padding: $spacing-sm 0; // Padding reducido
-  }
+  align-items: center;
+  padding-top: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
-.sidebar-logo {
-  padding: $spacing-md;
-  margin-bottom: $spacing-lg;
-  text-align: center;
-
-  img {
-    height: 40px; // Tamaño del logo
-    width: auto;
-  }
-
-  /* Oculta el logo en móvil si el sidebar se convierte en una barra inferior */
-  @media (max-width: 768px) {
-    display: none;
-  }
+.sidebar-logo img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 30px;
 }
 
 .sidebar-nav {
-  flex: 1; // Ocupa el espacio restante en el sidebar (en desktop)
   width: 100%;
-
-  /* En móvil, no se estira, solo contiene los elementos en fila */
-  @media (max-width: 768px) {
-    flex: none;
-  }
 }
 
 .sidebar-nav-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  width: 100%;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  padding: $spacing-md $spacing-lg; // Padding para cada elemento del menú
-  color: $dark-gray-text; // Color de texto por defecto
-  text-decoration: none; // Sin subrayado
-  font-size: 1rem;
-  font-weight: 400;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease; // Transiciones suaves
-  border-left: 5px solid transparent; // Para la barra de resaltado 'active'
+  padding: 12px 20px;
+  color: #333333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: 'Roboto', sans-serif;
+}
 
-  &:hover {
-    background-color: lighten($primary-purple, 50%); // Fondo morado muy claro al hover
-    color: $primary-purple; // Texto morado al hover
-    transform: translateX(5px); // Pequeño desplazamiento a la derecha
-    border-left-color: $secondary-purple; // Barra morada al hover
-  }
-
-  &.active {
-    background-color: lighten($primary-purple, 50%); // Fondo morado claro para el elemento activo
-    color: $secondary-purple; // Texto morado vibrante para el elemento activo
-    border-left-color: $secondary-purple; // Barra morada vibrante para el elemento activo
-    font-weight: 600; // Texto más audaz para el activo
-  }
-
-  /* Ajustes para tablets (sidebar colapsado) */
-  @media (max-width: 1024px) {
-    justify-content: center; // Centra los iconos
-    padding: $spacing-md; // Ajusta el padding
-    .nav-text {
-      display: none; // Oculta el texto del menú
-    }
-    .nav-icon {
-      margin-right: 0; // Elimina el margen del icono
-    }
-  }
-
-  /* Ajustes para móviles (sidebar como barra inferior) */
-  @media (max-width: 768px) {
-    flex-direction: column; // Apila icono y texto
-    padding: $spacing-sm; // Padding reducido
-    font-size: 0.75rem; // Tamaño de fuente más pequeño
-    border-left: none; // Elimina la barra lateral
-    border-bottom: 3px solid transparent; // Usa una barra inferior para el estado 'active'
-    
-    .nav-text {
-      display: block; // Muestra el texto de nuevo
-      margin-top: 4px; // Espacio entre icono y texto
-    }
-    .nav-icon {
-      margin-right: 0;
-      margin-bottom: 4px;
-    }
-
-    &:hover {
-      transform: translateY(-3px); // Pequeño "salto" hacia arriba
-      border-bottom-color: $secondary-purple; // Barra inferior al hover
-      border-left-color: transparent; // Asegura que no haya barra izquierda
-    }
-
-    &.active {
-      border-left: none;
-      border-bottom-color: $secondary-purple; // Barra inferior activa
-    }
-  }
+.nav-link:hover {
+  background-color: #f0f4ff;
+  color: #007bff;
 }
 
 .nav-icon {
-  margin-right: $spacing-md;
-  display: flex;
-  align-items: center;
-
-  // Si usas iconos SVG o de librerías como PrimeIcons, asegúrate de que tengan un tamaño consistente
-  svg {
-    fill: currentColor; // Usa el color del texto padre
-    width: 24px;
-    height: 24px;
-  }
+  margin-right: 12px;
+  font-size: 20px;
 }
 
 .nav-text {
-  white-space: nowrap; // Evita que el texto se rompa en varias líneas
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.active {
+  background-color: #e0eaff;
+  color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .sidebar-container {
+    width: 200px;
+  }
+
+  .nav-text {
+    font-size: 14px;
+  }
+
+  .nav-icon {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+  }
+
+  .sidebar-logo {
+    display: none;
+  }
+
+  .sidebar-nav-list {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .nav-link {
+    padding: 8px 10px;
+    flex-direction: column;
+  }
+
+  .nav-icon {
+    margin-right: 0;
+    margin-bottom: 4px;
+  }
 }

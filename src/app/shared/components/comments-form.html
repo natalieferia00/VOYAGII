@@ -1,0 +1,32 @@
+<section class="comments-form-section">
+  <h2>Comentarios de Viajes</h2>
+
+  <form (ngSubmit)="addComment()" #commentForm="ngForm">
+    <textarea
+      [(ngModel)]="commentText"
+      name="commentText"
+      placeholder="Escribe tu comentario sobre tu viaje..."
+      required
+      rows="3"
+    ></textarea>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="!commentForm.form.valid">
+        {{ editingId !== null ? 'Actualizar' : 'Agregar' }} Comentario
+      </button>
+      <button type="button" *ngIf="editingId !== null" (click)="cancelEdit()">Cancelar</button>
+    </div>
+  </form>
+<h3>Comentarios Guardados</h3>
+<ul class="comments-list">
+  <li *ngFor="let comment of comments">
+    <div class="comment-content">
+      <p>{{ comment.text }}</p>
+      <small>{{ comment.date }}</small>
+    </div>
+    <div class="comment-actions">
+      <button (click)="editComment(comment)">Editar</button>
+      <button (click)="deleteComment(comment.id)">Eliminar</button>
+    </div>
+  </li>
+</ul>

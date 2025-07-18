@@ -1,55 +1,158 @@
-/* src/styles.scss */
+/* src/app/features/dashboard/dashboard.component.css */
 
-/* Importa la fuente Inter de Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-/* --- Variables de Color (Paleta Morado y Gris) --- */
-$primary-purple: #4A148C; /* Morado Oscuro Profundo */
-$secondary-purple: #6A1B9A; /* Morado Medio Vibrante */
-$tertiary-purple: #9C27B0; /* Morado un poco más claro */
-
-$light-gray-bg: #F8F8F8; /* Gris muy claro para fondos generales */
-$medium-gray-border: #E0E0E0; /* Gris medio para bordes sutiles */
-$dark-gray-text: #424242; /* Gris oscuro para texto principal */
-$light-text: #FFFFFF; /* Blanco puro */
-
-$accent-red: #E74C3C; /* Rojo para acciones de peligro */
-$accent-blue: #00B5E2; /* Azul para información */
-$accent-neutral: #6C757D; /* Gris neutro */
-
-/* --- Variables de Espaciado y Bordes --- */
-$spacing-xl: 32px;
-$spacing-lg: 24px;
-$spacing-md: 16px;
-$spacing-sm: 12px;
-$border-radius-lg: 12px;
-
-/* Estilos globales para el cuerpo de la página */
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: $light-gray-bg;
-  color: $dark-gray-text;
+/* Contenedor principal del dashboard */
+.dashboard-container {
+  margin-left: 240px; /* espacio para el sidebar fijo */
+  padding: 1rem;
+  background-color: #fcfcfc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-container {
+  padding-left: calc(240px + 1rem);
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
-/* Estilos para el scrollbar (opcional) */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding-left: 1rem;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: $light-gray-bg;
-  border-radius: 10px;
+
+
+
+/* Ajuste responsive si decides colapsar sidebar en móviles */
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin-left: 0;
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: $medium-gray-border;
-  border-radius: 10px;
+/* Títulos principales */
+.dashboard-container h1 {
+  font-size: 2rem;
+  color: #6b46c1; /* primary-purple */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: $dark-gray-text;
+.dashboard-container h2 {
+  font-size: 1.5rem;
+  color: #333333; /* dark-gray-text */
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Tarjetas de métricas */
+.metric-card {
+  background: #ffffff;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-top: 4px solid #6b46c1; /* color dinámico reemplazado vía [style.borderTopColor] */
+  transition: box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Texto dentro de tarjetas */
+.metric-title {
+  font-size: 1rem;
+  color: #555555;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  color: #6b46c1; /* color dinámico reemplazado vía [style.color] */
+}
+
+.metric-trend {
+  font-size: 0.875rem;
+  color: #888888;
+  margin-top: 0.25rem;
+}
+
+/* Mapa placeholder */
+.map-container {
+  position: relative;
+  background-color: #e2e8f0;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  height: 16rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.map-container img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+/* Tarjetas de acciones rápidas */
+.quick-action-card {
+  background: #ffffff;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.quick-action-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.quick-action-card h3 {
+  font-size: 1.125rem;
+  color: #555555;
+  font-weight: 500;
+}
+
+.quick-action-card p {
+  font-size: 0.875rem;
+  color: #888888;
+  margin-top: 0.5rem;
+}
+
+/* Responsive grid en métricas y acciones rápidas */
+.metrics-grid,
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .metrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
 }

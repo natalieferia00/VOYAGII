@@ -1,0 +1,44 @@
+<section class="visited-form-section">
+  <h2>Registrar País y Ciudad Visitados</h2>
+
+  <form (ngSubmit)="addVisit()" #visitForm="ngForm">
+    <div>
+      <label>País:</label>
+      <select [(ngModel)]="form.country" name="country" required>
+        <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Ciudad:</label>
+      <select [(ngModel)]="form.city" name="city" required>
+        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Fecha Inicio:</label>
+      <input type="date" [(ngModel)]="form.startDate" name="startDate" (change)="calculateDaysStayed()" required />
+    </div>
+
+    <div>
+      <label>Fecha Fin:</label>
+      <input type="date" [(ngModel)]="form.endDate" name="endDate" (change)="calculateDaysStayed()" required />
+    </div>
+
+    <div>
+      <label>Días Estancia:</label>
+      <input type="number" [(ngModel)]="form.daysStayed" name="daysStayed" readonly />
+    </div>
+
+    <button type="submit" [disabled]="!visitForm.form.valid">Agregar Visita</button>
+  </form>
+
+  <h3>Historial de Visitas</h3>
+  <ul>
+    <li *ngFor="let visit of visits; let i = index">
+      {{ visit.country }} - {{ visit.city }} ({{ visit.startDate }} a {{ visit.endDate }}) - {{ visit.daysStayed }} días
+      <button (click)="removeVisit(i)">Eliminar</button>
+    </li>
+  </ul>
+</section>

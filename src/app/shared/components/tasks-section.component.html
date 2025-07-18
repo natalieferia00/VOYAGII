@@ -1,0 +1,22 @@
+<div class="tasks-container">
+  <form (ngSubmit)="addOrUpdateTask()" #taskForm="ngForm">
+    <input
+      type="text"
+      name="task"
+      [(ngModel)]="taskInput"
+      placeholder="Escribe una tarea..."
+      required
+    />
+    <button type="submit">{{ isEditing ? 'Actualizar' : 'Agregar' }}</button>
+    <button type="button" *ngIf="isEditing" (click)="cancelEdit()">Cancelar</button>
+  </form>
+
+  <ul class="tasks-list">
+    <li *ngFor="let task of tasks; let i = index">
+      <span class="dot"></span>
+      <span>{{ task }}</span>
+      <button (click)="editTask(i)">Editar</button>
+      <button (click)="deleteTask(i)">Eliminar</button>
+    </li>
+  </ul>
+</div>

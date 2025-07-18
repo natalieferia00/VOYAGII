@@ -1,42 +1,45 @@
-<!-- src/app/features/dashboard/dashboard.component.html -->
-
 <app-sidebar></app-sidebar>
 
-<div class="p-4 sm:p-6 lg:p-8">
-  <h1 class="text-3xl sm:text-4xl font-bold text-primary-purple mb-6 sm:mb-8">Dashboard de Viajes</h1>
+<div class="dashboard-container p-4 sm:p-6 lg:p-8 space-y-8">
+
+  <!-- Header del Dashboard -->
 
   <!-- Sección de Métricas -->
-  <section class="mb-8 sm:mb-10 p-4 bg-white rounded-lg shadow-md">
-    <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">Analíticas de Viaje</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-      <!-- Tarjeta de Métrica -->
-      <div *ngFor="let metric of metrics" 
-           class="bg-white p-5 sm:p-6 rounded-lg shadow-sm border-t-4 hover:shadow-lg transition-all duration-200" 
-           [style.borderTopColor]="metric.color">
-        <h3 class="text-lg font-medium text-gray-600">{{ metric.title }}</h3>
-        <p class="text-3xl sm:text-4xl font-bold mt-2" [style.color]="metric.color">{{ metric.value }}</p>
-        <p class="text-sm text-gray-500 mt-1">{{ metric.trend }}</p>
-      </div>
-    </div>
+  <section class="p-4 bg-white rounded-lg shadow-md dark:bg-neutral-900">
+    <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
+    </h2>
+    <app-metrics></app-metrics>
+    <app-travel-season-chart></app-travel-season-chart>
   </section>
 
-  <!-- Sección de Mapa Global (Placeholder) -->
-  <section class="mb-8 sm:mb-10 p-4 bg-white rounded-lg shadow-md">
-    <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">Mapa de Países Visitados</h2>
-    <div class="relative bg-gray-200 p-6 sm:p-8 rounded-lg shadow-inner h-64 flex items-center justify-center overflow-hidden">
-      <!-- Placeholder de imagen de mapa -->
-      <img src="assets/images/placeholder-map.png" alt="World Map Placeholder" 
-           class="absolute inset-0 w-full h-full object-cover opacity-70">
+  <!-- Sección de Mapa Global y Formulario de Lugares Visitados -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <!-- Mapa interactivo -->
+    <div class="p-4 bg-white rounded-lg shadow-md dark:bg-neutral-900">
+      <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
       
-  
+      </h2>
+      <app-world-map></app-world-map>
+    </div>
 
-  <!-- Sección de Acciones Rápidas / Próximos Elementos -->
-  <section>
-    <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">Planificación y Registro</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <!-- Tarjeta para Organizador de Viajes -->
-      <div class="bg-white p-5 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-        <h3 class="text-lg font-medium text-gray-600">Organizador de Viajes</h3>
-        <p class="text-sm text-gray-500 mt-2">Gestiona tus viajes planificados y pasados.</p>
- 
-</div>
+
+  <section class="p-4 bg-white rounded-lg shadow-md dark:bg-neutral-900">
+    <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
+    
+    </h2>
+    <app-planning-section></app-planning-section>
+  </section>
+
+
+  <section class="p-4 bg-white rounded-lg shadow-md dark:bg-neutral-900">
+    <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
+    
+    </h2>
+    <app-comments-form></app-comments-form>
+       <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
+      
+    </h2>
+    <app-tasks-section></app-tasks-section>
+  </section>
+
+

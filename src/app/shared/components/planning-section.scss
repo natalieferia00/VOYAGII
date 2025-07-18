@@ -1,0 +1,102 @@
+.planning-section {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  color: #000000;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #111;
+  }
+
+  button {
+    background: #ffffff;
+    color: #111;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s, color 0.2s;
+
+    &:hover {
+      background: #000000;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    &:disabled {
+      background: #f0f0f0;
+      color: #666;
+      cursor: not-allowed;
+    }
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .plan-card {
+    background: #fefefe;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #0b0a0a;
+      margin: 0;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: flex-start; /* alinear a la izquierda */
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+
+      button {
+        flex: none; /* evitar que se estiren */
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: background 0.2s, transform 0.1s, box-shadow 0.2s, color 0.2s;
+        color: #111;
+        background: #ffffff;
+        border: 1px solid #ddd;
+        cursor: pointer;
+
+        &:hover {
+          background: #000000;
+          color: #ffffff;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+      }
+    }
+  }
+}

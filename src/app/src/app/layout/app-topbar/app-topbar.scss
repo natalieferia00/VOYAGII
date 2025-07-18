@@ -1,0 +1,37 @@
+
+
+.topbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px; /* Altura de la barra superior */
+  background-color: #ffffff; /* Usa la variable global */
+  color: #000000; /* Usa la variable global */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 99; /* Asegura que esté por encima del contenido */
+  width: 100%; /* Ocupa todo el ancho */
+  position: fixed; /* Fijo en la parte superior */
+  top: 0;
+  left: 0;
+  box-sizing: border-box; /* Incluye padding en el ancho */
+}
+
+.topbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.topbar-actions {
+  display: flex;
+
+}
+
+.action-icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

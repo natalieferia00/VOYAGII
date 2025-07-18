@@ -1,0 +1,128 @@
+.comments-form-section {
+  background: #ffffff;
+  color: #111;
+  font-family: 'Roboto', sans-serif;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 1000px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  h2,
+  h3 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #111;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    textarea {
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-family: 'Roboto', sans-serif;
+      resize: vertical;
+      background: #ffffff;
+      color: #111;
+      transition: border 0.2s, background 0.2s;
+
+      &:focus {
+        border-color: #34a853;
+        background: #ffffff;
+        outline: none;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+
+      button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        font-family: 'Roboto', sans-serif;
+        transition: background 0.2s, transform 0.1s;
+
+        &:hover {
+          transform: translateY(-1px);
+        }
+
+        &:first-child {
+          background: #000000;
+          color: #ffffff;
+
+          &:hover {
+            background: #83ec9f;
+            color: #000000;
+          }
+        }
+
+        &:last-child {
+          background: #000000;
+          color: #ffffff;
+
+          &:hover {
+            background:#161616;
+            color:#fff;
+          }
+        }
+      }
+    }
+  }
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  li {
+    background: #ffffff;
+    padding: 0.75rem;
+    border-radius: 8px;
+    color: #111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #ffffff;
+    }
+
+    .comment-text {
+      flex: 1;
+      margin-right: 0.5rem;
+    }
+
+    .comment-actions {
+      display: flex;
+      gap: 0.5rem; // ✅ separación clara entre Editar y Eliminar
+    }
+
+    button {
+      background: #000000;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 0.85rem;
+      transition: background 0.2s, transform 0.1s;
+
+      &:hover {
+        background: #252525;
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+}

@@ -1,0 +1,69 @@
+.metrics-section {
+  padding: 2rem;
+  background: #ffffff;
+  font-family: 'Roboto', sans-serif;
+
+  .metrics-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 1rem;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); // antes 220px
+    gap: 8rem; // aumentado para separación visual clara
+    align-items: start;
+  }
+
+  .metric-card {
+    position: relative;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-sizing: border-box; // importante para respetar padding y gap correctamente
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #333;
+      margin: 0.5rem 0;
+    }
+
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .metric-trend {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+
+
+    .metric-dot {
+      position: absolute;
+      top: 50px;
+      right: 30px; // Esquina superior derecha
+      width: 32px;
+      height: 32px;
+      border-radius: 20%;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+      border: 1px solid #fff; // resalta sobre fondo pastel
+    }
+  }
+}
