@@ -1,13 +1,14 @@
         import { Component, OnInit } from '@angular/core';
         import { CommonModule } from '@angular/common';
-import { SidebarComponent } from "../../layout/app-sidebar/app-sidebar"; // Para ngModel
+import { SidebarComponent } from "../../layout/app-sidebar/app-sidebar";
+import { BudgetCalculatorComponent } from "../budget-calculator/budget-calculator"; // Para ngModel
         // Para la selección de imágenes, necesitarías una librería como ngx-image-cropper
         // o manejar input[type="file"] directamente. Por ahora, un placeholder.
 
         @Component({
           selector: 'app-add-place',
           standalone: true,
-          imports: [ SidebarComponent], // Importa FormsModule para ngModel
+          imports: [SidebarComponent, BudgetCalculatorComponent], // Importa FormsModule para ngModel
           templateUrl: './add-place.html',
           styleUrls: ['./add-place.scss']
         })

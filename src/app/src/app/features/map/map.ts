@@ -3,13 +3,14 @@
 import { SidebarComponent } from "../../layout/app-sidebar/app-sidebar";
 import { WorldMapComponent } from "../../../../shared/components/world-map/world-map";
 import { TravelPlannerComponent } from "../travel-planner/travel-planner";
+import { TravelRoutePlannerComponent } from "../travel-route-planner/travel-route-planner";
 
 
 
         @Component({
           selector: 'app-map',
           standalone: true,
-          imports: [SidebarComponent, WorldMapComponent],
+          imports: [SidebarComponent, WorldMapComponent, TravelRoutePlannerComponent],
           templateUrl: './map.html',
           styleUrls: ['./map.scss']
         })

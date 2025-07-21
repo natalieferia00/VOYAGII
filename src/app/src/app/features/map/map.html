@@ -1,15 +1,11 @@
-  <app-sidebar class="sidebar"></app-sidebar>
-
+<!-- src/app/features/map/map.component.html -->
 <div class="app-container">
-
+  <!-- El sidebar está aquí, asumiendo que es el que gestiona su propio estilo fijo -->
+  <app-sidebar class="sidebar"></app-sidebar> 
 
   <div class="content">
-    <h1 class="title">Mi Mapa de Viajes</h1>
     <div class="map-container">
-      <app-world-map></app-world-map>
-
+      <app-travel-route-planner></app-travel-route-planner>
     </div>
-    <p class="description">Próximamente podrás ver tus países visitados y añadir marcadores aquí.</p>
-     <!-- ¡Aquí se coloca el componente de la bitácora! -->
-
-
+  </div>
+</div>

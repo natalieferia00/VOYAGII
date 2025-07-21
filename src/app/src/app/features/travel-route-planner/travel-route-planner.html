@@ -1,0 +1,108 @@
+<!-- src/app/features/travel-route-planner/travel-route-planner.component.html -->
+<div class="route-planner-container">
+  <h1 class="planner-title">Mi Planificador de Rutas de Viaje</h1>
+
+  <!-- Sección para crear/seleccionar mapas de ruta -->
+  <section class="map-selection-section planner-card">
+    <h2 class="section-heading">Gestionar Mapas de Ruta</h2>
+    
+    <div class="map-creation-form">
+      <h3>Crear Nuevo Mapa de Ruta</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newMapName">Nombre del Mapa:</label>
+          <input type="text" id="newMapName" name="newMapName" [(ngModel)]="newMapName" placeholder="Ej. Viaje a Europa 2026" required>
+        </div>
+        <div class="form-group">
+          <label for="newMapStartDate">Fecha Inicio:</label>
+          <input type="date" id="newMapStartDate" name="newMapStartDate" [(ngModel)]="newMapStartDate" required>
+        </div>
+        <div class="form-group">
+          <label for="newMapEndDate">Fecha Fin:</label>
+          <input type="date" id="newMapEndDate" name="newMapEndDate" [(ngModel)]="newMapEndDate" required>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" (click)="addTravelMap()" class="action-button primary-button">Crear Nuevo Mapa</button>
+      </div>
+    </div>
+
+    <div class="map-list-area">
+      <h3>Mis Mapas de Ruta Existentes</h3>
+      <div *ngIf="travelMaps.length === 0" class="empty-message">
+        <p>Aún no tienes mapas de ruta. ¡Crea uno para empezar a planificar!</p>
+      </div>
+      <ul *ngIf="travelMaps.length > 0" class="map-list">
+        <li *ngFor="let map of travelMaps" 
+            [class.active]="activeMap && activeMap.id === map.id"
+            (click)="selectMap(map)">
+          <span class="map-name">{{map.name}}</span>
+          <span class="map-dates">({{map.startDate}} al {{map.endDate}})</span>
+          <button type="button" (click)="removeMap(map); $event.stopPropagation()" class="remove-button">✕</button>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Sección para el mapa de ruta activo y sus secciones -->
+  <section *ngIf="activeMap" class="active-map-section planner-card">
+    <h2 class="section-heading">Mapa de Ruta: {{activeMap.name}}</h2>
+    <p class="map-dates-display">Fechas: {{activeMap.startDate}} al {{activeMap.endDate}}</p>
+
+    <!-- Formulario para añadir nueva sección al mapa activo -->
+    <div class="add-section-form">
+      <h3>Añadir Nueva Sección a la Ruta</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newSectionDate">Fecha:</label>
+          <input type="date" id="newSectionDate" name="newSectionDate" [(ngModel)]="newSectionDate" required>
+        </div>
+        <div class="form-group">
+          <label for="newSectionTitle">Título:</label>
+          <input type="text" id="newSectionTitle" name="newSectionTitle" [(ngModel)]="newSectionTitle" placeholder="Ej. Vuelo Bogotá-Ámsterdam" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="newSectionDescription">Descripción:</label>
+        <textarea id="newSectionDescription" name="newSectionDescription" [(ngModel)]="newSectionDescription" rows="3" placeholder="Detalles del transporte, actividades, etc." required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="newSectionPhoto">Foto (Opcional):</label>
+        <input type="file" id="newSectionPhoto" name="newSectionPhoto" (change)="onFileSelected($event)" accept="image/*">
+        <div *ngIf="newSectionPhotoPreviewUrl" class="mt-4">
+          <img [src]="newSectionPhotoPreviewUrl" alt="Vista previa de la imagen" class="selected-image-preview">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" (click)="addSectionToMap()" class="action-button primary-button">Añadir Sección</button>
+      </div>
+    </div>
+
+    <!-- Visualización de las secciones del mapa de ruta (línea de tiempo) -->
+    <div class="route-timeline">
+      <h3>Itinerario Detallado</h3>
+      <div *ngIf="activeMap.sections.length === 0" class="empty-message">
+        <p>Este mapa de ruta aún no tiene secciones. ¡Añade la primera!</p>
+      </div>
+      <div *ngIf="activeMap.sections.length > 0" class="timeline-items">
+        <div *ngFor="let section of activeMap.sections; let isLast = last" class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content planner-card">
+            <button type="button" (click)="removeSection(section)" class="remove-section-button">✕</button>
+            <div class="timeline-date">{{section.date}}</div>
+            <h4 contenteditable="true" (input)="onContentChange(section, 'title', $event)" class="timeline-title">
+              {{section.title}}
+            </h4>
+            <p contenteditable="true" (input)="onContentChange(section, 'description', $event)" class="timeline-description">
+              {{section.description}}
+            </p>
+            <div *ngIf="section.photoUrl" class="timeline-photo-container">
+              <img [src]="section.photoUrl" alt="Foto de {{section.title}}" class="timeline-photo">
+            </div>
+          </div>
+          <div *ngIf="!isLast" class="timeline-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

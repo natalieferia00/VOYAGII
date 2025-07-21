@@ -6,7 +6,8 @@ import { TravelPlannerComponent } from "../travel-planner/travel-planner";
 import { AccommodationPlannerComponent } from "../accommodation-planner/accommodation-planner";
 import { TransportationPlannerComponent } from "../transportation-planner/transportation-planner";
 import { FoodPlannerComponent } from "../food-planner/food-planner";
-import { InsurancePlannerComponent } from "../insurance-planner/insurance-planner"; // Asegúrate de que RouterLink esté importado
+import { InsurancePlannerComponent } from "../insurance-planner/insurance-planner";
+import { PackingPlannerComponent } from "../packing-planner/packing-planner"; // Asegúrate de que RouterLink esté importado
 
 @Component({
   selector: 'app-travel-organizer',
@@ -18,7 +19,8 @@ import { InsurancePlannerComponent } from "../insurance-planner/insurance-planne
     AccommodationPlannerComponent,
     TransportationPlannerComponent,
     FoodPlannerComponent,
-    InsurancePlannerComponent
+    InsurancePlannerComponent,
+    PackingPlannerComponent
 ],
   templateUrl: './travel-organizer.html', // Asegúrate de que el nombre del archivo HTML sea correcto (travel-organizer.html o .component.html)
   styleUrls: ['./travel-organizer.scss']

@@ -1,34 +1,30 @@
-/* src/app/features/food-planner/food-planner.component.scss */
+/* src/app/features/budget-calculator/budget-calculator.component.scss */
 
 /* Importa la fuente Roboto de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* Colores y espaciados (valores directos, sin variables SCSS) */
-/* Se asume que estos valores son los mismos que en src/styles.scss */
+/* Colores y espaciados (valores directos) */
 /* $primary-purple: #4A148C; */
 /* $secondary-purple: #6A1B9A; */
 /* $light-gray-bg: #F8F8F8; */
 /* $medium-gray-border: #E0E0E0; */
 /* $dark-gray-text: #424242; */
 /* $light-text: #FFFFFF; */
+/* $accent-green: #28A745; */ /* Para "under budget" */
+/* $accent-red: #E74C3C; */ /* Para "over budget" */
 
-/* $spacing-xl: 32px; */
-/* $spacing-lg: 24px; */
-/* $spacing-md: 16px; */
-/* $spacing-sm: 12px; */
-/* $border-radius-lg: 12px; */
-
-
-.food-planner-container {
+.budget-calculator-container {
   padding: 24px; /* $spacing-lg */
   background-color: #fefefe; /* $light-gray-bg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  font-family: 'Roboto', sans-serif; /* Apply Roboto */
+  font-family: 'Roboto', sans-serif;
+  max-width: 1000px; /* Ancho máximo para el contenido del planificador */
+  margin: 24px auto; /* Centrar y añadir margen superior/inferior */
 }
 
 .planner-title {
-  font-size: 1.55rem; /* text-3xl */
+  font-size: 1.55rem;
   line-height: 2.5rem;
   font-weight: bold;
   color: #000000; /* $primary-purple */
@@ -51,37 +47,33 @@
   border-bottom: 1px solid #fefefe; /* $medium-gray-border */
 }
 
-/* --- Styles for Add Entry Form --- */
-.planner-add-section {
+/* Estilo general para las "tarjetas" de contenido (formularios, secciones de resumen) */
+.planner-card {
   background-color: #FFFFFF; /* $light-text */
   padding: 24px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 32px; /* $spacing-xl */
+  margin-bottom: 32px; /* $spacing-xl - Espacio entre secciones */
 }
 
-.add-entry-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px; /* $spacing-md */
-}
-
-.add-entry-form .form-row {
+/* --- Estilos de Formulario --- */
+.form-row {
   display: flex;
   gap: 16px; /* $spacing-md */
+  margin-bottom: 16px; /* $spacing-md */
 }
 
 @media (max-width: 768px) {
-  .add-entry-form .form-row {
+  .form-row {
     flex-direction: column;
   }
 }
 
-.add-entry-form .form-group {
+.form-group {
   flex: 1;
 }
 
-.add-entry-form .form-group label {
+.form-group label {
   display: block;
   font-size: 0.9rem;
   font-weight: bold;
@@ -89,12 +81,11 @@
   margin-bottom: 6px; /* $spacing-sm / 2 */
 }
 
-.add-entry-form .form-group input[type="text"],
-.add-entry-form .form-group input[type="number"],
-.add-entry-form .form-group input[type="url"],
-.add-entry-form .form-group input[type="date"],
-.add-entry-form .form-group select,
-.add-entry-form .form-group textarea {
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group textarea,
+.form-group select {
   width: 100%;
   padding: 12px; /* $spacing-sm */
   border: 1px solid #E0E0E0; /* $medium-gray-border */
@@ -105,55 +96,40 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.add-entry-form .form-group input[type="text"]:focus,
-.add-entry-form .form-group input[type="number"]:focus,
-.add-entry-form .form-group input[type="url"]:focus,
-.add-entry-form .form-group input[type="date"]:focus,
-.add-entry-form .form-group select:focus,
-.add-entry-form .form-group textarea:focus {
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="date"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
   outline: none;
-  border-color: #000000; /* $secondary-purple */
+  border-color: #6A1B9A; /* $secondary-purple */
   box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.2);
 }
 
-.add-entry-form .form-group textarea {
+.form-group textarea {
   resize: vertical;
   min-height: 80px;
 }
 
-.add-entry-form .form-group select {
-  appearance: none; /* Removes default select styles */
+.form-group select {
+  appearance: none; /* Elimina estilos por defecto del select */
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
-  padding-right: 2.5em; /* Space for the select arrow */
-}
-
-.add-entry-form .form-group.price-group {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Space between price input and currency select */
-}
-
-.add-entry-form .form-group.price-group input[type="number"] {
-  flex: 1; /* Occupy remaining space */
-}
-
-.add-entry-form .form-group.price-group .currency-select {
-  width: auto; /* Adjust width based on content */
-  min-width: 80px;
+  padding-right: 2.5em; /* Espacio para la flecha del select */
 }
 
 .form-actions {
   display: flex;
   justify-content: flex-end;
+  margin-top: 16px; /* $spacing-md */
 }
 
-.add-entry-button {
+.action-button {
   background-color: #000000; /* $secondary-purple */
   color: #FFFFFF; /* $light-text */
-  padding: 16px 24px; /* $spacing-md $spacing-lg */
+  padding: 12px 20px; /* Ajustado para botones */
   border-radius: 9999px; /* rounded-full */
   font-size: 1rem;
   font-weight: 600;
@@ -161,43 +137,117 @@
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #000000; /* $primary-purple */
+    transform: translateY(-2px);
+  }
 }
 
-.add-entry-button:hover {
-  background-color: #0f0e10; /* $primary-purple */
-  transform: translateY(-2px);
+/* --- Estilos para la Sección de Tasas de Cambio --- */
+.currency-rates-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #E0E0E0;
 }
 
-/* --- Styles for Planner Table --- */
-.planner-table-section {
-  background-color: #FFFFFF; /* $light-text */
-  padding: 24px; /* $spacing-lg */
-  border-radius: 12px; /* $border-radius-lg */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  overflow-x: auto; /* Allows horizontal scrolling on mobile if the table is wide */
+.currency-rates-section h3 {
+  font-size: 1.25rem;
+  color: #424242;
+  margin-bottom: 8px;
 }
 
-.empty-planner-message {
+.currency-rates-section .rate-info {
+  font-size: 0.85rem;
+  color: #6C757D;
+  margin-bottom: 16px;
+}
+
+.currency-rates-section .currency-inputs .form-group {
+  flex: 1;
+  min-width: 120px; /* Ancho mínimo para cada input de moneda */
+}
+
+/* --- Estilos para el Resumen de Presupuesto --- */
+.budget-summary-section {
   text-align: center;
-  padding: 32px; /* $spacing-xl */
-  color: #424242; /* $dark-gray-text */
-  font-size: 1.1rem;
-  background-color: #F8F8F8; /* $light-gray-bg */
-  border-radius: 12px; /* $border-radius-lg */
 }
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Columnas responsivas */
+  gap: 24px; /* $spacing-lg */
+  margin-top: 24px;
+}
+
+.summary-item {
+  background-color: #fefefe; /* $light-gray-bg */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-item h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #424242; /* $dark-gray-text */
+  margin-bottom: 10px;
+}
+
+.summary-item .amount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #000000; /* $primary-purple */
+  margin-bottom: 5px;
+}
+
+.summary-item.total-expenses .amount {
+  /* Color por defecto del total de gastos */
+  color: #000000;
+}
+
+.summary-item.total-expenses.over-budget .amount {
+  color: #E74C3C; /* Rojo para sobrepresupuesto */
+}
+
+.summary-item.total-expenses.under-budget .amount {
+  color: #28A745; /* Verde para bajo presupuesto */
+}
+
+.summary-item .status-message {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6C757D; /* $accent-neutral */
+}
+
+.summary-item.total-expenses.over-budget .status-message {
+  color: #E74C3C;
+  font-weight: 600;
+}
+
+.summary-item.total-expenses.under-budget .status-message {
+  color: #28A745;
+  font-weight: 600;
+}
+
+
 
 .planner-table-wrapper {
   width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 .planner-table {
   width: 100%;
-  border-collapse: separate; /* Required for border-radius on thead */
+  border-collapse: separate;
   border-spacing: 0;
-  min-width: 1200px; /* Increased min-width for more columns */
-  font-family: 'Roboto', sans-serif; /* Ensures the font is applied to the table */
+  min-width: 600px; /* Ancho mínimo para la tabla */
+  font-family: 'Roboto', sans-serif;
 }
 
 .planner-table thead tr {
@@ -227,7 +277,7 @@
 }
 
 .planner-table tbody tr:hover {
-  background-color: #FCFCFC; /* lighten($light-gray-bg, 3%) */
+  background-color: #fefefe; /* lighten($light-gray-bg, 3%) */
 }
 
 .planner-table tbody tr.even-row {
@@ -235,7 +285,7 @@
 }
 
 .planner-table tbody tr.odd-row {
-  background-color: #F8F8F8; /* $light-gray-bg */
+  background-color: #fefefe; /* $light-gray-bg */
 }
 
 .planner-table tbody td {
@@ -243,7 +293,7 @@
   border-bottom: 1px solid #E0E0E0; /* $medium-gray-border */
   color: #424242; /* $dark-gray-text */
   font-size: 0.95rem;
-  vertical-align: top; /* Aligns cell content to the top */
+  vertical-align: top;
 }
 
 .planner-table tbody td:first-child {
@@ -255,7 +305,7 @@
 }
 
 .planner-table tbody tr:last-child td {
-  border-bottom: none; /* Remove bottom border from the last row */
+  border-bottom: none;
 }
 
 .planner-table tbody tr:last-child td:first-child {
@@ -266,30 +316,42 @@
   border-bottom-right-radius: 12px; /* $border-radius-lg */
 }
 
-/* --- Styles for URL Link in Table --- */
-.table-url-link {
-  color: #000000; /* $secondary-purple */
-  text-decoration: none;
-  word-break: break-all; /* Breaks long words so they don't overflow */
-  display: block; /* For word-break to work well */
+/* Estilos para celdas editables */
+.editable-cell {
+  cursor: text;
+  outline: none;
+  min-width: 100px; /* Ancho mínimo para celdas editables */
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-.table-url-link:hover {
-  text-decoration: underline;
-}
-
-/* --- Styles for Editable Notes Cell --- */
-.editable-notes-cell {
-  cursor: text; /* Indicates it's editable */
-  outline: none; /* Removes default focus border */
-  min-width: 150px; /* Minimum width for the notes column */
-  max-width: 300px; /* Maximum width to prevent stretching too much */
-  white-space: pre-wrap; /* Preserves line breaks and spaces */
-  word-break: break-word; /* Breaks long words */
-}
-
-.editable-notes-cell:focus {
-  background-color: #F0F0F0; /* Slightly gray background when editing */
-  border: 1px solid #000000; /* Focus border */
+.editable-cell:focus {
+  background-color: #fefefe;
+  border: 1px solid #000000;
   box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.2);
+}
+
+.amount-cell {
+  text-align: right; /* Alinea el monto a la derecha */
+  font-weight: 500;
+}
+
+.action-cell {
+  width: 50px; /* Ancho fijo para la columna de acciones */
+  text-align: center;
+}
+
+.remove-button {
+  background: none;
+  border: none;
+  color: #E74C3C; /* Rojo */
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+  }
 }

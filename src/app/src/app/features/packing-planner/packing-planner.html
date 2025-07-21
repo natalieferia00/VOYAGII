@@ -1,1 +1,97 @@
-<p>packing-planner works!</p>
+<!-- src/app/features/packing-planner/packing-planner.component.html -->
+<div class="packing-planner-container">
+  <h1 class="planner-title">Planificador de Equipaje</h1>
+
+  <!-- Sección para añadir nueva entrada de equipaje -->
+  <section class="planner-add-section">
+    <h2 class="section-heading">Añadir Nuevo Ítem al Equipaje</h2>
+    <form (ngSubmit)="addPackingEntry()" class="add-entry-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryTripName">Nombre del Viaje:</label>
+          <input type="text" id="newEntryTripName" name="newEntryTripName" [(ngModel)]="newEntryTripName" placeholder="Ej. Viaje a Europa 2024" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryTripCode">Código del Viaje:</label>
+          <input type="text" id="newEntryTripCode" name="newEntryTripCode" [(ngModel)]="newEntryTripCode" placeholder="Ej. EUR24-001" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryCategory">Categoría:</label>
+          <select id="newEntryCategory" name="newEntryCategory" [(ngModel)]="newEntryCategory">
+            <option *ngFor="let category of itemCategories" [value]="category">{{category}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newEntryItemName">Nombre del Ítem:</label>
+          <input type="text" id="newEntryItemName" name="newEntryItemName" [(ngModel)]="newEntryItemName" placeholder="Ej. Pantalones, Cargador USB" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryQuantity">Cantidad:</label>
+          <input type="number" id="newEntryQuantity" name="newEntryQuantity" [(ngModel)]="newEntryQuantity" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryWeightKg">Peso (Kg - Opcional):</label>
+          <input type="number" id="newEntryWeightKg" name="newEntryWeightKg" [(ngModel)]="newEntryWeightKg" placeholder="Ej. 0.5">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryNotes">Notas:</label>
+        <textarea id="newEntryNotes" name="newEntryNotes" [(ngModel)]="newEntryNotes" rows="2" placeholder="Notas importantes sobre el ítem (ej. 'para clima frío', 'adaptador de corriente')"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="add-entry-button">Añadir Ítem</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Sección de tabla de entradas existentes -->
+  <section class="planner-table-section">
+    <h2 class="section-heading">Mi Lista de Equipaje</h2>
+    
+    <div *ngIf="packingEntries.length === 0" class="empty-planner-message">
+      <p>Aún no tienes ítems en tu lista de equipaje. ¡Añade uno para empezar a empacar!</p>
+    </div>
+
+    <div *ngIf="packingEntries.length > 0" class="planner-table-wrapper">
+      <table class="planner-table">
+        <thead>
+          <tr>
+            <th>Viaje</th>
+            <th>Categoría</th>
+            <th>Ítem</th>
+            <th>Cantidad</th>
+            <th>Peso (Kg)</th>
+            <th>Notas</th>
+            <th>Empacado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of packingEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+            <td>
+              <strong>{{entry.tripName}}</strong><br>
+              <small>({{entry.tripCode}})</small>
+            </td>
+            <td>{{entry.category}}</td>
+            <td>{{entry.itemName}}</td>
+            <td>{{entry.quantity}}</td>
+            <td>{{entry.weightKg !== null ? entry.weightKg : '-'}}</td>
+            <td contenteditable="true" (input)="onNotesChange(entry, $event)" class="editable-notes-cell">
+              {{entry.notes}}
+            </td>
+            <td>
+              <input type="checkbox" [checked]="entry.packed" (change)="togglePackedStatus(entry)" class="packed-checkbox">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

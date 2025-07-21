@@ -1,0 +1,104 @@
+/* src/app/features/travel-organizer/travel-organizer.component.scss */
+
+/* Importa la fuente Roboto de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Estilos para el body global (asegúrate de que no haya conflictos con styles.scss) */
+body {
+  font-family: 'Roboto', sans-serif; /* Asegura que la fuente se aplique al body si no está ya */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #fefefe; /* Fondo general de la aplicación */
+}
+
+/* Layout principal: Sidebar a la izquierda, Contenido a la derecha */
+.travel-organizer-layout {
+  display: flex;
+  min-height: 100vh; /* Ocupa al menos toda la altura de la ventana */
+  background-color: #fefefe; /* Fondo detrás del contenido */
+  overflow-x: hidden; /* Evita el scroll horizontal no deseado */
+}
+
+/* Estilos para el área de contenido principal (donde irán los planificadores) */
+.organizer-content-area {
+  flex-grow: 1; /* Ocupa todo el espacio restante */
+  padding: 24px; /* Espaciado interno general */
+  box-sizing: border-box; /* Incluye padding en el ancho/alto */
+  margin-left: 250px; /* Margen para dejar espacio al sidebar fijo */
+  max-width: calc(100% - 250px); /* Asegura que el contenido no se desborde */
+  overflow-y: auto; /* Permite scroll vertical si el contenido es largo */
+
+  /* Media query para pantallas más pequeñas (tabletas y móviles) */
+  @media (max-width: 1024px) {
+    margin-left: 0; /* Elimina el margen ya que el sidebar será responsive/flotante */
+    max-width: 100%; /* Ocupa todo el ancho disponible */
+    padding-top: 80px; /* Deja espacio para un posible header/sidebar superior */
+  }
+}
+
+.organizer-main-title {
+  font-size: 2.5rem;
+  line-height: 2.8rem;
+  font-weight: 700;
+  color: #000000; /* Un morado oscuro */
+  margin-bottom: 32px; /* Espacio debajo del título */
+  text-align: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #fefefe; /* Borde sutil */
+
+  @media (max-width: 640px) {
+    font-size: 2rem;
+  }
+}
+
+/* Estilo para cada sección de planificador */
+.planner-section {
+  background-color: #FFFFFF; /* Fondo blanco para cada tarjeta de planificador */
+  padding: 24px; /* Espaciado interno de cada planificador */
+  border-radius: 12px; /* Bordes redondeados */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+  margin-bottom: 32px; /* Espacio entre cada planificador */
+  
+  /* Asegura que los estilos internos de los planificadores se apliquen correctamente */
+  & > *:first-child { /* Para el h1/h2 del planificador interno */
+    margin-top: 0;
+    padding-top: 0;
+  }
+  & > *:last-child { /* Para el último elemento del planificador interno */
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+/* Estilos para el sidebar (asumiendo que tiene un ancho fijo) */
+app-sidebar {
+  width: 250px; /* Ancho fijo del sidebar */
+  min-width: 250px; /* Asegura que no se encoja */
+  background-color: #FFFFFF; /* Fondo blanco del sidebar */
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05); /* Sombra lateral */
+  position: fixed; /* Fijo en la pantalla */
+  height: 100vh; /* Ocupa toda la altura */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté por encima del contenido */
+  overflow-y: auto; /* Permite scroll si el contenido del sidebar es largo */
+  transition: transform 0.3s ease-in-out; /* Para futuras animaciones de mostrar/ocultar */
+
+  /* Media query para hacer el sidebar responsive en pantallas pequeñas */
+  @media (max-width: 1024px) {
+    width: 100%; /* Ocupa todo el ancho */
+    height: 60px; /* Altura reducida para barra superior */
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex; /* Para organizar los elementos del sidebar horizontalmente */
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    /* Por defecto, oculto en móviles y se mostraría con un botón de menú */
+    transform: translateY(0); /* Ocultar con translateY(-100%) si se quisiera */
+  }
+}

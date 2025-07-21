@@ -1,0 +1,133 @@
+<!-- src/app/features/budget-calculator/budget-calculator.component.html -->
+<div class="budget-calculator-container">
+  <h1 class="planner-title">Calculadora de Presupuesto de Viaje</h1>
+
+  <!-- Sección de Configuración de Presupuesto y Tasas de Cambio -->
+  <section class="budget-settings-section planner-card">
+    <h2 class="section-heading">Configuración de Presupuesto y Monedas</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="budgetAmount">Presupuesto Total ({{baseCurrency}}):</label>
+        <input type="number" id="budgetAmount" name="budgetAmount" [(ngModel)]="budgetAmount" placeholder="Opcional">
+      </div>
+      <div class="form-group">
+        <label for="baseCurrency">Moneda Base:</label>
+        <select id="baseCurrency" name="baseCurrency" [(ngModel)]="baseCurrency" (change)="calculateTotals()">
+          <option value="USD">USD - Dólar Estadounidense</option>
+          <option value="EUR">EUR - Euro</option>
+          <option value="COP">COP - Peso Colombiano</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="currency-rates-section">
+      <h3>Tasas de Conversión (1 {{baseCurrency}} equivale a):</h3>
+      <p class="rate-info">Ingresa manualmente el valor de cada moneda en relación a tu moneda base ({{baseCurrency}}).</p>
+      <div class="form-row currency-inputs">
+        <div class="form-group">
+          <label for="rateUSD">USD:</label>
+          <input type="number" id="rateUSD" name="rateUSD" [(ngModel)]="currencyRates.USD" (input)="onRateChange()" step="0.000001">
+        </div>
+        <div class="form-group">
+          <label for="rateEUR">EUR:</label>
+          <input type="number" id="rateEUR" name="rateEUR" [(ngModel)]="currencyRates.EUR" (input)="onRateChange()" step="0.000001">
+        </div>
+        <div class="form-group">
+          <label for="rateCOP">COP:</label>
+          <input type="number" id="rateCOP" name="rateCOP" [(ngModel)]="currencyRates.COP" (input)="onRateChange()" step="0.000001">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección para añadir nuevo gasto -->
+  <section class="add-expense-section planner-card">
+    <h2 class="section-heading">Añadir Nuevo Gasto</h2>
+    <form (ngSubmit)="addExpenseEntry()" class="add-entry-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newExpenseDate">Fecha:</label>
+          <input type="date" id="newExpenseDate" name="newExpenseDate" [(ngModel)]="newExpenseDate" required>
+        </div>
+        <div class="form-group">
+          <label for="newExpenseName">Nombre del Gasto:</label>
+          <input type="text" id="newExpenseName" name="newExpenseName" [(ngModel)]="newExpenseName" placeholder="Ej. Vuelo, Hotel, Comida" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="newExpenseDetails">Detalles:</label>
+        <textarea id="newExpenseDetails" name="newExpenseDetails" [(ngModel)]="newExpenseDetails" rows="2" placeholder="Ej. Vuelo Bogotá-Ámsterdam, Cena en restaurante italiano"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="newExpenseAmount">Monto ({{baseCurrency}}):</label>
+        <input type="number" id="newExpenseAmount" name="newExpenseAmount" [(ngModel)]="newExpenseAmount" placeholder="Ej. 800" required>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="action-button primary-button">Añadir Gasto</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Sección de Resumen de Presupuesto -->
+  <section class="budget-summary-section planner-card">
+    <h2 class="section-heading">Resumen del Presupuesto</h2>
+    <div class="summary-grid">
+      <div class="summary-item total-expenses" [ngClass]="getBudgetStatusClass()">
+        <h3>Total Gastos ({{baseCurrency}})</h3>
+        <p class="amount">{{ totalExpenses | currency:baseCurrency:'symbol':'1.0-0' }}</p>
+        <p *ngIf="budgetAmount !== null" class="status-message">
+          <span *ngIf="totalExpenses > budgetAmount">¡Te has pasado por {{ (totalExpenses - budgetAmount) | currency:baseCurrency:'symbol':'1.0-0' }}!</span>
+          <span *ngIf="totalExpenses <= budgetAmount">Te quedan {{ (budgetAmount - totalExpenses) | currency:baseCurrency:'symbol':'1.0-0' }} de presupuesto.</span>
+        </p>
+      </div>
+      <div class="summary-item">
+        <h3>Total en USD</h3>
+        <p class="amount">{{ totalInUSD | currency:'USD':'symbol':'1.0-0' }}</p>
+      </div>
+      <div class="summary-item">
+        <h3>Total en EUR</h3>
+        <p class="amount">{{ totalInEUR | currency:'EUR':'symbol':'1.0-0' }}</p>
+      </div>
+      <div class="summary-item">
+        <h3>Total en COP</h3>
+        <p class="amount">{{ totalInCOP | currency:'COP':'symbol':'1.0-0' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de tabla de gastos existentes -->
+  <section class="expense-table-section planner-card">
+    <h2 class="section-heading">Detalle de Gastos</h2>
+    
+    <div *ngIf="expenseEntries.length === 0" class="empty-message">
+      <p>Aún no tienes gastos registrados. ¡Añade uno para empezar a controlar tu presupuesto!</p>
+    </div>
+
+    <div *ngIf="expenseEntries.length > 0" class="planner-table-wrapper">
+      <table class="planner-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Nombre</th>
+            <th>Detalles</th>
+            <th>Monto ({{baseCurrency}})</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of expenseEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+            <td>{{entry.date}}</td>
+            <td contenteditable="true" (input)="onTableEdit(entry, 'name', $event)" class="editable-cell">{{entry.name}}</td>
+            <td contenteditable="true" (input)="onTableEdit(entry, 'details', $event)" class="editable-cell">{{entry.details}}</td>
+            <td contenteditable="true" (input)="onTableEdit(entry, 'amount', $event)" class="editable-cell amount-cell">
+              {{entry.amount | currency:baseCurrency:'symbol':'1.0-0'}}
+            </td>
+            <td class="action-cell">
+              <button type="button" (click)="removeExpense(entry)" class="remove-button">✕</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

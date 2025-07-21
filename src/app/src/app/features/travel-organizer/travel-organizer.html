@@ -1,8 +1,35 @@
-<app-sidebar></app-sidebar>
-  <div class="map-logbook-section">
- <app-travel-planner></app-travel-planner>
+<!-- src/app/features/travel-organizer/travel-organizer.component.html -->
+<div class="travel-organizer-layout">
+  <!-- El Sidebar se coloca directamente aquí -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Contenedor principal para todos los planificadores -->
+  <div class="organizer-content-area">
+
+
+    <!-- Cada planificador en su propia sección, con un margen inferior para separarlos -->
+    <section class="planner-section">
+      <app-travel-planner></app-travel-planner>
+    </section>
+
+    <section class="planner-section">
+      <app-accommodation-planner></app-accommodation-planner>
+    </section>
+
+    <section class="planner-section">
+      <app-transportation-planner></app-transportation-planner>
+    </section>
+
+    <section class="planner-section">
+      <app-food-planner></app-food-planner>
+    </section>
+
+    <section class="planner-section">
+      <app-insurance-planner></app-insurance-planner>
+    </section>
+
+    <section class="planner-section">
+      <app-packing-planner></app-packing-planner>
+    </section>
   </div>
-<app-accommodation-planner></app-accommodation-planner>
-<app-transportation-planner></app-transportation-planner>
-<app-food-planner></app-food-planner>
-<app-insurance-planner></app-insurance-planner>
+</div>
