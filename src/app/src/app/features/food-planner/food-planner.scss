@@ -112,8 +112,8 @@
 .add-entry-form .form-group select:focus,
 .add-entry-form .form-group textarea:focus {
   outline: none;
-  border-color: #000000; /* $secondary-purple */
-  box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.2);
+  border-color:  #34a853;
+
 }
 
 .add-entry-form .form-group textarea {
@@ -290,6 +290,6 @@
 
 .editable-notes-cell:focus {
   background-color: #F0F0F0; /* Slightly gray background when editing */
-  border: 1px solid #000000; /* Focus border */
-  box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.2);
+  border: 1px solid #34a853;
+
 }

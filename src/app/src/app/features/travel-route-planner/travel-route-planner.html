@@ -4,13 +4,13 @@
 
   <!-- Sección para crear/seleccionar mapas de ruta -->
   <section class="map-selection-section planner-card">
-    <h2 class="section-heading">Gestionar Mapas de Ruta</h2>
+    <h2 class="section-heading">Gestionar Itinerario</h2>
     
     <div class="map-creation-form">
-      <h3>Crear Nuevo Mapa de Ruta</h3>
+      <h3>Crear Nuevo Itinerario</h3>
       <div class="form-row">
         <div class="form-group">
-          <label for="newMapName">Nombre del Mapa:</label>
+          <label for="newMapName">Nombre del Itinerario:</label>
           <input type="text" id="newMapName" name="newMapName" [(ngModel)]="newMapName" placeholder="Ej. Viaje a Europa 2026" required>
         </div>
         <div class="form-group">
@@ -28,9 +28,9 @@
     </div>
 
     <div class="map-list-area">
-      <h3>Mis Mapas de Ruta Existentes</h3>
+      <h3>Mis Itinerarios</h3>
       <div *ngIf="travelMaps.length === 0" class="empty-message">
-        <p>Aún no tienes mapas de ruta. ¡Crea uno para empezar a planificar!</p>
+        <p>Aún no tienes Itinerarios. ¡Crea uno para empezar a planificar!</p>
       </div>
       <ul *ngIf="travelMaps.length > 0" class="map-list">
         <li *ngFor="let map of travelMaps" 
@@ -82,7 +82,7 @@
     <div class="route-timeline">
       <h3>Itinerario Detallado</h3>
       <div *ngIf="activeMap.sections.length === 0" class="empty-message">
-        <p>Este mapa de ruta aún no tiene secciones. ¡Añade la primera!</p>
+        <p>Este Itinenrario aún no tiene secciones. ¡Añade la primera!</p>
       </div>
       <div *ngIf="activeMap.sections.length > 0" class="timeline-items">
         <div *ngFor="let section of activeMap.sections; let isLast = last" class="timeline-item">

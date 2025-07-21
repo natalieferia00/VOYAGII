@@ -102,8 +102,7 @@
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #6A1B9A; /* $secondary-purple */
-  box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.2);
+  border-color: #34a853;
 }
 
 .form-group textarea {
@@ -139,7 +138,7 @@
   transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: #000000; /* $primary-purple */
+    background-color:  #000000;
     transform: translateY(-2px);
   }
 }
@@ -327,7 +326,7 @@
 
 .editable-cell:focus {
   background-color: #fefefe;
-  border: 1px solid #000000;
+  border: 1px solid  #34a853;
   box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.2);
 }
 

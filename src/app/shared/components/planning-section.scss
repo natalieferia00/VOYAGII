@@ -1,102 +1,156 @@
-.planning-section {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  color: #000000;
-  font-family: 'Roboto', sans-serif;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+/* src/app/features/planning-section/planning-section.component.scss */
 
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #111;
+/* Importa la fuente Roboto de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+.planning-section-container {
+  padding: 24px;
+  background-color: #fefefe; /* Fondo muy claro */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Roboto', sans-serif;
+}
+
+.planner-title {
+  font-size: 1.55rem;
+  line-height: 2.5rem;
+  font-weight: bold;
+  color: #000000; /* Negro */
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .planner-title {
+    font-size: 1.75rem;
+  }
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #424242;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #fefefe; /* Borde sutil */
+}
+
+/* Estilo general para las "tarjetas" de contenido (formularios, secciones de tabla) */
+.planner-card {
+  background-color: #FFFFFF;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 32px;
+}
+
+/* --- Botón "Crear Nuevo Plan" --- */
+.form-toggle-area {
+  text-align: right; /* Alinea el botón a la derecha */
+  margin-bottom: 24px; /* Espacio entre el botón y el formulario/grid */
+}
+
+.add-new-plan-button {
+  background-color: #000000; /* Negro */
+  color: #FFFFFF;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.add-new-plan-button:hover {
+  background-color: #333333; /* Gris oscuro al pasar el ratón */
+  transform: translateY(-2px);
+}
+
+/* --- Estilos para la Cuadrícula de Planes (plans-grid) --- */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Columnas responsivas */
+  gap: 24px; /* Espacio entre las tarjetas */
+  margin-top: 24px; /* Espacio sobre la cuadrícula */
+}
+
+.plan-card {
+  background-color: #fafafa; /* Fondo gris claro para las tarjetas de plan */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Espacia el contenido verticalmente */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
-  button {
-    background: #ffffff;
-    color: #111;
-    padding: 0.5rem 1rem;
-    border: none;
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #000000; /* Negro */
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #424242;
+    margin-bottom: 8px;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px; /* Espacio entre el contenido y los botones */
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+  }
+
+  .edit-button, .delete-button {
+    padding: 8px 12px;
     border-radius: 8px;
+    font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s, box-shadow 0.2s, color 0.2s;
-
-    &:hover {
-      background: #000000;
-      color: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    &:disabled {
-      background: #f0f0f0;
-      color: #666;
-      cursor: not-allowed;
-    }
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: 1px solid; /* Borde para ambos botones */
   }
 
-  .plans-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
+  .edit-button {
+    background-color: #000000; /* Azul bebé */
+    color: #ffffff; /* Texto negro */
+    border-color: #e0eaff;
   }
 
-  .plan-card {
-    background: #fefefe;
-    border-radius: 12px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    h3 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #111;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 0.9rem;
-      color: #0b0a0a;
-      margin: 0;
-    }
-
-    .button-group {
-      display: flex;
-      justify-content: flex-start; /* alinear a la izquierda */
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-
-      button {
-        flex: none; /* evitar que se estiren */
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: background 0.2s, transform 0.1s, box-shadow 0.2s, color 0.2s;
-        color: #111;
-        background: #ffffff;
-        border: 1px solid #ddd;
-        cursor: pointer;
-
-        &:hover {
-          background: #000000;
-          color: #ffffff;
-          transform: translateY(-1px);
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-        }
-      }
-    }
+  .edit-button:hover {
+    background-color: #000000; /* Azul bebé más oscuro al pasar el ratón */
+    transform: translateY(-1px);
   }
+
+  .delete-button {
+    background-color: #F8F8F8; /* Gris claro */
+    color: #E74C3C; /* Rojo para eliminar */
+    border-color: #E74C3C;
+  }
+
+  .delete-button:hover {
+    background-color: #E74C3C;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+  }
+}
+
+.empty-planner-message {
+  text-align: center;
+  padding: 32px;
+  color: #424242;
+  font-size: 1.1rem;
+  background-color: #F8F8F8;
+  border-radius: 12px;
 }

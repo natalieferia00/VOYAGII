@@ -10,7 +10,7 @@ import { SidebarComponent } from "../../layout/app-sidebar/app-sidebar";
 import { MetricsComponent } from "../../../../shared/components/metrics/metrics";
 import { WorldMapComponent } from "../../../../shared/components/world-map/world-map";
 import { VisitedFormComponent } from "../../../../shared/components/visited-form";
-import { CommentsFormComponent } from "../../../../shared/components/comments-form";
+import { CommentsFormComponent} from "../../../../shared/components/comments-form";
 import { PlanningSectionComponent } from "../../../../shared/components/planning-section";
 import { TasksSectionComponent } from "../../../../shared/components/tasks-section.component";
 import { TravelSeasonChartComponent } from "../../../../shared/components/travel-season-chart.component";
@@ -28,8 +28,8 @@ import { TravelSeasonChartComponent } from "../../../../shared/components/travel
     WorldMapComponent,
     CommentsFormComponent,
     PlanningSectionComponent,
-    TasksSectionComponent,
-    TravelSeasonChartComponent
+    TravelSeasonChartComponent,
+    
 ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']

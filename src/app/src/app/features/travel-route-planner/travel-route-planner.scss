@@ -103,8 +103,8 @@
 .form-group input[type="date"]:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #000000; /* $secondary-purple */
-  box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.2);
+  border-color: #34a853;
+
 }
 
 .form-group textarea {
@@ -131,7 +131,7 @@
   transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: #000000; /* $primary-purple */
+    background-color:  #e0eaff;
     transform: translateY(-2px);
   }
 }

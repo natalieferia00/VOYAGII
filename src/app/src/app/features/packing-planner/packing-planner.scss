@@ -21,42 +21,42 @@
 
 .packing-planner-container {
   padding: 24px; /* $spacing-lg */
-  background-color: #fefefe; /* $light-gray-bg */
+  background-color: #fefefe; /* Fondo muy claro, casi blanco */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  font-family: 'Roboto', sans-serif; /* Apply Roboto */
+  font-family: 'Roboto', sans-serif; /* Aplica Roboto */
 }
 
 .planner-title {
-  font-size: 1.55rem; /* text-3xl */
+  font-size: 1.55rem;
   line-height: 2.5rem;
   font-weight: bold;
-  color: #000000; /* $primary-purple */
+  color: #000000; /* Título principal en negro */
   margin-bottom: 32px; /* $spacing-xl */
   text-align: center;
 }
 
 @media (max-width: 640px) {
   .planner-title {
-    font-size: 1.75rem;
+    font-size: 1.75rem; /* Ajuste para pantallas pequeñas */
   }
 }
 
 .section-heading {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #424242; /* $dark-gray-text */
+  color: #424242; /* Color de texto oscuro para los encabezados de sección */
   margin-bottom: 16px; /* $spacing-md */
   padding-bottom: 12px; /* $spacing-sm */
-  border-bottom: 1px solid #E0E0E0; /* $medium-gray-border */
+  border-bottom: 1px solid #E0E0E0; /* Borde sutil */
 }
 
 /* --- Styles for Add Entry Form --- */
 .planner-add-section {
-  background-color: #FFFFFF; /* $light-text */
+  background-color: #FFFFFF; /* Fondo blanco para la sección del formulario */
   padding: 24px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil */
   margin-bottom: 32px; /* $spacing-xl */
 }
 
@@ -73,7 +73,7 @@
 
 @media (max-width: 768px) {
   .add-entry-form .form-row {
-    flex-direction: column;
+    flex-direction: column; /* Columnas en pantallas pequeñas */
   }
 }
 
@@ -85,7 +85,7 @@
   display: block;
   font-size: 0.9rem;
   font-weight: bold;
-  color: #424242; /* $dark-gray-text */
+  color: #424242; /* Color de texto oscuro para etiquetas */
   margin-bottom: 6px; /* $spacing-sm / 2 */
 }
 
@@ -95,21 +95,22 @@
 .add-entry-form .form-group textarea {
   width: 100%;
   padding: 12px; /* $spacing-sm */
-  border: 1px solid #E0E0E0; /* $medium-gray-border */
+  border: 1px solid #E0E0E0; /* Borde gris claro por defecto */
   border-radius: 0.375rem;
   font-size: 1rem;
-  color: #424242; /* $dark-gray-text */
+  color: #424242; /* Color de texto oscuro para inputs */
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Estilos de foco para inputs, selects y textareas: AZUL BEBÉ */
 .add-entry-form .form-group input[type="text"]:focus,
 .add-entry-form .form-group input[type="number"]:focus,
 .add-entry-form .form-group select:focus,
 .add-entry-form .form-group textarea:focus {
   outline: none;
-  border-color: #000000; /* $secondary-purple */
-  box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.2);
+  border-color: #34a853;
+
 }
 
 .add-entry-form .form-group textarea {
@@ -118,12 +119,12 @@
 }
 
 .add-entry-form .form-group select {
-  appearance: none; /* Removes default select styles */
+  appearance: none; /* Elimina estilos por defecto del select */
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
-  padding-right: 2.5em; /* Space for the select arrow */
+  padding-right: 2.5em; /* Espacio para la flecha del select */
 }
 
 .form-actions {
@@ -132,8 +133,8 @@
 }
 
 .add-entry-button {
-  background-color: #000000; /* $secondary-purple */
-  color: #FFFFFF; /* $light-text */
+  background-color: #000000; /* Botón en negro */
+  color: #FFFFFF; /* Texto blanco */
   padding: 16px 24px; /* $spacing-md $spacing-lg */
   border-radius: 9999px; /* rounded-full */
   font-size: 1rem;
@@ -145,45 +146,45 @@
 }
 
 .add-entry-button:hover {
-  background-color: #000000; /* $primary-purple */
+  background-color: #333333; /* Un gris oscuro al pasar el ratón */
   transform: translateY(-2px);
 }
 
 /* --- Styles for Planner Table --- */
 .planner-table-section {
-  background-color: #FFFFFF; /* $light-text */
+  background-color: #FFFFFF; /* Fondo blanco para la sección de la tabla */
   padding: 24px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  overflow-x: auto; /* Allows horizontal scrolling on mobile if the table is wide */
+  overflow-x: auto; /* Permite el desplazamiento horizontal en móviles si la tabla es ancha */
 }
 
 .empty-planner-message {
   text-align: center;
   padding: 32px; /* $spacing-xl */
-  color: #424242; /* $dark-gray-text */
+  color: #424242; /* Color de texto oscuro */
   font-size: 1.1rem;
-  background-color: #F8F8F8; /* $light-gray-bg */
+  background-color: #F8F8F8; /* Fondo gris claro */
   border-radius: 12px; /* $border-radius-lg */
 }
 
 .planner-table-wrapper {
   width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+  -webkit-overflow-scrolling: touch; /* Para un desplazamiento más suave en iOS */
 }
 
 .planner-table {
   width: 100%;
-  border-collapse: separate; /* Required for border-radius on thead */
+  border-collapse: separate; /* Necesario para border-radius en thead */
   border-spacing: 0;
-  min-width: 1000px; /* Minimum width for the table */
-  font-family: 'Roboto', sans-serif; /* Ensures the font is applied to the table */
+  min-width: 1000px; /* Ancho mínimo para la tabla */
+  font-family: 'Roboto', sans-serif; /* Asegura que la fuente se aplique a la tabla */
 }
 
 .planner-table thead tr {
-  background-color: #000000; /* $primary-purple */
-  color: #FFFFFF; /* $light-text */
+  background-color: #000000; /* Encabezado de tabla en negro */
+  color: #FFFFFF; /* Texto blanco */
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
@@ -192,7 +193,7 @@
 
 .planner-table thead th {
   padding: 16px; /* $spacing-md */
-  border-bottom: 1px solid #000000; /* lighten($primary-purple, 10%) */
+  border-bottom: 1px solid #333333; /* Borde ligeramente más claro que el fondo del encabezado */
 }
 
 .planner-table thead th:first-child {
@@ -208,35 +209,35 @@
 }
 
 .planner-table tbody tr:hover {
-  background-color: #FCFCFC; /* lighten($light-gray-bg, 3%) */
+  background-color: #FCFCFC; /* Fondo muy claro al pasar el ratón */
 }
 
 .planner-table tbody tr.even-row {
-  background-color: #FFFFFF; /* $light-text */
+  background-color: #FFFFFF; /* Fondo blanco para filas pares */
 }
 
 .planner-table tbody tr.odd-row {
-  background-color: #F8F8F8; /* $light-gray-bg */
+  background-color: #F8F8F8; /* Fondo gris claro para filas impares */
 }
 
 .planner-table tbody td {
   padding: 16px; /* $spacing-md */
-  border-bottom: 1px solid #E0E0E0; /* $medium-gray-border */
-  color: #424242; /* $dark-gray-text */
+  border-bottom: 1px solid #E0E0E0; /* Borde gris claro */
+  color: #424242; /* Color de texto oscuro */
   font-size: 0.95rem;
-  vertical-align: top; /* Aligns cell content to the top */
+  vertical-align: top; /* Alinea el contenido de la celda en la parte superior */
 }
 
 .planner-table tbody td:first-child {
-  border-left: 1px solid #E0E0E0; /* $medium-gray-border */
+  border-left: 1px solid #E0E0E0; /* Borde izquierdo */
 }
 
 .planner-table tbody td:last-child {
-  border-right: 1px solid #E0E0E0; /* $medium-gray-border */
+  border-right: 1px solid #E0E0E0; /* Borde derecho */
 }
 
 .planner-table tbody tr:last-child td {
-  border-bottom: none; /* Remove bottom border from the last row */
+  border-bottom: none; /* Elimina el borde inferior de la última fila */
 }
 
 .planner-table tbody tr:last-child td:first-child {
@@ -249,18 +250,19 @@
 
 /* --- Styles for Editable Notes Cell --- */
 .editable-notes-cell {
-  cursor: text; /* Indicates it's editable */
-  outline: none; /* Removes default focus border */
-  min-width: 150px; /* Minimum width for the notes column */
-  max-width: 300px; /* Maximum width to prevent stretching too much */
-  white-space: pre-wrap; /* Preserves line breaks and spaces */
-  word-break: break-word; /* Breaks long words */
+  cursor: text; /* Indica que es editable */
+  outline: none; /* Elimina el contorno de enfoque por defecto */
+  min-width: 150px; /* Ancho mínimo para la columna de notas */
+  max-width: 300px; /* Ancho máximo para evitar que se estire demasiado */
+  white-space: pre-wrap; /* Preserva saltos de línea y espacios */
+  word-break: break-word; /* Rompe palabras largas */
 }
 
+/* Estilos de foco para celdas editables: AZUL BEBÉ */
 .editable-notes-cell:focus {
-  background-color: #fefefe; /* Slightly gray background when editing */
-  border: 1px solid #fefefe;/* Focus border */
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+  background-color: #F0F0F0; /* Fondo ligeramente gris al editar */
+  border: 1px solid #e0eaff; /* Borde azul bebé */
+  box-shadow: 0 0 0 2px #e0eaff; /* Sombra azul bebé */
 }
 
 /* --- Styles for Packed Checkbox --- */
@@ -268,6 +270,6 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: #b4d2ff; /* Color de acento para el checkbox */
+  accent-color: #b4d2ff; /* Color de acento para el checkbox (azul claro) */
   transform: scale(1.2); /* Un poco más grande */
 }

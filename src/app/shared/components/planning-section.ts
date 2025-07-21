@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PlanningFormComponent} from './planning-form';
+import { PlanningFormComponent} from '../../shared/components/planning-form'; // Asegúrate de que la ruta sea correcta
 
+// Interfaz minimalista para el plan de viaje (debe coincidir con PlanningFormComponent)
 interface TravelPlan {
   id: number;
   country: string;
-  ticketPrice: number;
   totalBudget: number;
-  transportBudget: number;
-  foodBudget: number;
   startDate: string;
   endDate: string;
   daysStayed: number;
