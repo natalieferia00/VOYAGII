@@ -1,0 +1,122 @@
+<!-- src/app/features/transportation-planner/transportation-planner.component.html -->
+<div class="transportation-planner-container">
+  <h1 class="planner-title">Planificador de Transporte</h1>
+
+  <!-- Sección para añadir nueva entrada de transporte -->
+  <section class="planner-add-section">
+    <h2 class="section-heading">Añadir Nuevo Transporte</h2>
+    <form (ngSubmit)="addTransportationEntry()" class="add-entry-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryTripName">Nombre del Viaje:</label>
+          <input type="text" id="newEntryTripName" name="newEntryTripName" [(ngModel)]="newEntryTripName" placeholder="Ej. Viaje a Europa 2024" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryTripCode">Código del Viaje:</label>
+          <input type="text" id="newEntryTripCode" name="newEntryTripCode" [(ngModel)]="newEntryTripCode" placeholder="Ej. EUR24-001" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryCountry">País:</label>
+          <input type="text" id="newEntryCountry" name="newEntryCountry" [(ngModel)]="newEntryCountry" placeholder="Ej. España" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryCity">Ciudad:</label>
+          <input type="text" id="newEntryCity" name="newEntryCity" [(ngModel)]="newEntryCity" placeholder="Ej. Madrid" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryTransportType">Tipo de Transporte:</label>
+          <select id="newEntryTransportType" name="newEntryTransportType" [(ngModel)]="newEntryTransportType">
+            <option *ngFor="let type of transportTypes" [value]="type">{{type}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newEntryCompany">Empresa:</label>
+          <input type="text" id="newEntryCompany" name="newEntryCompany" [(ngModel)]="newEntryCompany" placeholder="Ej. Iberia, SNCF" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group price-group">
+          <label for="newEntryPrice">Precio:</label>
+          <input type="number" id="newEntryPrice" name="newEntryPrice" [(ngModel)]="newEntryPrice" placeholder="Ej. 450 (opcional)">
+          <select id="newEntryCurrency" name="newEntryCurrency" [(ngModel)]="newEntryCurrency" class="currency-select">
+            <option *ngFor="let curr of currencies" [value]="curr">{{curr}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newEntryDepartureDate">Fecha Salida:</label>
+          <input type="date" id="newEntryDepartureDate" name="newEntryDepartureDate" [(ngModel)]="newEntryDepartureDate" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryArrivalDate">Fecha Llegada:</label>
+          <input type="date" id="newEntryArrivalDate" name="newEntryArrivalDate" [(ngModel)]="newEntryArrivalDate" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryUrl">URL (Reserva/Info):</label>
+        <input type="url" id="newEntryUrl" name="newEntryUrl" [(ngModel)]="newEntryUrl" placeholder="Ej. https://www.ejemplo.com/reserva" required>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryOpinion">Opinión (Inicial):</label>
+        <textarea id="newEntryOpinion" name="newEntryOpinion" [(ngModel)]="newEntryOpinion" rows="2" placeholder="Tu opinión inicial sobre este transporte..."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="add-entry-button">Añadir Transporte</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Sección de tabla de entradas existentes -->
+  <section class="planner-table-section">
+    <h2 class="section-heading">Mi Plan de Transporte</h2>
+    
+    <div *ngIf="transportationEntries.length === 0" class="empty-planner-message">
+      <p>Aún no tienes transportes en tu plan. ¡Añade uno para empezar a organizar!</p>
+    </div>
+
+    <div *ngIf="transportationEntries.length > 0" class="planner-table-wrapper">
+      <table class="planner-table">
+        <thead>
+          <tr>
+            <th>Viaje</th>
+            <th>País / Ciudad</th>
+            <th>Tipo</th>
+            <th>Empresa</th>
+            <th>Precio</th>
+            <th>Fechas</th>
+            <th>URL</th>
+            <th>Opinión</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of transportationEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+            <td>
+              <strong>{{entry.tripName}}</strong><br>
+              <small>({{entry.tripCode}})</small>
+            </td>
+            <td>{{entry.country}} / {{entry.city}}</td>
+            <td>{{entry.transportType}}</td>
+            <td>{{entry.company}}</td>
+            <td>{{entry.price !== null ? (entry.price | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
+            <td>{{entry.departureDate}} <br> {{entry.arrivalDate}}</td>
+            <td>
+              <a [href]="entry.url" target="_blank" class="table-url-link">{{entry.url | slice:0:30}}...</a>
+            </td>
+            <td contenteditable="true" (input)="onOpinionChange(entry, $event)" class="editable-opinion-cell">
+              {{entry.opinion}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

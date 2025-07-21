@@ -1,10 +1,15 @@
-       <app-sidebar></app-sidebar>
-       
-       <div class="p-4 text-center">
-          <h1 class="text-3xl font-bold text-primary-purple mb-6">Mi Mapa de Viajes</h1>
-          <div class="bg-white p-6 rounded-lg shadow-md h-96 flex items-center justify-center border-2 border-dashed border-gray-300">
-            <p class="text-lg text-gray-500">Aquí iría el mapa interactivo (ej. con Leaflet.js)</p>
-          </div>
-          <p class="mt-4 text-gray-600">Próximamente podrás ver tus países visitados y añadir marcadores aquí.</p>
-        </div>
-        
+  <app-sidebar class="sidebar"></app-sidebar>
+
+<div class="app-container">
+
+
+  <div class="content">
+    <h1 class="title">Mi Mapa de Viajes</h1>
+    <div class="map-container">
+      <app-world-map></app-world-map>
+
+    </div>
+    <p class="description">Próximamente podrás ver tus países visitados y añadir marcadores aquí.</p>
+     <!-- ¡Aquí se coloca el componente de la bitácora! -->
+
+

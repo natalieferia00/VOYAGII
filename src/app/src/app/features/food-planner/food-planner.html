@@ -1,0 +1,125 @@
+<!-- src/app/features/food-planner/food-planner.component.html -->
+<div class="food-planner-container">
+  <h1 class="planner-title">Planificador de Alimentación</h1>
+
+  <!-- Sección para añadir nueva entrada de alimentación -->
+  <section class="planner-add-section">
+    <h2 class="section-heading">Añadir Nueva Entrada de Comida</h2>
+    <form (ngSubmit)="addFoodEntry()" class="add-entry-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryTripName">Nombre del Viaje:</label>
+          <input type="text" id="newEntryTripName" name="newEntryTripName" [(ngModel)]="newEntryTripName" placeholder="Ej. Viaje a Europa 2024" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryTripCode">Código del Viaje:</label>
+          <input type="text" id="newEntryTripCode" name="newEntryTripCode" [(ngModel)]="newEntryTripCode" placeholder="Ej. EUR24-001" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryCountry">País:</label>
+          <input type="text" id="newEntryCountry" name="newEntryCountry" [(ngModel)]="newEntryCountry" placeholder="Ej. Italia" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryCity">Ciudad:</label>
+          <input type="text" id="newEntryCity" name="newEntryCity" [(ngModel)]="newEntryCity" placeholder="Ej. Roma" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryMealType">Tipo de Comida:</label>
+          <select id="newEntryMealType" name="newEntryMealType" [(ngModel)]="newEntryMealType">
+            <option *ngFor="let type of mealTypes" [value]="type">{{type}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newEntryRestaurantName">Restaurante / Lugar:</label>
+          <input type="text" id="newEntryRestaurantName" name="newEntryRestaurantName" [(ngModel)]="newEntryRestaurantName" placeholder="Ej. Trattoria da Enzo" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryCuisine">Tipo de Cocina:</label>
+          <input type="text" id="newEntryCuisine" name="newEntryCuisine" [(ngModel)]="newEntryCuisine" placeholder="Ej. Italiana, Vegetariana (opcional)">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group price-group">
+          <label for="newEntryEstimatedCost">Costo Estimado:</label>
+          <input type="number" id="newEntryEstimatedCost" name="newEntryEstimatedCost" [(ngModel)]="newEntryEstimatedCost" placeholder="Ej. 30 (opcional)">
+          <select id="newEntryCurrency" name="newEntryCurrency" [(ngModel)]="newEntryCurrency" class="currency-select">
+            <option *ngFor="let curr of currencies" [value]="curr">{{curr}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newEntryDate">Fecha:</label>
+          <input type="date" id="newEntryDate" name="newEntryDate" [(ngModel)]="newEntryDate" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryUrl">URL (Menú/Reserva/Review):</label>
+        <input type="url" id="newEntryUrl" name="newEntryUrl" [(ngModel)]="newEntryUrl" placeholder="Ej. https://www.ejemplo.com/menu" >
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryNotes">Notas:</label>
+        <textarea id="newEntryNotes" name="newEntryNotes" [(ngModel)]="newEntryNotes" rows="2" placeholder="Notas sobre el lugar, platos recomendados, etc."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="add-entry-button">Añadir Entrada</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Sección de tabla de entradas existentes -->
+  <section class="planner-table-section">
+    <h2 class="section-heading">Mi Plan de Alimentación</h2>
+    
+    <div *ngIf="foodEntries.length === 0" class="empty-planner-message">
+      <p>Aún no tienes entradas de alimentación en tu plan. ¡Añade una para empezar a organizar!</p>
+    </div>
+
+    <div *ngIf="foodEntries.length > 0" class="planner-table-wrapper">
+      <table class="planner-table">
+        <thead>
+          <tr>
+            <th>Viaje</th>
+            <th>País / Ciudad</th>
+            <th>Tipo Comida</th>
+            <th>Restaurante</th>
+            <th>Cocina</th>
+            <th>Costo Estimado</th>
+            <th>Fecha</th>
+            <th>URL</th>
+            <th>Notas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of foodEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+            <td>
+              <strong>{{entry.tripName}}</strong><br>
+              <small>({{entry.tripCode}})</small>
+            </td>
+            <td>{{entry.country}} / {{entry.city}}</td>
+            <td>{{entry.mealType}}</td>
+            <td>{{entry.restaurantName}}</td>
+            <td>{{entry.cuisine || '-'}}</td>
+            <td>{{entry.estimatedCost !== null ? (entry.estimatedCost | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
+            <td>{{entry.date}}</td>
+            <td>
+              <a *ngIf="entry.url" [href]="entry.url" target="_blank" class="table-url-link">{{entry.url | slice:0:30}}...</a>
+              <span *ngIf="!entry.url">-</span>
+            </td>
+            <td contenteditable="true" (input)="onNotesChange(entry, $event)" class="editable-notes-cell">
+              {{entry.notes}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

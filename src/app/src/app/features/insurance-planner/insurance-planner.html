@@ -1,0 +1,116 @@
+<!-- src/app/features/insurance-planner/insurance-planner.component.html -->
+<div class="insurance-planner-container">
+  <h1 class="planner-title">Planificador de Seguros y Extras</h1>
+
+  <!-- Sección para añadir nueva entrada -->
+  <section class="planner-add-section">
+    <h2 class="section-heading">Añadir Nuevo Ítem</h2>
+    <form (ngSubmit)="addInsuranceEntry()" class="add-entry-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryTripName">Nombre del Viaje:</label>
+          <input type="text" id="newEntryTripName" name="newEntryTripName" [(ngModel)]="newEntryTripName" placeholder="Ej. Viaje a Europa 2024" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryTripCode">Código del Viaje:</label>
+          <input type="text" id="newEntryTripCode" name="newEntryTripCode" [(ngModel)]="newEntryTripCode" placeholder="Ej. EUR24-001" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryItemType">Tipo de Ítem:</label>
+          <select id="newEntryItemType" name="newEntryItemType" [(ngModel)]="newEntryItemType">
+            <option *ngFor="let type of itemTypes" [value]="type">{{type}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newEntryItemName">Nombre del Ítem:</label>
+          <input type="text" id="newEntryItemName" name="newEntryItemName" [(ngModel)]="newEntryItemName" placeholder="Ej. Seguro IATI Mochilero, Visa Schengen" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryCompany">Compañía / Proveedor:</label>
+        <input type="text" id="newEntryCompany" name="newEntryCompany" [(ngModel)]="newEntryCompany" placeholder="Ej. IATI Seguros, Embajada de Japón" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group price-group">
+          <label for="newEntryPrice">Precio:</label>
+          <input type="number" id="newEntryPrice" name="newEntryPrice" [(ngModel)]="newEntryPrice" placeholder="Ej. 85 (opcional)">
+          <select id="newEntryCurrency" name="newEntryCurrency" [(ngModel)]="newEntryCurrency" class="currency-select">
+            <option *ngFor="let curr of currencies" [value]="curr">{{curr}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newEntryStartDate">Fecha Inicio:</label>
+          <input type="date" id="newEntryStartDate" name="newEntryStartDate" [(ngModel)]="newEntryStartDate" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryEndDate">Fecha Fin:</label>
+          <input type="date" id="newEntryEndDate" name="newEntryEndDate" [(ngModel)]="newEntryEndDate" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryUrl">URL (Compra/Info/Póliza):</label>
+        <input type="url" id="newEntryUrl" name="newEntryUrl" [(ngModel)]="newEntryUrl" placeholder="Ej. https://www.ejemplo.com/poliza" required>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryNotes">Notas:</label>
+        <textarea id="newEntryNotes" name="newEntryNotes" [(ngModel)]="newEntryNotes" rows="2" placeholder="Notas importantes, números de contacto, etc."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="add-entry-button">Añadir Ítem</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Sección de tabla de entradas existentes -->
+  <section class="planner-table-section">
+    <h2 class="section-heading">Mis Seguros y Extras</h2>
+    
+    <div *ngIf="insuranceEntries.length === 0" class="empty-planner-message">
+      <p>Aún no tienes ítems de seguros o extras en tu plan. ¡Añade uno para empezar a organizar!</p>
+    </div>
+
+    <div *ngIf="insuranceEntries.length > 0" class="planner-table-wrapper">
+      <table class="planner-table">
+        <thead>
+          <tr>
+            <th>Viaje</th>
+            <th>Tipo Ítem</th>
+            <th>Nombre Ítem</th>
+            <th>Compañía</th>
+            <th>Precio</th>
+            <th>Fechas</th>
+            <th>URL</th>
+            <th>Notas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of insuranceEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+            <td>
+              <strong>{{entry.tripName}}</strong><br>
+              <small>({{entry.tripCode}})</small>
+            </td>
+            <td>{{entry.itemType}}</td>
+            <td>{{entry.itemName}}</td>
+            <td>{{entry.company}}</td>
+            <td>{{entry.price !== null ? (entry.price | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
+            <td>{{entry.startDate}} <br> {{entry.endDate}}</td>
+            <td>
+              <a [href]="entry.url" target="_blank" class="table-url-link">{{entry.url | slice:0:30}}...</a>
+            </td>
+            <td contenteditable="true" (input)="onNotesChange(entry, $event)" class="editable-notes-cell">
+              {{entry.notes}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

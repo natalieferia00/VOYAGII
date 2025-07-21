@@ -1,0 +1,132 @@
+<!-- src/app/features/accommodation-planner/accommodation-planner.component.html -->
+<div class="accommodation-planner-container">
+  <h1 class="planner-title">Planificador de Alojamientos</h1>
+
+  <!-- Sección para añadir nueva entrada de alojamiento -->
+  <section class="planner-add-section">
+    <h2 class="section-heading">Añadir Nuevo Alojamiento</h2>
+    <form (ngSubmit)="addAccommodationEntry()" class="add-entry-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryType">Tipo:</label>
+          <select id="newEntryType" name="newEntryType" [(ngModel)]="newEntryType">
+            <option *ngFor="let type of accommodationTypes" [value]="type">{{type}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newEntryName">Nombre:</label>
+          <input type="text" id="newEntryName" name="newEntryName" [(ngModel)]="newEntryName" placeholder="Ej. Hilton Garden Inn" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryUrl">URL:</label>
+        <input type="url" id="newEntryUrl" name="newEntryUrl" [(ngModel)]="newEntryUrl" placeholder="Ej. https://www.booking.com/hotel/..." required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group price-group">
+          <label for="newEntryPrice">Precio:</label>
+          <input type="number" id="newEntryPrice" name="newEntryPrice" [(ngModel)]="newEntryPrice" placeholder="Ej. 120 (opcional)">
+          <select id="newEntryCurrency" name="newEntryCurrency" [(ngModel)]="newEntryCurrency" class="currency-select">
+            <option *ngFor="let curr of currencies" [value]="curr">{{curr}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newEntryCheckInDate">Fecha Entrada:</label>
+          <input type="date" id="newEntryCheckInDate" name="newEntryCheckInDate" [(ngModel)]="newEntryCheckInDate" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryCheckOutDate">Fecha Salida:</label>
+          <input type="date" id="newEntryCheckOutDate" name="newEntryCheckOutDate" [(ngModel)]="newEntryCheckOutDate" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryPhoto">Foto (Opcional):</label>
+        <input type="file" id="newEntryPhoto" name="newEntryPhoto" (change)="onFileSelected($event)" accept="image/*">
+        <div *ngIf="newEntryPhotoPreviewUrl" class="mt-4">
+          <img [src]="newEntryPhotoPreviewUrl" alt="Vista previa de la imagen" class="selected-image-preview">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Estrellas (Opcional):</label>
+        <div class="rating-container">
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <span (click)="setNewEntryStars(star)" class="star"
+                  [class.filled]="newEntryStars && newEntryStars >= star"
+                  [class.empty]="newEntryStars === null || newEntryStars < star">
+              ★
+            </span>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="newEntryOpinion">Opinión (Inicial):</label>
+        <textarea id="newEntryOpinion" name="newEntryOpinion" [(ngModel)]="newEntryOpinion" rows="2" placeholder="Tu opinión inicial sobre este alojamiento..."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="add-entry-button">Añadir Alojamiento</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Sección de tabla de entradas existentes -->
+  <section class="planner-table-section">
+    <h2 class="section-heading">Mis Alojamientos Planificados</h2>
+    
+    <div *ngIf="accommodationEntries.length === 0" class="empty-planner-message">
+      <p>Aún no tienes alojamientos en tu plan. ¡Añade uno para empezar!</p>
+    </div>
+
+    <div *ngIf="accommodationEntries.length > 0" class="planner-table-wrapper">
+      <table class="planner-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Nombre</th>
+            <th>URL</th>
+            <th>Precio</th>
+            <th>Fechas</th>
+            <th>Foto</th>
+            <th>Estrellas</th>
+            <th>Opinión</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of accommodationEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+            <td>{{entry.type}}</td>
+            <td>{{entry.name}}</td>
+            <td>
+              <a [href]="entry.url" target="_blank" class="table-url-link">{{entry.url | slice:0:30}}...</a>
+            </td>
+            <td>{{entry.price !== null ? (entry.price | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
+            <td>{{entry.checkInDate}} <br> {{entry.checkOutDate}}</td>
+            <td>
+              <img *ngIf="entry.photoUrl" [src]="entry.photoUrl" alt="Foto de {{entry.name}}" class="table-photo-thumbnail">
+              <span *ngIf="!entry.photoUrl">-</span>
+            </td>
+            <td>
+              <div class="table-stars">
+                <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                  <span class="star"
+                        [class.filled]="entry.stars && entry.stars >= star"
+                        [class.empty]="entry.stars === null || entry.stars < star">
+                    ★
+                  </span>
+                </ng-container>
+                <span *ngIf="!entry.stars">-</span>
+              </div>
+            </td>
+            <td contenteditable="true" (input)="onOpinionChange(entry, $event)" class="editable-opinion-cell">
+              {{entry.opinion}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

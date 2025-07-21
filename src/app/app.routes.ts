@@ -18,6 +18,7 @@ export const routes: Routes = [
     path: 'travel-organizer',
     loadComponent: () => import('./src/app/features/travel-organizer/travel-organizer').then(m => m.TravelOrganizerComponent)
   },
+
   // Ruta para Añadir Lugar (carga perezosa del componente standalone)
   {
     path: 'add-place',

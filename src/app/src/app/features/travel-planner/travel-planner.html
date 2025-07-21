@@ -1,0 +1,82 @@
+<!-- src/app/features/travel-planner/travel-planner.component.html -->
+<div class="planner-container">
+  <h1 class="planner-title">Planificador de Viajes</h1>
+
+  <!-- Sección para añadir nueva entrada de planificación -->
+  <section class="planner-add-section">
+    <h2 class="section-heading">Añadir Nueva Tarea / Gasto</h2>
+    <form (ngSubmit)="addPlannerEntry()" class="add-entry-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryCountryCity">País / Ciudad:</label>
+          <input type="text" id="newEntryCountryCity" name="newEntryCountryCity" [(ngModel)]="newEntryCountryCity" placeholder="Ej. París, Francia" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryItem">Ítem:</label>
+          <input type="text" id="newEntryItem" name="newEntryItem" [(ngModel)]="newEntryItem" placeholder="Ej. Vuelo, Hotel, Presupuesto" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="newEntryDetails">Detalles / Enlaces:</label>
+        <textarea id="newEntryDetails" name="newEntryDetails" [(ngModel)]="newEntryDetails" rows="2" placeholder="Ej. Vuelos directos a CDG, link a Booking.com"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newEntryCost">Costo Estimado:</label>
+          <input type="number" id="newEntryCost" name="newEntryCost" [(ngModel)]="newEntryCost" placeholder="Ej. 500 (opcional)">
+        </div>
+        <div class="form-group">
+          <label for="newEntryDueDate">Fecha Límite / Interés:</label>
+          <input type="date" id="newEntryDueDate" name="newEntryDueDate" [(ngModel)]="newEntryDueDate" required>
+        </div>
+        <div class="form-group">
+          <label for="newEntryStatus">Estado:</label>
+          <select id="newEntryStatus" name="newEntryStatus" [(ngModel)]="newEntryStatus">
+            <option *ngFor="let status of statusOptions" [value]="status">{{status}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="add-entry-button">Añadir Tarea</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Sección de tabla de entradas existentes -->
+  <section class="planner-table-section">
+    <h2 class="section-heading">Mi Plan de Viaje</h2>
+    
+    <div *ngIf="plannerEntries.length === 0" class="empty-planner-message">
+      <p>Aún no tienes tareas en tu plan de viaje. ¡Añade una para empezar a organizar!</p>
+    </div>
+
+    <div *ngIf="plannerEntries.length > 0" class="planner-table-wrapper">
+      <table class="planner-table">
+        <thead>
+          <tr>
+            <th>País / Ciudad</th>
+            <th>Ítem</th>
+            <th>Detalles</th>
+            <th>Costo</th>
+            <th>Fecha Límite</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of plannerEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+            <td>{{entry.countryCity}}</td>
+            <td>{{entry.item}}</td>
+            <td>{{entry.details}}</td>
+            <td>{{entry.cost !== null ? (entry.cost | currency:'USD':'symbol':'1.0-0') : '-'}}</td>
+            <td>{{entry.dueDate}}</td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(entry.status)">
+                {{entry.status}}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

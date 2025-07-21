@@ -26,7 +26,6 @@ import { TravelSeasonChartComponent } from "../../../../shared/components/travel
     SidebarComponent,
     MetricsComponent,
     WorldMapComponent,
-    VisitedFormComponent,
     CommentsFormComponent,
     PlanningSectionComponent,
     TasksSectionComponent,
