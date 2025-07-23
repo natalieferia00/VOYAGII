@@ -5,7 +5,7 @@
 
 .planning-section-container {
   padding: 24px;
-  background-color: #fefefe; /* Fondo muy claro */
+  background-color: #fefefe;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   font-family: 'Roboto', sans-serif;
@@ -15,7 +15,7 @@
   font-size: 1.55rem;
   line-height: 2.5rem;
   font-weight: bold;
-  color: #000000; /* Negro */
+  color: #000000;
   margin-bottom: 32px;
   text-align: center;
 }
@@ -32,10 +32,10 @@
   color: #424242;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #fefefe; /* Borde sutil */
+  border-bottom: 1px solid #fefefe;
 }
 
-/* Estilo general para las "tarjetas" de contenido (formularios, secciones de tabla) */
+/* Tarjetas del planner */
 .planner-card {
   background-color: #FFFFFF;
   padding: 24px;
@@ -44,14 +44,14 @@
   margin-bottom: 32px;
 }
 
-/* --- Botón "Crear Nuevo Plan" --- */
+/* Botón "Crear Nuevo Plan" */
 .form-toggle-area {
-  text-align: right; /* Alinea el botón a la derecha */
-  margin-bottom: 24px; /* Espacio entre el botón y el formulario/grid */
+  text-align: right;
+  margin-bottom: 24px;
 }
 
 .add-new-plan-button {
-  background-color: #000000; /* Negro */
+  background-color: #000000;
   color: #FFFFFF;
   padding: 12px 20px;
   border-radius: 9999px;
@@ -61,29 +61,28 @@
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #333333;
+    transform: translateY(-2px);
+  }
 }
 
-.add-new-plan-button:hover {
-  background-color: #333333; /* Gris oscuro al pasar el ratón */
-  transform: translateY(-2px);
-}
-
-/* --- Estilos para la Cuadrícula de Planes (plans-grid) --- */
+/* Grid de planes */
 .plans-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Columnas responsivas */
-  gap: 24px; /* Espacio entre las tarjetas */
-  margin-top: 24px; /* Espacio sobre la cuadrícula */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
 }
 
 .plan-card {
-  background-color: #fafafa; /* Fondo gris claro para las tarjetas de plan */
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Espacia el contenido verticalmente */
+  justify-content: space-between;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
@@ -94,22 +93,22 @@
   h3 {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #000000; /* Negro */
+    color: #ffffff;
     margin-top: 0;
     margin-bottom: 12px;
   }
 
   p {
     font-size: 0.95rem;
-    color: #424242;
+    color: #f0f0f0;
     margin-bottom: 8px;
   }
 
   .card-actions {
     display: flex;
     gap: 10px;
-    margin-top: 16px; /* Espacio entre el contenido y los botones */
-    justify-content: flex-end; /* Alinea los botones a la derecha */
+    margin-top: 16px;
+    justify-content: flex-end;
   }
 
   .edit-button, .delete-button {
@@ -119,31 +118,62 @@
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
-    border: 1px solid; /* Borde para ambos botones */
+    border: none;
   }
 
   .edit-button {
-    background-color: #000000; /* Azul bebé */
-    color: #ffffff; /* Texto negro */
-    border-color: #e0eaff;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
   }
 
   .edit-button:hover {
-    background-color: #000000; /* Azul bebé más oscuro al pasar el ratón */
+    background-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-1px);
   }
 
   .delete-button {
-    background-color: #F8F8F8; /* Gris claro */
-    color: #E74C3C; /* Rojo para eliminar */
-    border-color: #E74C3C;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
   }
 
   .delete-button:hover {
-    background-color: #E74C3C;
-    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
   }
+}
+
+/* 🎨 Colores cíclicos de viajero */
+.plan-card:nth-child(4n+1) {
+  background-color: #FFC857; /* Naranja Tierra */
+}
+
+.plan-card:nth-child(4n+2) {
+  background-color: #2E8B57; /* Verde Explorador */
+}
+
+.plan-card:nth-child(4n+3) {
+  background-color: #FF6F3C; /* Amarillo Atardecer */
+}
+
+.plan-card:nth-child(4n+4) {
+  background-color: #3A86FF; /* Azul Horizonte */
+}
+
+.plan-card:nth-child(4n+1) h3,
+.plan-card:nth-child(4n+1) p,
+.plan-card:nth-child(4n+1) strong {
+  color: #424242; /* Texto más oscuro para mejor contraste */
+  text-shadow: none;
+}
+
+.plan-card:nth-child(4n+1) .edit-button,
+.plan-card:nth-child(4n+1) .delete-button {
+  color: #424242; /* Botones más oscuros */
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.plan-card:nth-child(4n+1) .edit-button:hover,
+.plan-card:nth-child(4n+1) .delete-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .empty-planner-message {

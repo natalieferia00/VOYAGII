@@ -20,7 +20,7 @@ import { PackingPlannerComponent } from "../packing-planner/packing-planner"; //
     TransportationPlannerComponent,
     FoodPlannerComponent,
     InsurancePlannerComponent,
-    PackingPlannerComponent
+
 ],
   templateUrl: './travel-organizer.html', // Asegúrate de que el nombre del archivo HTML sea correcto (travel-organizer.html o .component.html)
   styleUrls: ['./travel-organizer.scss']

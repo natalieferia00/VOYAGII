@@ -29,8 +29,8 @@ export class ProgressChartComponent {
     labels: ['Preparado', 'Pendiente'],
     datasets: [{
       data: [90, 10],
-      backgroundColor: ['#a0efa4ff', '#E0E0E0'],
-      hoverBackgroundColor: ['#b3ffb7ff', '#BDBDBD'],
+      backgroundColor: ['#2E8B57', '#E0E0E0'],
+      hoverBackgroundColor: ['#2E8B57', '#BDBDBD'],
       borderWidth: 0
     }]
   };
@@ -40,8 +40,8 @@ export class ProgressChartComponent {
     labels: ['Reservado', 'Pendiente'],
     datasets: [{
       data: [60, 40],
-      backgroundColor: ['#bee2ffff', '#E0E0E0'],
-      hoverBackgroundColor: ['#c8e4ffff', '#BDBDBD'],
+      backgroundColor: ['#3A86FF', '#E0E0E0'],
+      hoverBackgroundColor: ['#3A86FF', '#BDBDBD'],
       borderWidth: 0
     }]
   };
@@ -51,8 +51,8 @@ export class ProgressChartComponent {
     labels: ['Ahorrado', 'Pendiente'],
     datasets: [{
       data: [75, 25],
-      backgroundColor: ['#ffcde2ff', '#E0E0E0'],
-      hoverBackgroundColor: ['#ffb6f2ff', '#BDBDBD'],
+      backgroundColor: ['#FFC857', '#E0E0E0'],
+      hoverBackgroundColor: ['#FFC857', '#BDBDBD'],
       borderWidth: 0
     }]
   };

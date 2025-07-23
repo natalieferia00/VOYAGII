@@ -38,6 +38,6 @@ export class MetricsComponent {
     }
   ];
 
-  dotColors = ['#dbf8ff', '#f9e6ff', '#ffc5c5', '#ffd7b1', '#a000fe', '#a000fe'];
+  dotColors = ['#FFC857', '#3A86FF', '#2E8B57', '#FF6F3C', '#a000fe', '#FF6F3C'];
 
 }

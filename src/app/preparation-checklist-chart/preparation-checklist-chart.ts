@@ -35,7 +35,7 @@ export class PreparationChecklistChartComponent {
     labels: ['Pasaporte', 'Hospedaje', 'Presupuesto', 'Equipaje'],
     datasets: [{
       data: [100, 60, 80, 30],
-      backgroundColor: ['#c8efc9ff', '#ffedb6ff', '#b2dcffff', '#f8d1ffff']
+      backgroundColor: ['#FF6F3C', '#FFC857', '#2E8B57', '#3A86FF']
     }]
   };
 
