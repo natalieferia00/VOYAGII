@@ -95,16 +95,30 @@
             <th>Fechas</th>
             <th>URL</th>
             <th>Opinión</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let entry of transportationEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
             <td>
+<!-- ¡Icono de MAPA aquí! -->
               <strong>{{entry.tripName}}</strong><br>
               <small>({{entry.tripCode}})</small>
             </td>
             <td>{{entry.country}} / {{entry.city}}</td>
-            <td>{{entry.transportType}}</td>
+            <td>
+              <!-- Icono condicional según el tipo de transporte -->
+              <ng-container [ngSwitch]="entry.transportType">
+                <i *ngSwitchCase="'Vuelo'" class="fa-solid fa-plane-departure transport-type-icon"></i>
+                <i *ngSwitchCase="'Tren'" class="fa-solid fa-train transport-type-icon"></i>
+                <i *ngSwitchCase="'Autobús'" class="fa-solid fa-bus transport-type-icon"></i>
+                <i *ngSwitchCase="'Metro'" class="fa-solid fa-subway transport-type-icon"></i>
+                <i *ngSwitchCase="'Taxi'" class="fa-solid fa-taxi transport-type-icon"></i>
+                <i *ngSwitchCase="'Otro'" class="fa-solid fa-question transport-type-icon"></i>
+                <i *ngSwitchDefault class="fa-solid fa-route transport-type-icon"></i>
+              </ng-container>
+              {{entry.transportType}}
+            </td>
             <td>{{entry.company}}</td>
             <td>{{entry.price !== null ? (entry.price | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
             <td>{{entry.departureDate}} <br> {{entry.arrivalDate}}</td>
@@ -113,6 +127,9 @@
             </td>
             <td contenteditable="true" (input)="onOpinionChange(entry, $event)" class="editable-opinion-cell">
               {{entry.opinion}}
+            </td>
+            <td class="action-cell">
+              <button type="button" (click)="removeTransportation(entry)" class="remove-button">✕</button>
             </td>
           </tr>
         </tbody>

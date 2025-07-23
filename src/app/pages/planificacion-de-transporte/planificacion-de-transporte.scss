@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+  min-height: 100vh;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Sidebar fijo */
+app-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 10;
+}
+
+/* Sección del planner */
+.planner-section {
+   padding: 74px; /* Ajustado a 24px para consistencia con otros componentes */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Roboto', sans-serif;
+  max-width: 2000px;
+  margin: 14px auto;
+  height: 0%;
+}
+
+/* Responsividad */
+@media (max-width: 992px) {
+  :host {
+    flex-direction: column;
+  }
+
+  app-sidebar {
+    width: 100%;
+    box-shadow: none;
+    position: relative;
+  }
+
+  .planner-section {
+    padding: 10rem;
+  }
+}

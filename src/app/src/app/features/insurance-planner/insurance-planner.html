@@ -89,15 +89,31 @@
             <th>Fechas</th>
             <th>URL</th>
             <th>Notas</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let entry of insuranceEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
             <td>
+              <!-- Icono principal de dinero/seguridad -->
               <strong>{{entry.tripName}}</strong><br>
               <small>({{entry.tripCode}})</small>
             </td>
-            <td>{{entry.itemType}}</td>
+            <td>
+              <!-- Icono condicional según el tipo de ítem (Font Awesome) -->
+              <ng-container [ngSwitch]="entry.itemType">
+                <i *ngSwitchCase="'Seguro'" class="fa-solid fa-file-invoice item-type-icon"></i> <!-- Póliza/Factura -->
+                <i *ngSwitchCase="'Visado'" class="fa-solid fa-passport item-type-icon"></i> <!-- Pasaporte -->
+                <i *ngSwitchCase="'Vacuna'" class="fa-solid fa-syringe item-type-icon"></i> <!-- Jeringa -->
+                <i *ngSwitchCase="'Moneda Extranjera'" class="fa-solid fa-money-bill-transfer item-type-icon"></i> <!-- Transferencia de dinero -->
+                <i *ngSwitchCase="'Adaptador Eléctrico'" class="fa-solid fa-plug item-type-icon"></i> <!-- Enchufe -->
+                <i *ngSwitchCase="'Tarjeta SIM Local'" class="fa-solid fa-sim-card item-type-icon"></i> <!-- Tarjeta SIM -->
+                <i *ngSwitchCase="'Alquiler de Coche'" class="fa-solid fa-car item-type-icon"></i> <!-- Coche -->
+                <i *ngSwitchCase="'Otro'" class="fa-solid fa-circle-question item-type-icon"></i> <!-- Signo de interrogación -->
+                <i *ngSwitchDefault class="fa-solid fa-bell item-type-icon"></i> <!-- Campana por defecto -->
+              </ng-container>
+              {{entry.itemType}} <!-- Muestra también el texto del tipo -->
+            </td>
             <td>{{entry.itemName}}</td>
             <td>{{entry.company}}</td>
             <td>{{entry.price !== null ? (entry.price | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
@@ -107,6 +123,9 @@
             </td>
             <td contenteditable="true" (input)="onNotesChange(entry, $event)" class="editable-notes-cell">
               {{entry.notes}}
+            </td>
+            <td class="action-cell">
+              <button type="button" (click)="removeInsuranceEntry(entry)" class="remove-button">✕</button>
             </td>
           </tr>
         </tbody>

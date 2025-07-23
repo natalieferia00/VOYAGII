@@ -1,0 +1,49 @@
+:host {
+  display: flex;
+  min-height: 100vh;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Sidebar fijo */
+app-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 10;
+}
+
+/* Sección del planner */
+.planner-section {
+  flex-grow: 1; /* Ocupa todo el espacio restante */
+  padding: 24px; /* Espaciado interno general */
+  box-sizing: border-box; /* Incluye padding en el ancho/alto */
+  margin-left: 100px; /* Margen para dejar espacio al sidebar fijo */
+  max-width: calc(100% - 250px); /* Asegura que el contenido no se desborde */
+  overflow-y: auto; /* Permite scroll vertical si el contenido es largo */
+
+  /* Media query para pantallas más pequeñas (tabletas y móviles) */
+  @media (max-width: 1024px) {
+    margin-left: 0; /* Elimina el margen ya que el sidebar será responsive/flotante */
+    max-width: 100%; /* Ocupa todo el ancho disponible */
+    padding-top: 80px; /* Deja espacio para un posible header/sidebar superior */
+}
+
+/* Responsividad */
+@media (max-width: 992px) {
+  :host {
+    flex-direction: column;
+  }
+
+  app-sidebar {
+    width: 100%;
+    box-shadow: none;
+    position: relative;
+  }
+
+  .planner-section {
+    padding: 1rem;
+  }
+}
+}

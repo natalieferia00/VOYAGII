@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background: #ffffff;
+
   padding: 1.5rem;
   border-radius: 12px;
   font-family: 'Roboto', sans-serif;
@@ -22,14 +22,14 @@
       padding: 0.5rem;
       border-radius: 8px;
       border: 1px solid #ccc;
-      background: #f9f9f9;
+
       color: #111;
       font-family: 'Roboto', sans-serif;
       transition: border 0.2s, background 0.2s;
 
       &:focus {
         border-color: #000000;
-        background: #fff;
+
         outline: none;
       }
     }
@@ -60,27 +60,25 @@
       transition: background 0.2s, transform 0.1s;
 
       &:first-child {
-        background: #000000;
+
         color: #fff;
 
         &:hover {
-        background-color: #f0f4ff;
   color: #000000;
         }
 
         &:disabled {
-          background: #ddd;
           color: #888;
           cursor: not-allowed;
         }
       }
 
       &.cancel {
-        background: #e0e0e0;
+       
         color: #333;
 
         &:hover {
-          background: #cfcfcf;
+  
           transform: translateY(-1px);
         }
       }

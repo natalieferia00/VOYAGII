@@ -96,16 +96,31 @@
             <th>Fecha</th>
             <th>URL</th>
             <th>Notas</th>
+            <th>Acciones</th> <!-- Añadimos la columna de acciones -->
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let entry of foodEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
             <td>
+             <!-- Icono de plato con colores cíclicos -->
               <strong>{{entry.tripName}}</strong><br>
               <small>({{entry.tripCode}})</small>
             </td>
             <td>{{entry.country}} / {{entry.city}}</td>
-            <td>{{entry.mealType}}</td>
+            <td>
+              <!-- Icono condicional según el tipo de comida -->
+              <ng-container [ngSwitch]="entry.mealType">
+                <i *ngSwitchCase="'Desayuno'" class="fa-solid fa-mug-saucer meal-type-icon"></i>
+                <i *ngSwitchCase="'Almuerzo'" class="fa-solid fa-burger meal-type-icon"></i>
+                <i *ngSwitchCase="'Cena'" class="fa-solid fa-pizza-slice meal-type-icon"></i>
+                <i *ngSwitchCase="'Snack'" class="fa-solid fa-cookie-bite meal-type-icon"></i>
+                <i *ngSwitchCase="'Café'" class="fa-solid fa-coffee meal-type-icon"></i>
+                <i *ngSwitchCase="'Bebida'" class="fa-solid fa-martini-glass meal-type-icon"></i>
+                <i *ngSwitchCase="'Otro'" class="fa-solid fa-question meal-type-icon"></i>
+                <i *ngSwitchDefault class="fa-solid fa-bowl-food meal-type-icon"></i> <!-- Icono por defecto -->
+              </ng-container>
+              {{entry.mealType}} <!-- Muestra también el texto del tipo -->
+            </td>
             <td>{{entry.restaurantName}}</td>
             <td>{{entry.cuisine || '-'}}</td>
             <td>{{entry.estimatedCost !== null ? (entry.estimatedCost | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
@@ -116,6 +131,9 @@
             </td>
             <td contenteditable="true" (input)="onNotesChange(entry, $event)" class="editable-notes-cell">
               {{entry.notes}}
+            </td>
+            <td class="action-cell"> <!-- Celda para el botón eliminar -->
+              <button type="button" (click)="removeFoodEntry(entry)" class="remove-button">✕</button>
             </td>
           </tr>
         </tbody>

@@ -136,7 +136,7 @@
 .add-entry-form .form-group.price-group {
   display: flex;
   align-items: center;
-  gap: 8px; /* Espacio entre input de precio y select de moneda */
+  gap: 6px; /* Espacio entre input de precio y select de moneda */
 }
 
 .add-entry-form .form-group.price-group input[type="number"] {
@@ -175,7 +175,7 @@
 /* --- Estilos de la Tabla de Planificación --- */
 .planner-table-section {
   background-color: #FFFFFF; /* $light-text */
-  padding: 24px; /* $spacing-lg */
+  padding: 20px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   overflow-x: auto; /* Permite scroll horizontal en móviles si la tabla es ancha */
@@ -243,7 +243,7 @@
 }
 
 .planner-table tbody td {
-  padding: 16px; /* $spacing-md */
+  padding: 12px; /* $spacing-md */
   border-bottom: 1px solid #E0E0E0; /* $medium-gray-border */
   color: #424242; /* $dark-gray-text */
   font-size: 0.95rem;
@@ -296,7 +296,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Alinea a la izquierda en el form */
-  gap: 2px; /* Espacio entre estrellas */
+  gap: 1px; /* Espacio entre estrellas */
 }
 
 .planner-add-section .rating-container {

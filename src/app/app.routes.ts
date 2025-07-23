@@ -17,6 +17,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./src/app/features/map/map').then(m => m.MapComponent),
   },
+  {
+  path: 'planificador-de-equipaje',
+  loadComponent: () =>
+    import('../app/pages/planificador-de-equipaje/planificador-de-equipaje').then(
+      m => m.PlanificadorDeEquipaje
+    ),
+},
+
   // Ruta para el Organizador de Viajes (carga perezosa del componente standalone)
   {
     path: 'travel-organizer',
@@ -33,7 +41,40 @@ export const routes: Routes = [
         m => m.AddPlaceComponent
       ),
   },
+    {
+    path: 'planificador-de-alojamientos',
+    loadComponent: () =>
+      import('../app/pages/planificador-de-alojamientos/planificador-de-alojamientos').then(
+        m => m.PlanificadorDeAlojamientosComponent
+      ),
+  },
+  {
+  path: 'planificacion-de-transporte',
+  loadComponent: () =>
+    import('../app/pages/planificacion-de-transporte/planificacion-de-transporte').then(
+      m => m.PlanificacionDeTransporte
+    ),
+},
+{
+  path: 'planificador-de-alimentacion',
+  loadComponent: () =>
+    import('../app/pages/planificador-de-alimentacion/planificador-de-alimentacion').then(
+      m => m.PlanificadorDeAlimentacion
+    ),
+},
+{
+  path: 'planificador-de-seguros-y-extras',
+  loadComponent: () =>
+    import('../app/pages/planificador-de-seguros-y-extras/planificador-de-seguros-y-extras').then(
+      m => m.PlanificadorDeSegurosYExtras
+    ),
+},
 
+
+
+
+
+  
   // Ruta para Login
   {
     path: 'login',
@@ -52,3 +93,4 @@ export const routes: Routes = [
   // Ruta comodín para manejar URLs no encontradas
   { path: '**', redirectTo: '/dashboard' },
 ];
+

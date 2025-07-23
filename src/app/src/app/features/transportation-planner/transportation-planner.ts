@@ -33,6 +33,9 @@ interface TransportationEntry {
   styleUrls: ['./transportation-planner.scss']
 })
 export class TransportationPlannerComponent implements OnInit {
+removeTransportation(_t235: TransportationEntry) {
+throw new Error('Method not implemented.');
+}
   transportationEntries: TransportationEntry[] = [];
   nextId: number = 1;
 

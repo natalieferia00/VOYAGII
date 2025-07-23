@@ -33,6 +33,9 @@ interface FoodEntry {
   styleUrls: ['./food-planner.scss']
 })
 export class FoodPlannerComponent implements OnInit {
+removeFoodEntry(_t129: FoodEntry) {
+throw new Error('Method not implemented.');
+}
   foodEntries: FoodEntry[] = [];
   nextId: number = 1;
 

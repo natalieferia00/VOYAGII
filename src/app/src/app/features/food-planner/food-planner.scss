@@ -3,77 +3,84 @@
 /* Importa la fuente Roboto de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* Colores y espaciados (valores directos, sin variables SCSS) */
-/* Se asume que estos valores son los mismos que en src/styles.scss */
-/* $primary-purple: #4A148C; */
-/* $secondary-purple: #6A1B9A; */
-/* $light-gray-bg: #F8F8F8; */
-/* $medium-gray-border: #E0E0E0; */
-/* $dark-gray-text: #424242; */
-/* $light-text: #FFFFFF; */
-
-/* $spacing-xl: 32px; */
-/* $spacing-lg: 24px; */
-/* $spacing-md: 16px; */
-/* $spacing-sm: 12px; */
-/* $border-radius-lg: 12px; */
+/* Colores para los iconos de plato (puedes ajustar estos si quieres un ciclo diferente) */
+$food-icon-color-1: #FFC857; /* Amarillo Atardecer */
+$food-icon-color-2: #3A86FF; /* Azul Horizonte */
+$food-icon-color-3: #2E8B57; /* Verde Explorador */
+$food-icon-color-4: #FF6F3C; /* Naranja Tierra */
+$food-icon-color-5: #a000fe; /* Morado Vibrante */
+$food-icon-color-6: #000000; /* Negro Profundo */
 
 
 .food-planner-container {
-  padding: 24px; /* $spacing-lg */
-  background-color: #fefefe; /* $light-gray-bg */
-  border-radius: 12px; /* $border-radius-lg */
+  padding: 24px;
+  background-color: #fefefe;
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  font-family: 'Roboto', sans-serif; /* Apply Roboto */
+  font-family: 'Roboto', sans-serif;
+  /* CLAVE: Ancho máximo y centrado para toda la página del planificador */
+  max-width: 1200px; /* Ajusta este valor para controlar el ancho máximo de la página */
+  margin: 24px auto; /* Centra el contenedor principal horizontalmente y añade margen vertical */
 }
 
 .planner-title {
-  font-size: 1.55rem; /* text-3xl */
+  font-size: 1.8rem;
   line-height: 2.5rem;
-  font-weight: bold;
-  color: #000000; /* $primary-purple */
-  margin-bottom: 32px; /* $spacing-xl */
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 40px;
   text-align: center;
 }
 
 @media (max-width: 640px) {
   .planner-title {
     font-size: 1.75rem;
+    margin-bottom: 24px;
+  }
+  .food-planner-container {
+    padding: 16px;
+    margin: 16px auto;
+    border-radius: 8px;
   }
 }
 
 .section-heading {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #424242; /* $dark-gray-text */
-  margin-bottom: 16px; /* $spacing-md */
-  padding-bottom: 12px; /* $spacing-sm */
-  border-bottom: 1px solid #fefefe; /* $medium-gray-border */
+  color: #424242;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E0E0E0;
 }
 
 /* --- Styles for Add Entry Form --- */
 .planner-add-section {
-  background-color: #FFFFFF; /* $light-text */
-  padding: 24px; /* $spacing-lg */
-  border-radius: 12px; /* $border-radius-lg */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 32px; /* $spacing-xl */
+  background-color: #FFFFFF;
+  padding: 32px; /* Aumentado el padding para hacerlo visualmente más grande */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px; /* Más espacio debajo del formulario */
 }
 
 .add-entry-form {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* $spacing-md */
+  gap: 20px;
 }
 
 .add-entry-form .form-row {
   display: flex;
-  gap: 16px; /* $spacing-md */
+  gap: 20px;
 }
 
 @media (max-width: 768px) {
   .add-entry-form .form-row {
     flex-direction: column;
+    gap: 16px;
+  }
+  .planner-add-section {
+    padding: 24px;
+    margin-bottom: 24px;
   }
 }
 
@@ -83,10 +90,10 @@
 
 .add-entry-form .form-group label {
   display: block;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: bold;
-  color: #424242; /* $dark-gray-text */
-  margin-bottom: 6px; /* $spacing-sm / 2 */
+  color: #424242;
+  margin-bottom: 8px;
 }
 
 .add-entry-form .form-group input[type="text"],
@@ -96,11 +103,11 @@
 .add-entry-form .form-group select,
 .add-entry-form .form-group textarea {
   width: 100%;
-  padding: 12px; /* $spacing-sm */
-  border: 1px solid #E0E0E0; /* $medium-gray-border */
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  color: #424242; /* $dark-gray-text */
+  padding: 14px;
+  border: 1px solid #E0E0E0;
+  border-radius: 0.5rem;
+  font-size: 1.05rem;
+  color: #424242;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -113,96 +120,97 @@
 .add-entry-form .form-group textarea:focus {
   outline: none;
   border-color:  #34a853;
-
 }
 
 .add-entry-form .form-group textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 100px;
 }
 
 .add-entry-form .form-group select {
-  appearance: none; /* Removes default select styles */
+  appearance: none;
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
-  padding-right: 2.5em; /* Space for the select arrow */
+  padding-right: 2.5em;
 }
 
 .add-entry-form .form-group.price-group {
   display: flex;
   align-items: center;
-  gap: 8px; /* Space between price input and currency select */
+  gap: 12px;
 }
 
 .add-entry-form .form-group.price-group input[type="number"] {
-  flex: 1; /* Occupy remaining space */
+  flex: 1;
 }
 
 .add-entry-form .form-group.price-group .currency-select {
-  width: auto; /* Adjust width based on content */
-  min-width: 80px;
+  width: auto;
+  min-width: 90px;
 }
 
 .form-actions {
   display: flex;
   justify-content: flex-end;
+  margin-top: 24px;
 }
 
 .add-entry-button {
-  background-color: #000000; /* $secondary-purple */
-  color: #FFFFFF; /* $light-text */
-  padding: 16px 24px; /* $spacing-md $spacing-lg */
-  border-radius: 9999px; /* rounded-full */
-  font-size: 1rem;
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 18px 30px;
+  border-radius: 9999px;
+  font-size: 1.1rem;
   font-weight: 600;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: background-color 0.2s ease, transform 0.2s ease;
-}
 
-.add-entry-button:hover {
-  background-color: #0f0e10; /* $primary-purple */
-  transform: translateY(-2px);
+  &:hover {
+    background-color: #333333;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
 }
 
 /* --- Styles for Planner Table --- */
 .planner-table-section {
-  background-color: #FFFFFF; /* $light-text */
-  padding: 24px; /* $spacing-lg */
-  border-radius: 12px; /* $border-radius-lg */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  overflow-x: auto; /* Allows horizontal scrolling on mobile if the table is wide */
+  background-color: #FFFFFF;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
 }
 
 .empty-planner-message {
   text-align: center;
-  padding: 32px; /* $spacing-xl */
-  color: #424242; /* $dark-gray-text */
+  padding: 32px;
+  color: #424242;
   font-size: 1.1rem;
-  background-color: #F8F8F8; /* $light-gray-bg */
-  border-radius: 12px; /* $border-radius-lg */
+  background-color: #F8F8F8;
+  border-radius: 12px;
 }
 
 .planner-table-wrapper {
   width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 .planner-table {
   width: 100%;
-  border-collapse: separate; /* Required for border-radius on thead */
+  border-collapse: separate;
   border-spacing: 0;
-  min-width: 1200px; /* Increased min-width for more columns */
-  font-family: 'Roboto', sans-serif; /* Ensures the font is applied to the table */
+  min-width: 1200px; /* Aseguramos un ancho mínimo para que quepan las columnas */
+  font-family: 'Roboto', sans-serif;
 }
 
 .planner-table thead tr {
-  background-color: #000000; /* $primary-purple */
-  color: #FFFFFF; /* $light-text */
+  background-color: #000000;
+  color: #FFFFFF;
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
@@ -210,16 +218,16 @@
 }
 
 .planner-table thead th {
-  padding: 16px; /* $spacing-md */
-  border-bottom: 1px solid #000000; /* lighten($primary-purple, 10%) */
+  padding: 16px;
+  border-bottom: 1px solid #333333;
 }
 
 .planner-table thead th:first-child {
-  border-top-left-radius: 12px; /* $border-radius-lg */
+  border-top-left-radius: 12px;
 }
 
 .planner-table thead th:last-child {
-  border-top-right-radius: 12px; /* $border-radius-lg */
+  border-top-right-radius: 12px;
 }
 
 .planner-table tbody tr {
@@ -227,51 +235,51 @@
 }
 
 .planner-table tbody tr:hover {
-  background-color: #FCFCFC; /* lighten($light-gray-bg, 3%) */
+  background-color: #FCFCFC;
 }
 
 .planner-table tbody tr.even-row {
-  background-color: #FFFFFF; /* $light-text */
+  background-color: #FFFFFF;
 }
 
 .planner-table tbody tr.odd-row {
-  background-color: #F8F8F8; /* $light-gray-bg */
+  background-color: #F8F8F8;
 }
 
 .planner-table tbody td {
-  padding: 16px; /* $spacing-md */
-  border-bottom: 1px solid #E0E0E0; /* $medium-gray-border */
-  color: #424242; /* $dark-gray-text */
+  padding: 16px;
+  border-bottom: 1px solid #E0E0E0;
+  color: #424242;
   font-size: 0.95rem;
-  vertical-align: top; /* Aligns cell content to the top */
+  vertical-align: top;
 }
 
 .planner-table tbody td:first-child {
-  border-left: 1px solid #E0E0E0; /* $medium-gray-border */
+  border-left: 1px solid #E0E0E0;
 }
 
 .planner-table tbody td:last-child {
-  border-right: 1px solid #E0E0E0; /* $medium-gray-border */
+  border-right: 1px solid #E0E0E0;
 }
 
 .planner-table tbody tr:last-child td {
-  border-bottom: none; /* Remove bottom border from the last row */
+  border-bottom: none;
 }
 
 .planner-table tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 12px; /* $border-radius-lg */
+  border-bottom-left-radius: 12px;
 }
 
 .planner-table tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 12px; /* $border-radius-lg */
+  border-bottom-right-radius: 12px;
 }
 
 /* --- Styles for URL Link in Table --- */
 .table-url-link {
-  color: #000000; /* $secondary-purple */
+  color: #000000;
   text-decoration: none;
-  word-break: break-all; /* Breaks long words so they don't overflow */
-  display: block; /* For word-break to work well */
+  word-break: break-all;
+  display: block;
 }
 
 .table-url-link:hover {
@@ -280,16 +288,63 @@
 
 /* --- Styles for Editable Notes Cell --- */
 .editable-notes-cell {
-  cursor: text; /* Indicates it's editable */
-  outline: none; /* Removes default focus border */
-  min-width: 150px; /* Minimum width for the notes column */
-  max-width: 300px; /* Maximum width to prevent stretching too much */
-  white-space: pre-wrap; /* Preserves line breaks and spaces */
-  word-break: break-word; /* Breaks long words */
+  cursor: text;
+  outline: none;
+  min-width: 150px;
+  max-width: 300px;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .editable-notes-cell:focus {
-  background-color: #F0F0F0; /* Slightly gray background when editing */
-  border: 1px solid #34a853;
+  background-color: #F0F0F0;
+  border-color:  #34a853;
+}
 
+/* --- Styles for the main food trip icon (plate) --- */
+.food-trip-icon {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 1.3rem; /* Un poco más grande para el icono principal */
+  vertical-align: middle;
+  transition: color 0.2s ease;
+}
+
+/* Colores cíclicos para el icono principal de plato */
+.planner-table tbody tr:nth-child(6n+1) .food-trip-icon { color: $food-icon-color-1; }
+.planner-table tbody tr:nth-child(6n+2) .food-trip-icon { color: $food-icon-color-2; }
+.planner-table tbody tr:nth-child(6n+3) .food-trip-icon { color: $food-icon-color-3; }
+.planner-table tbody tr:nth-child(6n+4) .food-trip-icon { color: $food-icon-color-4; }
+.planner-table tbody tr:nth-child(6n+5) .food-trip-icon { color: $food-icon-color-5; }
+.planner-table tbody tr:nth-child(6n+6) .food-trip-icon { color: $food-icon-color-6; }
+
+/* --- Styles for meal type icons --- */
+.meal-type-icon {
+  margin-right: 6px;
+  font-size: 1.1rem;
+  color: #424242; /* Color oscuro para que contraste con el fondo de la celda */
+  vertical-align: middle;
+}
+
+/* --- Styles for action cell (buttons) --- */
+.action-cell {
+  text-align: center;
+  width: 80px;
+  min-width: 80px;
+}
+
+/* --- Styles for remove button --- */
+.remove-button {
+  background: none;
+  border: none;
+  color: #E74C3C;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: rgba(231, 76, 60, 0.1);
+  }
 }

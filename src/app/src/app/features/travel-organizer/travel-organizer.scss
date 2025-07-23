@@ -24,7 +24,7 @@ body {
   flex-grow: 1; /* Ocupa todo el espacio restante */
   padding: 24px; /* Espaciado interno general */
   box-sizing: border-box; /* Incluye padding en el ancho/alto */
-  margin-left: 250px; /* Margen para dejar espacio al sidebar fijo */
+  margin-left: 400px; /* Margen para dejar espacio al sidebar fijo */
   max-width: calc(100% - 250px); /* Asegura que el contenido no se desborde */
   overflow-y: auto; /* Permite scroll vertical si el contenido es largo */
 
