@@ -1,41 +1,46 @@
-<!-- src/app/shared/components/sidebar/sidebar.component.html -->
 <aside class="sidebar-container">
-  <!-- Logo de la aplicación -->
+  <!-- Logo -->
   <div class="sidebar-logo">
-    <img src="logo.png" alt="Travel App Logo">
+<img id="sidebar-logo" src="logo.png" alt="Travel App Logo">
   </div>
-
-  <!-- Menú de navegación -->
+  <!-- Menú principal -->
   <nav class="sidebar-nav">
     <ul class="sidebar-nav-list">
       <li>
-        <a [routerLink]="['/dashboard']" routerLinkActive="active"
-           class="nav-link">
-          <span class="nav-icon"></span> <!-- Icono de Dashboard (puedes reemplazar con PrimeIcons o SVG) -->
+        <a [routerLink]="['/dashboard']" routerLinkActive="active" class="nav-link">
+          <span class="nav-icon"></span>
           <span class="nav-text">Dashboard</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="['/map']" routerLinkActive="active"
-           class="nav-link">
-          <span class="nav-icon"></span> <!-- Icono de Mapa -->
+        <a [routerLink]="['/map']" routerLinkActive="active" class="nav-link">
+          <span class="nav-icon"></span>
           <span class="nav-text">Itinerario</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="['/travel-organizer']" routerLinkActive="active"
-           class="nav-link">
-          <span class="nav-icon"></span> <!-- Icono de Organizador -->
+        <a [routerLink]="['/travel-organizer']" routerLinkActive="active" class="nav-link">
+          <span class="nav-icon"></span>
           <span class="nav-text">Organizador de Viajes</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="['/add-place']" routerLinkActive="active"
-           class="nav-link">
-          <span class="nav-icon"></span> <!-- Icono de Añadir Lugar -->
+        <a [routerLink]="['/add-place']" routerLinkActive="active" class="nav-link">
+          <span class="nav-icon"></span>
           <span class="nav-text">Calcular</span>
         </a>
       </li>
     </ul>
   </nav>
+
+  <!-- Separador visual -->
+  <hr class="sidebar-separator">
+
+  <!-- Iniciar Sesión separado -->
+  <div class="sidebar-login">
+    <a [routerLink]="['/login']" routerLinkActive="active" class="nav-link">
+      <span class="nav-icon"></span>
+      <span class="nav-text">Cerrar Sesión</span>
+    </a>
+  </div>
 </aside>

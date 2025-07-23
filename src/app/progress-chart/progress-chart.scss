@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+  font-family: 'Roboto', sans-serif; // ✅ Aplica Roboto a todo el contenedor
+}
+
+.chart-item {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 250px; // ancho base para desktop
+  max-width: 120px; // evita estiramiento excesivo en pantallas grandes
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Roboto', sans-serif; // redundancia para aislar si se reutiliza
+
+  h4 {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Roboto', sans-serif; // Roboto para títulos
+  }
+
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Responsividad */
+@media (max-width: 800px) {
+  .chart-item {
+    width: 45%;
+    max-width: none; // evita limitarse en tablets
+  }
+}
+
+@media (max-width: 500px) {
+  .chart-item {
+    width: 100%;
+    max-width: none;
+  }
+}

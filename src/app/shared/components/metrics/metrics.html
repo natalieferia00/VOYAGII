@@ -2,7 +2,9 @@
   <h2 class="metrics-title">Analíticas de Viaje</h2>
   <div class="metrics-grid">
     <div *ngFor="let metric of metrics; let i = index" class="metric-card">
-      <div class="metric-dot" [ngStyle]="{'background-color': dotColors[i % dotColors.length]}"></div>
+      <div class="metric-dot" [ngStyle]="{'background-color': dotColors[i % dotColors.length]}">
+        <i class="fas fa-flag metric-flag-icon"></i>
+      </div>
       <h3 contenteditable="true">{{ metric.title }}</h3>
       <p class="metric-value" contenteditable="true">{{ metric.value }}</p>
       <p class="metric-trend" contenteditable="true">{{ metric.trend }}</p>

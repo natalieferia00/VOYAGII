@@ -1,13 +1,6 @@
-<!-- src/app/features/map/map.component.html -->
-<div class="app-container">
-  <!-- El sidebar está aquí, asumiendo que es el que gestiona su propio estilo fijo -->
-  <app-sidebar class="sidebar"></app-sidebar> 
+<app-sidebar></app-sidebar>
 
-  <div class="content">
-    <div class="map-container">
-      <app-travel-route-planner></app-travel-route-planner>
-         <app-tasks-section></app-tasks-section>
-    </div>
-  </div>
-   
+<div class="map-fullpage">
+  <app-travel-route-planner></app-travel-route-planner>
+  <app-tasks-section></app-tasks-section>
 </div>

@@ -1,0 +1,174 @@
+/* ✅ RESET GENERAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ✅ Estructura general */
+body {
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+/* ✅ SIDEBAR */
+app-sidebar,
+.sidebar-container {
+  flex-shrink: 0;
+  width: 250px;
+  min-width: 250px;
+  background-color: #ffffff;
+  color: #333333;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+/* 🌑 Dark Mode para Sidebar */
+body.dark-mode app-sidebar,
+body.dark-mode .sidebar-container {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+/* ✅ Contenido principal */
+.dashboard-content {
+  flex: 1;
+  padding: 1rem;
+  padding-left: 260px; /* espacio para sidebar */
+  box-sizing: border-box;
+  transition: padding 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding-left: 1rem;
+  }
+}
+
+/* ✅ Secciones generales */
+.section {
+  background: #ffffff;
+  color: #333333;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+/* 🌑 Dark Mode para secciones */
+body.dark-mode .section {
+  background: #1e1e1e;
+  color: #e0e0e0;
+}
+
+body.dark-mode .section h2 {
+  color: #f0f0f0;
+}
+
+/* ✅ Grid para secciones dobles */
+.grid-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid-section {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ✅ Tarjetas internas */
+.section-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 🌑 Dark Mode para tarjetas */
+body.dark-mode .section-card {
+  background: #262626;
+  color: #e0e0e0;
+}
+
+/* ✅ Links en Sidebar */
+.sidebar-nav-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333333;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-link.active {
+  background-color: #e0e0e0;
+}
+
+body.dark-mode .nav-link {
+  color: #e0e0e0;
+}
+
+body.dark-mode .nav-link:hover {
+  background-color: #2a2a2a;
+}
+
+body.dark-mode .nav-link.active {
+  background-color: #333333;
+}
+
+/* ✅ Separador en Sidebar */
+.sidebar-separator {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 1rem 0;
+}
+
+body.dark-mode .sidebar-separator {
+  border-top: 1px solid #444;
+}
+
+/* ✅ Imágenes responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ✅ Mejora el scroll en dark mode */
+body.dark-mode {
+  scrollbar-color: #555 #222;
+  scrollbar-width: thin;
+}

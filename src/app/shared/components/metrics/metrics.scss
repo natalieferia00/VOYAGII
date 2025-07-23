@@ -1,19 +1,21 @@
 .metrics-section {
   padding: 2rem;
-  background: #ffffff;
+
   font-family: 'Roboto', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   .metrics-title {
     font-size: 1.5rem;
     font-weight: 600;
     color: #111;
     margin-bottom: 1rem;
+    transition: color 0.3s ease;
   }
 
   .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); // antes 220px
-    gap: 8rem; // aumentado para separación visual clara
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 4rem;
     align-items: start;
   }
 
@@ -27,8 +29,7 @@
     align-items: center;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-sizing: border-box; // importante para respetar padding y gap correctamente
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s, box-shadow 0.2s;
 
     &:hover {
       transform: translateY(-4px);
@@ -40,30 +41,50 @@
       font-weight: 500;
       color: #333;
       margin: 0.5rem 0;
+      transition: color 0.3s ease;
     }
 
     .metric-value {
       font-size: 1.5rem;
       font-weight: 600;
       color: #000;
+      transition: color 0.3s ease;
     }
 
     .metric-trend {
       font-size: 0.9rem;
       color: #666;
+      transition: color 0.3s ease;
     }
-
-
 
     .metric-dot {
       position: absolute;
       top: 50px;
-      right: 30px; // Esquina superior derecha
+      right: 30px;
       width: 32px;
       height: 32px;
       border-radius: 20%;
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-      border: 1px solid #fff; // resalta sobre fondo pastel
+      border: 1px solid #fff;
     }
   }
+}
+
+/* 🌑 DARK MODE: aplica cuando se añade 'dark-mode' al body */
+body.dark-mode .metrics-section {
+  background: #121212;
+}
+
+body.dark-mode .metrics-section .metrics-title {
+  color: #f0f0f0;
+}
+
+body.dark-mode .metrics-section .metric-card {
+  background: #1e1e1e;
+}
+
+body.dark-mode .metrics-section .metric-card h3,
+body.dark-mode .metrics-section .metric-card .metric-value,
+body.dark-mode .metrics-section .metric-card .metric-trend {
+  color: #e0e0e0;
 }

@@ -1,13 +1,14 @@
 <!-- src/app/features/travel-organizer/travel-organizer.component.html -->
+
 <div class="travel-organizer-layout">
-  <!-- El Sidebar se coloca directamente aquí -->
+  <!-- Sidebar fijo -->
   <app-sidebar></app-sidebar>
 
-  <!-- Contenedor principal para todos los planificadores -->
+  <!-- Contenido de organizador -->
   <div class="organizer-content-area">
+    <h1 class="organizer-main-title">Organizador de Viaje</h1>
 
-
-    <!-- Cada planificador en su propia sección, con un margen inferior para separarlos -->
+    <!-- Cada planner en su sección tipo card -->
     <section class="planner-section">
       <app-travel-planner></app-travel-planner>
     </section>
@@ -26,10 +27,6 @@
 
     <section class="planner-section">
       <app-insurance-planner></app-insurance-planner>
-    </section>
-
-    <section class="planner-section">
-      <app-packing-planner></app-packing-planner>
     </section>
   </div>
 </div>

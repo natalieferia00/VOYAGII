@@ -1,45 +1,38 @@
 <app-sidebar></app-sidebar>
 
-<div class="dashboard-container p-4 sm:p-6 lg:p-8 space-y-8">
-
-  <!-- Header del Dashboard -->
-
+<main class="dashboard-content">
   <!-- Sección de Métricas -->
-  <section class="p-4 bg-white rounded-lg shadow-md dark:bg-neutral-900">
-    <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
-    </h2>
+  <section class="section">
+    <h2>Resumen del Viaje</h2>
     <app-metrics></app-metrics>
-    <app-travel-season-chart></app-travel-season-chart>
   </section>
 
-  <!-- Sección de Mapa Global y Formulario de Lugares Visitados -->
-  <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-    <!-- Mapa interactivo -->
-    <div class="p-4 bg-white rounded-lg shadow-md dark:bg-neutral-900">
-      <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
-      
-      </h2>
+  <!-- Mapa y Planeación -->
+  <section class="section grid-section">
+    <div class="section-card">
+      <h2>Progreso y Mapa</h2>
+      <app-preparation-checklist-chart></app-preparation-checklist-chart>
       <app-world-map></app-world-map>
     </div>
 
-
-  <section class="p-4 bg-white rounded-lg shadow-md dark:bg-neutral-900">
-    <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
-    
-    </h2>
-    <app-planning-section></app-planning-section>
+    <div class="section-card">
+      <h2>Planeación del Viaje</h2>
+      <app-planning-section></app-planning-section>
+    </div>
   </section>
 
+  <!-- Comentarios y Planificador -->
+  <section class="section grid-section">
+    <div class="section-card">
+      <h2>Comentarios y Notas</h2>
+      <app-comments-form></app-comments-form>
+            <app-progress-chart></app-progress-chart>
+    </div>
 
-  <section class="p-4 bg-white rounded-lg shadow-md dark:bg-neutral-900">
-    <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
-    
-    </h2>
-    <app-comments-form></app-comments-form>
-       <h2 class="text-xl sm:text-2xl font-semibold text-dark-gray-text mb-4">
-      
-    </h2>
+    <div class="section-card">
+      <h2>Planificador de Equipaje</h2>
+      <app-packing-planner></app-packing-planner>
 
+    </div>
   </section>
-
-
+</main>

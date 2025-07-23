@@ -1,7 +1,6 @@
-
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-metrics',
@@ -13,11 +12,32 @@ import { CommonModule } from '@angular/common';
 export class MetricsComponent {
 
   metrics = [
-    { title: 'PAISES',  value: '12', trend: '+2 este año', icon: 'fas fa-globe-americas'  },
-    {     title: 'Días de Viaje', value: '120', trend: '+30 este año',icon: 'fas fa-plane' },
-    {  title: 'Presupuesto Gastado',value: '$15,000', trend: '+$2,000 este año', icon: 'fas fa-wallet'}
+    { 
+      title: 'Países Planificados',  
+      value: '5', 
+      trend: '2 pendientes de visa', 
+      icon: 'fas fa-globe-americas'  
+    },
+    {     
+      title: 'Días Restantes', 
+      value: '45', 
+      trend: 'Faltan 15 para empacar', 
+      icon: 'fas fa-calendar-alt' 
+    },
+    {  
+      title: 'Presupuesto Ahorrado',
+      value: '$8,500', 
+      trend: '$1,500 por completar', 
+      icon: 'fas fa-piggy-bank'
+    },
+    {
+      title: 'Checklist Completado',
+      value: '70%',
+      trend: '30% pendiente',
+      icon: 'fas fa-check-circle'
+    }
   ];
-dotColors = ['#dbf8ffff', '#f9e6ffff', '#ffc5c5ff', '#ffd7b1ff', '#a000fe', '#a000fe'];
 
+  dotColors = ['#dbf8ff', '#f9e6ff', '#ffc5c5', '#ffd7b1', '#a000fe', '#a000fe'];
 
 }

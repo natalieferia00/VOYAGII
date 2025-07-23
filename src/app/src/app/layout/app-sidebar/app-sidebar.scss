@@ -61,6 +61,33 @@
   background-color: #e0eaff;
   color: #0056b3;
 }
+.sidebar-container {
+  width: 240px;
+  min-height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-family: 'Roboto', sans-serif;
+  justify-content: space-between;  /* ✅ agrega esto */
+}
+
+.sidebar-nav {
+  width: 100%;
+  flex: 1; /* ✅ permite que el nav ocupe el espacio intermedio */
+}
+
+.sidebar-login {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
 
 @media (max-width: 768px) {
   .sidebar-container {
@@ -108,3 +135,54 @@
     margin-bottom: 4px;
   }
 }
+.dark-toggle {
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.dark-toggle:hover {
+  color: #0056b3;
+}
+
+body.dark-mode .dark-toggle {
+  color: #80b3ff;
+}
+.dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  transition: color 0.3s ease, transform 0.2s ease;
+
+  i {
+    font-size: 1.3rem;
+  }
+
+  span {
+    font-weight: 500;
+  }
+
+  &:hover {
+    color: #6b46c1; // color primario pastel
+    transform: scale(1.05);
+  }
+}
+
+body.dark-mode .dark-mode-toggle {
+  color: #fcd34d; // amarillo pastel en dark mode
+}
+
+

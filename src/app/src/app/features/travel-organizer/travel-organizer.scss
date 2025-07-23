@@ -9,14 +9,13 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #fefefe; /* Fondo general de la aplicación */
+
 }
 
 /* Layout principal: Sidebar a la izquierda, Contenido a la derecha */
 .travel-organizer-layout {
   display: flex;
   min-height: 100vh; /* Ocupa al menos toda la altura de la ventana */
-  background-color: #fefefe; /* Fondo detrás del contenido */
   overflow-x: hidden; /* Evita el scroll horizontal no deseado */
 }
 
@@ -45,7 +44,7 @@ body {
   margin-bottom: 32px; /* Espacio debajo del título */
   text-align: center;
   padding-bottom: 16px;
-  border-bottom: 1px solid #fefefe; /* Borde sutil */
+
 
   @media (max-width: 640px) {
     font-size: 2rem;
@@ -54,7 +53,6 @@ body {
 
 /* Estilo para cada sección de planificador */
 .planner-section {
-  background-color: #FFFFFF; /* Fondo blanco para cada tarjeta de planificador */
   padding: 24px; /* Espaciado interno de cada planificador */
   border-radius: 12px; /* Bordes redondeados */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil */
@@ -75,7 +73,6 @@ body {
 app-sidebar {
   width: 250px; /* Ancho fijo del sidebar */
   min-width: 250px; /* Asegura que no se encoja */
-  background-color: #FFFFFF; /* Fondo blanco del sidebar */
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05); /* Sombra lateral */
   position: fixed; /* Fijo en la pantalla */
   height: 100vh; /* Ocupa toda la altura */

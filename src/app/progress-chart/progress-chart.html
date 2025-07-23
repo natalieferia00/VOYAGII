@@ -1,0 +1,27 @@
+<div class="charts-container">
+  <div class="chart-item">
+    <canvas baseChart
+      [data]="documentosChartData"
+      [type]="chartType"
+      [options]="chartOptions">
+    </canvas>
+  </div>
+
+  <div class="chart-item">
+    <h4>Hospedajes</h4>
+    <canvas baseChart
+      [data]="hospedajeChartData"
+      [type]="chartType"
+      [options]="chartOptions">
+    </canvas>
+  </div>
+
+  <div class="chart-item">
+    <h4>Presupuesto</h4>
+    <canvas baseChart
+      [data]="presupuestoChartData"
+      [type]="chartType"
+      [options]="chartOptions">
+    </canvas>
+  </div>
+</div>

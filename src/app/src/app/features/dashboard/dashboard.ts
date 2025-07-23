@@ -14,6 +14,9 @@ import { CommentsFormComponent} from "../../../../shared/components/comments-for
 import { PlanningSectionComponent } from "../../../../shared/components/planning-section";
 import { TasksSectionComponent } from "../../../../shared/components/tasks-section.component";
 import { TravelSeasonChartComponent } from "../../../../shared/components/travel-season-chart.component";
+import { ProgressChartComponent } from "../../../../progress-chart/progress-chart";
+import { PreparationChecklistChartComponent } from "../../../../preparation-checklist-chart/preparation-checklist-chart";
+import { PackingPlannerComponent } from "../packing-planner/packing-planner";
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +32,9 @@ import { TravelSeasonChartComponent } from "../../../../shared/components/travel
     CommentsFormComponent,
     PlanningSectionComponent,
     TravelSeasonChartComponent,
-    
+    ProgressChartComponent,
+    PreparationChecklistChartComponent,
+    PackingPlannerComponent
 ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
