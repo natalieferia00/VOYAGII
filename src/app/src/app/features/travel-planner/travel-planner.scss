@@ -5,7 +5,6 @@
 
 .planner-container {
   padding: 24px; /* $spacing-lg */
-  background-color: #fefefe; /* $light-gray-bg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
@@ -15,7 +14,6 @@
   font-size: 1.55rem; /* text-3xl */
   line-height: 2.5rem;
   font-weight: bold;
-  color: #000000; /* $primary-purple */
   margin-bottom: 32px; /* $spacing-xl */
   text-align: center;
 }
@@ -29,8 +27,6 @@
 .section-heading {
   font-family: 'Roboto', sans-serif; /* Fuente Roboto */
   font-size: 1.5rem;
-  font-weight: 600;
-  color: #424242; /* $dark-gray-text */
   margin-bottom: 16px; /* $spacing-md */
   padding-bottom: 12px; /* $spacing-sm */
   border-bottom: 1px solid #fefefe; /* $medium-gray-border */
@@ -38,7 +34,6 @@
 
 /* --- Estilos del Formulario de Añadir Entrada --- */
 .planner-add-section {
-  background-color: #FFFFFF; /* $light-text */
   padding: 24px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -71,7 +66,6 @@
   display: block;
   font-size: 0.9rem;
   font-weight: bold;
-  color: #424242; /* $dark-gray-text */
   margin-bottom: 6px; /* $spacing-sm / 2 */
 }
 
@@ -86,7 +80,6 @@
   border: 1px solid #E0E0E0; /* $medium-gray-border */
   border-radius: 0.375rem;
   font-size: 1rem;
-  color: #424242; /* $dark-gray-text */
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -141,7 +134,6 @@
 
 /* --- Estilos de la Tabla de Planificación --- */
 .planner-table-section {
-  background-color: #FFFFFF; /* $light-text */
   padding: 24px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -152,9 +144,7 @@
   font-family: 'Roboto', sans-serif; /* Fuente Roboto */
   text-align: center;
   padding: 32px; /* $spacing-xl */
-  color: #424242; /* $dark-gray-text */
   font-size: 1.1rem;
-  background-color: #F8F8F8; /* $light-gray-bg */
   border-radius: 12px; /* $border-radius-lg */
 }
 
@@ -198,38 +188,17 @@
   transition: background-color 0.2s ease;
 }
 
-.planner-table tbody tr:hover {
-  background-color: #FCFCFC; /* lighten($light-gray-bg, 3%) */
-}
 
-.planner-table tbody tr.even-row {
-  background-color: #FFFFFF; /* $light-text */
-}
-
-.planner-table tbody tr.odd-row {
-  background-color: #F8F8F8; /* $light-gray-bg */
-}
 
 .planner-table tbody td {
   font-family: 'Roboto', sans-serif; /* Fuente Roboto */
   padding: 16px; /* $spacing-md */
-  border-bottom: 1px solid #E0E0E0; /* $medium-gray-border */
-  color: #424242; /* $dark-gray-text */
+  border-bottom: 1px solid; /* $medium-gray-border */
   font-size: 0.95rem;
   vertical-align: top; /* Alinea el contenido de la celda arriba */
 }
 
-.planner-table tbody td:first-child {
-  border-left: 1px solid #E0E0E0; /* $medium-gray-border */
-}
 
-.planner-table tbody td:last-child {
-  border-right: 1px solid #E0E0E0; /* $medium-gray-border */
-}
-
-.planner-table tbody tr:last-child td {
-  border-bottom: none; /* Eliminar borde inferior de la última fila */
-}
 
 .planner-table tbody tr:last-child td:first-child {
   border-bottom-left-radius: 12px; /* $border-radius-lg */
@@ -270,4 +239,9 @@
 .status-completed {
   background-color: #2E8B57; /* Verde (similar al de la imagen) */
   color: #FFFFFF; /* $light-text */
+}
+
+.planner-table tbody tr:hover {
+  background-color: #FCFCFC; /* Fondo muy claro al pasar el ratón */
+  color: #000000;
 }

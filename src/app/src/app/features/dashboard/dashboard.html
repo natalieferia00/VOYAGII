@@ -1,33 +1,39 @@
 <app-sidebar></app-sidebar>
 
+
+<!-- src/app/features/dashboard/dashboard.component.html -->
 <main class="dashboard-content">
-  <!-- Sección de Métricas -->
-  <section class="section">
-    <h2>Resumen del Viaje</h2>
+  <!-- Sección de Resumen de Métricas -->
+  <section class="dashboard-section metrics-section">
+ 
     <app-metrics></app-metrics>
   </section>
 
-  <!-- Mapa y Planeación -->
-  <section class="section grid-section">
+  <!-- Sección de Gráficos y Mapa -->
+  <section class="dashboard-section charts-and-map-section">
     <div class="section-card">
-      <h2>Progreso y Mapa</h2>
+      <h2 class="card-title">Progreso del Checklist</h2>
+      <!-- Asegúrate de que app-preparation-checklist-chart sea un componente existente -->
       <app-preparation-checklist-chart></app-preparation-checklist-chart>
+    </div>
+    <div class="section-card">
+      <h2 class="card-title">Mapa de Viaje</h2>
+      <!-- Asegúrate de que app-world-map sea un componente existente -->
       <app-world-map></app-world-map>
-        <!-- Comentarios y Planificador -->
-  <section class="section grid-section">
-    <div class="section-card">
-      <app-comments-form></app-comments-form>
     </div>
-                <app-progress-chart></app-progress-chart>
-
   </section>
-    </div>
 
+  <!-- Sección de Planificación y Comentarios -->
+  <section class="dashboard-section planning-and-comments-section">
     <div class="section-card">
-   
+      <h2 class="card-title">Sección de Planificación</h2>
+      <!-- Asegúrate de que app-planning-section sea un componente existente -->
       <app-planning-section></app-planning-section>
     </div>
+    <div class="section-card">
+      <h2 class="card-title">Comentarios</h2>
+      <!-- Asegúrate de que app-comments-form sea un componente existente -->
+      <app-comments-form></app-comments-form>
+    </div>
   </section>
-
-
 </main>

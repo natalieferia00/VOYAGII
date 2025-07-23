@@ -1,198 +1,464 @@
+/* src/styles.css */
+
 /* ✅ RESET GENERAL */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Importa la fuente Roboto de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* ✅ Estructura general */
+/* ✅ Estructura general del BODY */
 body {
-  display: flex; /* Asume que el body es el contenedor principal del sidebar y el contenido */
-  font-family: 'Roboto', sans-serif;
-  background-color: #F5F8FA; /* Fondo general más suave y con un toque de color */
-  color: #333;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  min-height: 100vh; /* Asegura que el body ocupe toda la altura */
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff; /* Fondo general de la aplicación en modo día */
+    color: #000000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+    display: flex; /* Para que el app-container ocupe el espacio */
+    overflow-x: hidden; /* Evita scroll horizontal por el sidebar oculto */
 }
 
+/* 🌑 DARK MODE para el BODY */
 body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+    background-color: #121212;
+    color: #ffffff;
 }
 
-/* ✅ SIDEBAR */
-app-sidebar,
+/* Cuando el sidebar está abierto en móvil, evita el scroll del body */
+body.sidebar-open {
+    overflow: hidden;
+}
+
+/* ✅ APP-CONTAINER (el contenedor principal de la aplicación) */
+.app-container {
+    display: flex;
+    flex: 1;
+    transition: transform 0.3s ease; /* Para mover el contenido cuando el sidebar se abre */
+    position: relative; /* Para posicionar el botón de hamburguesa */
+    z-index: 1; /* Asegura que el contenido esté por encima del overlay pero debajo del sidebar */
+}
+
+/* ✅ SIDEBAR - Estilos Base (Escritorio) */
 .sidebar-container {
-  flex-shrink: 0;
-  width: 250px;
-  min-width: 250px;
-  background-color: #FFFFFF; /* Sidebar blanco */
-  color: #333333;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
-  transition: background-color 0.3s ease, color 0.3s ease;
-  z-index: 1000;
-  overflow-y: auto;
-  border-right: 1px solid #E0E0E0; /* Borde sutil a la derecha */
+    width: 250px; /* Ancho fijo en escritorio */
+    min-height: 100vh;
+    background-color: #FFFFFF; /* Blanco en modo día */
+    color: #333333;
+    border-right: 1px solid #E0E0E0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    position: fixed; /* Fijo en escritorio */
+    top: 0;
+    left: 0;
+    font-family: 'Roboto', sans-serif;
+    justify-content: space-between;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000; /* Siempre encima */
+    overflow-y: auto; /* Scroll si el contenido del sidebar es largo */
 }
 
 /* 🌑 Dark Mode para Sidebar */
-body.dark-mode app-sidebar,
 body.dark-mode .sidebar-container {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  border-right: 1px solid #2a2a2a;
-  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+    background-color: #000000; /* NEGRO en modo oscuro */
+    color: #e0e0e0;
+    border-right: 1px solid #2a2a2a;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
 }
 
-/* ✅ Contenido principal */
-.dashboard-content { /* O .main-content-area, dependiendo de tu estructura */
-  flex: 1;
-  padding: 1.5rem; /* Aumentado el padding para más espacio */
-  padding-left: 265px; /* Ajusta el espacio para sidebar + borde */
-  box-sizing: border-box;
-  transition: padding 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+/* ✅ Logo */
+.sidebar-logo {
+    padding-bottom: 30px;
+    img {
+        width: 120px;
+        height: auto;
+    }
 }
 
-@media (max-width: 768px) {
-  .dashboard-content {
-    padding-left: 1.5rem; /* Vuelve a 1.5rem en móvil */
-  }
+/* ✅ Navegación Principal */
+.sidebar-nav {
+    width: 100%;
+    flex: 1; /* Ocupa el espacio disponible */
+    overflow-y: auto; /* Para el scroll interno del nav en escritorio */
 }
 
-/* ✅ Secciones generales (tarjetas de contenido) */
-.section {
-  background: #ffffff;
-  color: #333333;
-  border-radius: 12px; /* Bordes más redondeados */
-  padding: 1.5rem; /* Aumentado el padding */
-  margin-bottom: 1.5rem; /* Más espacio entre secciones */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra más suave y pronunciada */
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+.sidebar-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.section h2 {
-  font-size: 1.6rem; /* Títulos de sección un poco más grandes */
-  font-weight: 600;
-  margin-bottom: 1rem; /* Más espacio debajo del título */
-  color: #111; /* Color oscuro para el título */
-  transition: color 0.3s ease;
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #555555;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    white-space: nowrap; /* Evita saltos de línea en escritorio */
 }
 
-/* 🌑 Dark Mode para secciones */
-body.dark-mode .section {
-  background: #1e1e1e;
-  color: #e0e0e0;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+.nav-link:hover {
+    background-color: #F0F8FF;
+    color: #5f67ff;
 }
 
-body.dark-mode .section h2 {
-  color: #f0f0f0;
+.nav-link.active {
+    background-color: #3A86FF;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(58, 134, 255, 0.2);
 }
 
-/* ✅ Grid para secciones dobles */
-.grid-section {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem; /* Más espacio entre columnas/filas */
+body.dark-mode .nav-link {
+    color: #e0e0e0;
 }
 
-@media (min-width: 768px) {
-  .grid-section {
-    grid-template-columns: 1fr 1fr;
-  }
+body.dark-mode .nav-link:hover {
+    background-color: #2a2a2a;
+    color: #6DAFFE;
 }
 
-/* ✅ Tarjetas internas (si las usas dentro de .section) */
+body.dark-mode .nav-link.active {
+    background-color: #3A86FF;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(58, 134, 255, 0.3);
+}
+
+.nav-icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.nav-text {
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+/* ✅ Separador */
+.sidebar-separator {
+    width: 80%;
+    border: none;
+    border-top: 1px solid #ffffff;
+    margin: 1.2rem 0;
+}
+
+body.dark-mode .sidebar-separator {
+    border-top: 1px solid #dfdddd;
+}
+
+/* ✅ Sección de Login/Cerrar Sesión */
+.sidebar-login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+    margin-top: auto;
+}
+
+/* ✅ Contenido principal (el área donde se carga el router-outlet) */
+.content-area {
+    flex: 1;
+    padding: 20px; /* Padding uniforme en todas las direcciones por defecto */
+    box-sizing: border-box;
+    transition: padding 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    overflow-y: auto;
+    /* En escritorio, el contenido principal debe empezar después del sidebar */
+    margin-left: 250px; /* Ancho del sidebar */
+    width: calc(100% - 250px); /* Ocupa el resto del ancho */
+}
+
+/* 🌑 Dark Mode para Content Area */
+body.dark-mode .content-area {
+    background-color: #121212; /* Mismo fondo que el body en dark mode */
+    color: #f3f1f1;
+}
+
+/* ✅ DASHBOARD CONTENT (el contenedor de las secciones del dashboard) */
+.dashboard-content {
+    padding: 0; /* Ya no necesita padding aquí, lo maneja content-area */
+    font-family: 'Roboto', sans-serif;
+    background-color: transparent;
+    min-height: calc(100vh - 40px); /* Ajusta si es necesario, 40px para padding top/bottom de content-area */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    transform: translateX(0); /* Elimina el transform por defecto */
+    transition: transform 0.3s ease;
+}
+
+/* ✅ Secciones generales (tarjetas de contenido como .metrics-section, .charts-and-map-section) */
+.dashboard-section {
+    background: #ffffff;
+    color: #5b5b5b;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-section .section-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #111111;
+    transition: color 0.3s ease;
+}
+
+/* 🌑 Dark Mode para secciones generales */
+body.dark-mode .dashboard-section {
+    background: #1e1e1e;
+    color: #fefcfc;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .dashboard-section .section-title {
+    color: #f8f8f8;
+}
+
+/* ✅ Grid para secciones dobles (para escritorio) */
+.charts-and-map-section,
+.planning-and-comments-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ✅ Tarjetas internas */
 .section-card {
-  background: #ffffff;
-  border-radius: 10px; /* Bordes ligeramente más redondeados */
-  padding: 1.2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra más sutil */
-  transition: background-color 0.3s ease, color 0.3s ease;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* 🌑 Dark Mode para tarjetas internas */
 body.dark-mode .section-card {
-  background: #262626;
-  color: #e0e0e0;
+    background: #262626;
+    color: #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* ✅ Links en Sidebar */
-.sidebar-nav-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 1rem;
+.section-card .card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333333;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    transition: color 0.3s ease;
 }
 
-.nav-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #555555; /* Un gris más suave para los enlaces inactivos */
-  padding: 0.75rem 1rem; /* Más padding para que sean más fáciles de clickear */
-  border-radius: 8px; /* Más redondeados */
-  transition: background-color 0.3s ease, color 0.3s ease;
-  font-weight: 500; /* Ligeramente más negrita */
-}
-
-.nav-link:hover {
-  background-color: #F0F8FF; /* Un azul muy claro al pasar el ratón */
-  color: #3A86FF; /* El azul vibrante al pasar el ratón */
-}
-
-.nav-link.active {
-  background-color: #3A86FF; /* ¡El azul vibrante para el enlace activo! */
-  color: #FFFFFF; /* Texto blanco en el enlace activo */
-  box-shadow: 0 2px 8px rgba(58, 134, 255, 0.2); /* Sombra sutil con el color de acento */
-}
-
-body.dark-mode .nav-link {
-  color: #e0e0e0;
-}
-
-body.dark-mode .nav-link:hover {
-  background-color: #2a2a2a;
-  color: #6DAFFE; /* Un azul más claro para el hover en dark mode */
-}
-
-body.dark-mode .nav-link.active {
-  background-color: #b8caf0;; /* Mismo azul vibrante en dark mode */
-  color: #004997;
-  box-shadow: 0 2px 8px rgba(58, 134, 255, 0.3);
-}
-
-/* ✅ Separador en Sidebar */
-.sidebar-separator {
-  border: none;
-  border-top: 1px solid #E0E0E0; /* Gris más claro */
-  margin: 1.2rem 0; /* Más espacio */
-}
-
-body.dark-mode .sidebar-separator {
-  border-top: 1px solid #444;
+body.dark-mode .section-card .card-title {
+    color: #f7f7f7;
 }
 
 /* ✅ Imágenes responsivas */
 img {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 /* ✅ Mejora el scroll en dark mode */
 body.dark-mode {
-  scrollbar-color: #555 #222;
-  scrollbar-width: thin;
+    scrollbar-color: #b8b7b7 #222;
+    scrollbar-width: thin;
 }
 
-/* Estilos para iconos dentro de los enlaces de navegación (si los usas) */
-.layout-nav-icon { /* Asumiendo que esta es la clase de tu span con el icono */
-  margin-right: 10px; /* Espacio entre el icono y el texto */
-  font-size: 1.2rem; /* Tamaño del icono */
+/* --- Botón de Hamburguesa (Solo visible en tablets y móviles) --- */
+.hamburger-menu-btn {
+    display: none; /* Oculto por defecto en escritorio */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001; /* Por encima del sidebar cuando está oculto */
+    background-color: #3A86FF;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hamburger-menu-btn:hover {
+    background-color: #2e6ed5;
+    transform: scale(1.05);
+}
+
+/* Overlay para cuando el sidebar está abierto en móvil */
+.sidebar-overlay {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998; /* Detrás del sidebar, delante del contenido */
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.sidebar-overlay.open {
+    display: block;
+    opacity: 1;
+}
+
+/* --- Media Queries --- */
+
+/* Tablet y Móviles (hasta 1023px) */
+@media (max-width: 1023px) {
+    /* Ocultar sidebar por defecto en tablets/móviles */
+    .sidebar-container {
+        transform: translateX(-250px); /* Mueve el sidebar fuera de la vista */
+        /* Aseguramos que el logo, separador y login estén visibles cuando se abre */
+        .sidebar-logo, .sidebar-separator, .sidebar-login {
+            display: flex; /* O block, según necesites */
+        }
+        width: 250px; /* Mantener el ancho del sidebar cuando está oculto/abierto */
+        position: fixed; /* Asegura que se deslice desde el borde */
+        height: 100vh; /* Altura completa para el menú desplegable */
+        top: 0;
+        left: 0;
+        padding-bottom: 20px; /* Restaurar padding inferior para el menú desplegable */
+    }
+
+    /* Cuando el sidebar está abierto (clase 'open' en el sidebar-container) */
+    .sidebar-container.open {
+        transform: translateX(0); /* Desliza el sidebar a la vista */
+    }
+
+    /* Mostrar el botón de hamburguesa */
+    .hamburger-menu-btn {
+        display: block;
+    }
+
+    /* El contenido principal no tiene margen izquierdo fijo */
+    .content-area {
+        margin-left: 0; /* Elimina el margen del sidebar */
+        width: 100%; /* Ocupa todo el ancho disponible */
+        padding: 20px; /* Padding uniforme */
+    }
+
+    /* El app-container se mantiene normal, el sidebar se superpone */
+    .app-container {
+        flex-direction: column; /* Apila el botón y el contenido */
+        gap: 0;
+    }
+
+    /* Ajustes para el dashboard content en tablets/móviles */
+    .dashboard-content {
+        padding: 0; /* El padding ya lo da content-area */
+        transform: translateX(0); /* Elimina el transform */
+        max-width: 100%; /* Ocupa todo el ancho */
+    }
+
+    .dashboard-section {
+        padding: 1.2rem;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+
+    .charts-and-map-section,
+    .planning-and-comments-section {
+        display: flex;
+        flex-direction: column; /* Apilados en tablet/móvil */
+        gap: 1.2rem;
+    }
+}
+
+/* Móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+    .hamburger-menu-btn {
+        top: 15px;
+        left: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+
+    .content-area {
+        padding: 15px; /* Menos padding en móviles muy pequeños */
+    }
+
+    .dashboard-section {
+        padding: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+}
+
+/* Escritorio (1024px y más) */
+@media (min-width: 1024px) {
+    .sidebar-container {
+        transform: translateX(0); /* Asegura que esté visible */
+        position: fixed; /* Vuelve a ser fijo */
+        /* Aseguramos que el logo, separador y login estén visibles */
+        .sidebar-logo, .sidebar-separator, .sidebar-login {
+            display: flex; /* O block, según necesites */
+        }
+    }
+
+    .hamburger-menu-btn {
+        display: none; /* Oculta el botón de hamburguesa */
+    }
+
+    .content-area {
+        margin-left: 250px; /* Margen para el sidebar fijo */
+        width: calc(100% - 250px); /* Ocupa el resto del ancho */
+        padding: 20px; /* Padding normal de escritorio */
+    }
+
+    .dashboard-content {
+        padding: 0; /* El padding ya lo maneja content-area */
+        transform: translateX(0); /* Elimina el transform */
+        max-width: 1200px; /* Vuelve al ancho máximo */
+    }
+
+    .charts-and-map-section,
+    .planning-and-comments-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Vuelve a ser un grid de 2 columnas */
+        gap: 30px;
+    }
+}
+
+/* Estilos para el logo y otros elementos del sidebar */
+.sidebar-logo img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+/* Asegura que los íconos se vean bien en todos los modos */
+.nav-link .nav-icon {
+    color: inherit; /* Hereda el color del nav-link */
 }

@@ -26,11 +26,7 @@
   width: 100%;
 }
 
-/* Modo oscuro */
-body.dark-mode :host {
-  background: #121212;
-  color: #e0e0e0;
-}
+
 .content-wrapper {
   width: 100%;
   max-width: 800px;
@@ -41,32 +37,24 @@ body.dark-mode :host {
 .planner-title {
   font-size: 1.6rem;
   font-weight: bold;
-  color: #000;
   margin-bottom: 32px;
   text-align: center;
 }
 
-body.dark-mode .planner-title {
-  color: #f0f0f0;
-}
+
 
 .section-heading {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #333;
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid #ddd;
 }
 
-body.dark-mode .section-heading {
-  color: #ddd;
-  border-bottom: 1px solid #333;
-}
 
 /* Cards */
 .planner-card {
-  background: #fff;
+
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -74,10 +62,6 @@ body.dark-mode .section-heading {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body.dark-mode .planner-card {
-  background: #1e1e1e;
-  color: #e0e0e0;
-}
 
 /* Formulario */
 .form-row {
@@ -172,7 +156,7 @@ body.dark-mode .form-group label {
 }
 
 .summary-item {
-  background: #f9f9f9; /* Fondo por defecto, será sobrescrito por nth-child */
+ 
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra más pronunciada */
@@ -191,14 +175,14 @@ body.dark-mode .form-group label {
     font-size: 1.15rem; /* Un poco más grande */
     font-weight: 600;
     margin-bottom: 10px;
-    color: #FFFFFF; /* Por defecto, texto blanco para fondos oscuros */
+
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Sombra sutil para el texto */
   }
 
   .amount {
     font-size: 2.2rem; /* Más grande para el monto */
     font-weight: bold;
-    color: #FFFFFF; /* Por defecto, texto blanco */
+ 
     margin-bottom: 5px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
   }
@@ -222,18 +206,17 @@ body.dark-mode .form-group label {
 .summary-item:nth-child(6n+5) h3,
 .summary-item:nth-child(6n+5) .amount,
 .summary-item:nth-child(6n+5) .status-message {
-  color: #424242; /* Gris oscuro para el texto en la tarjeta amarilla */
+
   text-shadow: none; /* Eliminar sombra de texto */
 }
 
 
 body.dark-mode .summary-item {
-  background: #1e1e1e; /* Fondo oscuro por defecto */
-  color: #ddd; /* Texto claro por defecto */
+
   box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Sombra más oscura */
   
   h3, .amount, .status-message {
-    color: #e0e0e0; /* Texto claro en modo oscuro */
+
     text-shadow: none;
   }
 }
@@ -249,17 +232,13 @@ body.dark-mode .summary-item {
 
 /* Tabla */
 .expense-table-section { /* Asegura que la tabla también sea una planner-card */
-  background: #fff;
+
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   margin-bottom: 32px;
 }
 
-body.dark-mode .expense-table-section {
-  background: #1e1e1e;
-  color: #e0e0e0;
-}
 
 .planner-table-wrapper {
   width: 100%;
@@ -274,8 +253,7 @@ body.dark-mode .expense-table-section {
   font-family: 'Roboto', sans-serif;
 
   thead tr {
-    background: #000; /* Negro */
-    color: #fff;
+ 
     text-align: left;
     font-weight: 600;
     font-size: 0.9rem;

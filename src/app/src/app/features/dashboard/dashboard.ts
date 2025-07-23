@@ -31,10 +31,9 @@ import { PackingPlannerComponent } from "../packing-planner/packing-planner";
     WorldMapComponent,
     CommentsFormComponent,
     PlanningSectionComponent,
-    TravelSeasonChartComponent,
-    ProgressChartComponent,
+    
     PreparationChecklistChartComponent,
-    PackingPlannerComponent
+    
 ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']

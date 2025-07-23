@@ -1,18 +1,17 @@
 .comments-form-section {
-  background: #ffffff;
-  color: #111;
+  color: #b0b0b0;
   font-family: 'Roboto', sans-serif;
   padding: 2rem;
   border-radius: 12px;
-  max-width: 1000px;
+  max-width: 2000px;
   margin: 2rem auto;
-  box-shadow: 0 2px 8px #ffffff;
+  
 
   h2,
   h3 {
     font-weight: 600;
     margin-bottom: 1rem;
-    color: #111;
+    color: #9b9a9a;
   }
 
   form {
@@ -23,16 +22,15 @@
     textarea {
       padding: 0.75rem;
       border-radius: 8px;
-      border: 1px solid #ccc;
+      border: 1px solid #636363;
       font-family: 'Roboto', sans-serif;
       resize: vertical;
-      background: #ffffff;
-      color: #111;
+    
+      color: #b6b6b6;
       transition: border 0.2s, background 0.2s;
 
       &:focus {
         border-color: #34a853;
-        background: #ffffff;
         outline: none;
       }
     }
@@ -85,10 +83,9 @@ ul {
   gap: 0.5rem;
 
   li {
-    background: #ffffff;
     padding: 0.75rem;
     border-radius: 8px;
-    color: #111;
+    color: #a0a0a0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -119,7 +116,7 @@ ul {
       transition: background 0.2s, transform 0.1s;
 
       &:hover {
-        background:  #e0eaff;
+        background:  #000000;
         transform: translateY(-1px);
       }
     }

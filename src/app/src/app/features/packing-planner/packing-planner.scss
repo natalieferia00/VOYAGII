@@ -30,7 +30,6 @@
   font-size: 1.55rem;
   line-height: 2.5rem;
   font-weight: bold;
-  color: #000000; /* Título principal en negro */
   margin-bottom: 32px; /* $spacing-xl */
   text-align: center;
 }
@@ -44,7 +43,6 @@
 .section-heading {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #424242; /* Color de texto oscuro para los encabezados de sección */
   margin-bottom: 16px; /* $spacing-md */
   padding-bottom: 12px; /* $spacing-sm */
   border-bottom: 1px solid #E0E0E0; /* Borde sutil */
@@ -52,7 +50,7 @@
 
 /* --- Styles for Add Entry Form --- */
 .planner-add-section {
-  background-color: #FFFFFF; /* Fondo blanco para la sección del formulario */
+
   padding: 24px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil */
@@ -84,7 +82,6 @@
   display: block;
   font-size: 0.9rem;
   font-weight: bold;
-  color: #424242; /* Color de texto oscuro para etiquetas */
   margin-bottom: 6px; /* $spacing-sm / 2 */
 }
 
@@ -151,7 +148,6 @@
 
 /* --- Styles for Planner Table --- */
 .planner-table-section {
-  background-color: #FFFFFF; /* Fondo blanco para la sección de la tabla */
   padding: 24px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -161,9 +157,7 @@
 .empty-planner-message {
   text-align: center;
   padding: 32px; /* $spacing-xl */
-  color: #424242; /* Color de texto oscuro */
   font-size: 1.1rem;
-  background-color: #F8F8F8; /* Fondo gris claro */
   border-radius: 12px; /* $border-radius-lg */
 }
 
@@ -192,7 +186,7 @@
 
 .planner-table thead th {
   padding: 16px; /* $spacing-md */
-  border-bottom: 1px solid #333333; /* Borde ligeramente más claro que el fondo del encabezado */
+  border-bottom: 1px solid; /* Borde ligeramente más claro que el fondo del encabezado */
 }
 
 .planner-table thead th:first-child {
@@ -209,30 +203,22 @@
 
 .planner-table tbody tr:hover {
   background-color: #FCFCFC; /* Fondo muy claro al pasar el ratón */
-}
-
-.planner-table tbody tr.even-row {
-  background-color: #FFFFFF; /* Fondo blanco para filas pares */
-}
-
-.planner-table tbody tr.odd-row {
-  background-color: #F8F8F8; /* Fondo gris claro para filas impares */
+  color: #000000;
 }
 
 .planner-table tbody td {
   padding: 16px; /* $spacing-md */
   border-bottom: 1px solid #E0E0E0; /* Borde gris claro */
-  color: #424242; /* Color de texto oscuro */
   font-size: 0.95rem;
   vertical-align: top; /* Alinea el contenido de la celda en la parte superior */
 }
 
 .planner-table tbody td:first-child {
-  border-left: 1px solid #E0E0E0; /* Borde izquierdo */
+  border-left: 1px solid  #7c7e91;
 }
 
 .planner-table tbody td:last-child {
-  border-right: 1px solid #E0E0E0; /* Borde derecho */
+  border-right: 1px solid  #7c7e91;
 }
 
 .planner-table tbody tr:last-child td {
@@ -259,8 +245,8 @@
 
 /* Estilos de foco para celdas editables: AZUL BEBÉ */
 .editable-notes-cell:focus {
-  background-color: #F0F0F0; /* Fondo ligeramente gris al editar */
-  border: 1px solid #e0eaff; /* Borde azul bebé */
+  
+  border: 1px solid  #7c7e91;
   box-shadow: 0 0 0 2px #e0eaff; /* Sombra azul bebé */
 }
 

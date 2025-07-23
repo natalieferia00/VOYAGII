@@ -7,7 +7,7 @@
   .metrics-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #111;
+    color: #969696;
     margin-bottom: 1rem;
     transition: color 0.3s ease;
   }
@@ -21,7 +21,6 @@
 
   .metric-card {
     position: relative;
-    background: #ffffff;
     border-radius: 12px;
     padding: 1.2rem;
     display: flex;
@@ -39,7 +38,7 @@
     h3 {
       font-size: 1.1rem;
       font-weight: 500;
-      color: #333;
+      color: #999898;
       margin: 0.5rem 0;
       transition: color 0.3s ease;
     }
@@ -47,13 +46,13 @@
     .metric-value {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #000;
+      color: #999898;
       transition: color 0.3s ease;
     }
 
     .metric-trend {
       font-size: 0.9rem;
-      color: #666;
+      color: #999898;
       transition: color 0.3s ease;
     }
 
@@ -74,6 +73,7 @@
 /* 🌑 DARK MODE: aplica cuando se añade 'dark-mode' al body */
 body.dark-mode .metrics-section {
   background: #121212;
+  color: #e0e0e0;
 }
 
 body.dark-mode .metrics-section .metrics-title {
@@ -89,3 +89,5 @@ body.dark-mode .metrics-section .metric-card .metric-value,
 body.dark-mode .metrics-section .metric-card .metric-trend {
   color: #e0e0e0;
 }
+
+

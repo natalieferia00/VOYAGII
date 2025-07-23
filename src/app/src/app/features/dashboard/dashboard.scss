@@ -1,132 +1,210 @@
-/* src/app/features/dashboard/dashboard.component.css */
+/* src/app/features/dashboard/dashboard.component.scss */
 
-/* Contenedor principal del dashboard */
-.dashboard-container {
-  margin-left: 240px; /* espacio para el sidebar fijo */
-  padding: 1rem;
-  min-height: 100vh;
+/* Importa la fuente Roboto de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Contenedor principal del contenido del dashboard */
+.dashboard-content {
+  padding: 20px; /* Padding base para móviles */
+  font-family: 'Roboto', sans-serif;
+
+  min-height: calc(100vh - 60px); /* Ajusta si tienes un header fijo en app.component */
   display: flex;
-  flex-direction: column;
-}
-.dashboard-container {
-  padding-left: calc(240px + 1rem);
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  flex-direction: column; /* Las secciones principales se apilan por defecto */
+  gap: 30px; /* Espacio entre las secciones principales */
+  max-width: 1200px; /* Ancho máximo para el contenido en escritorio */
+  margin: 0 auto; /* Centra el contenido en pantallas grandes por defecto */
+  transform: translateX(400px); /* Mueve el contenido 50px a la derecha */
 }
 
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding-left: 1rem;
+/* Estilos generales para las secciones del dashboard */
+.dashboard-section {
+
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 25px; /* Padding base para las secciones */
+}
+
+
+
+/* Estilos para las tarjetas internas dentro de las secciones */
+.section-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+/* Títulos de las tarjetas internas */
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* --- Media Queries para Responsividad (Manteniendo los estilos anteriores) --- */
+
+/* Teléfonos móviles (hasta 767px) - Mobile-first, estos son los estilos por defecto */
+@media (max-width: 767px) {
+  .dashboard-content {
+    padding: 15px;
+    gap: 20px;
+    transform: translateX(0);
+  }
+
+  .dashboard-section {
+    padding: 15px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .charts-and-map-section,
+  .planning-and-comments-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
 }
 
+/* Tablets (768px a 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .dashboard-content {
+    padding: 25px;
+    gap: 25px;
+    transform: translateX(0);
+  }
 
+  .dashboard-section {
+    padding: 20px;
+  }
 
+  .section-title {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
 
-/* Ajuste responsive si decides colapsar sidebar en móviles */
-@media (max-width: 768px) {
-  .dashboard-container {
-    margin-left: 0;
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .charts-and-map-section,
+  .planning-and-comments-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 }
 
-/* Títulos principales */
-.dashboard-container h1 {
-  font-size: 2rem;
-  color: #6b46c1; /* primary-purple */
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+/* Escritorio (1024px y más) */
+@media (min-width: 1024px) {
+  .dashboard-content {
+    padding: 30px;
+    gap: 30px;
+    /* El transform ya está definido arriba para escritorio */
+  }
+
+  .dashboard-section {
+    padding: 30px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
+  .charts-and-map-section,
+  .planning-and-comments-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
 }
 
-.dashboard-container h2 {
+/* --- Estilos para la sección de métricas (app-metrics) --- */
+/* NOTA: Estos estilos deberían estar idealmente en metrics.component.scss
+   pero los adapto aquí basándome en tu snippet para que funcionen con dark mode. */
+
+.metrics-section {
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.metrics-section .metrics-title {
   font-size: 1.5rem;
-  color: #333333; /* dark-gray-text */
   font-weight: 600;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
 }
 
-/* Tarjetas de métricas */
-.metric-card {
-  padding: 1.25rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  border-top: 4px solid #6b46c1; /* color dinámico reemplazado vía [style.borderTopColor] */
-  transition: box-shadow 0.2s ease;
-}
-
-.metric-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-/* Texto dentro de tarjetas */
-.metric-title {
-  font-size: 1rem;
-  color: #555555;
-  font-weight: 500;
-}
-
-.metric-value {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-top: 0.5rem;
-  color: #6b46c1; /* color dinámico reemplazado vía [style.color] */
-}
-
-.metric-trend {
-  font-size: 0.875rem;
-  color: #888888;
-  margin-top: 0.25rem;
-}
-
-/* Mapa placeholder */
-.map-container {
-  position: relative;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-  height: 16rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.map-container img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.7;
-}
-
-
-
-/* Responsive grid en métricas y acciones rápidas */
-.metrics-grid,
-.quick-actions-grid {
+.metrics-section .metrics-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 4rem;
+  align-items: start;
 }
 
-@media (min-width: 640px) {
-  .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+.metrics-section .metric-card {
+  position: relative;
+  border-radius: 12px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s, box-shadow 0.2s;
+
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0.5rem 0;
+    transition: color 0.3s ease;
+  }
+
+  .metric-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  .metric-trend {
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+
+  .metric-dot {
+    position: absolute;
+    top: 50px;
+    right: 30px;
+    width: 32px;
+    height: 32px;
+    border-radius: 20%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #fff; /* MODO DÍA: Borde blanco */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
 }
 
-@media (min-width: 1024px) {
-  .metrics-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (min-width: 768px) {
-  .quick-actions-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-}
