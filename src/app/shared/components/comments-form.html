@@ -1,23 +1,23 @@
 <section class="comments-form-section">
-  <h2>Comentarios de Viajes</h2>
+  <h2>Notas rapidas</h2>
 
   <form (ngSubmit)="addComment()" #commentForm="ngForm">
     <textarea
       [(ngModel)]="commentText"
       name="commentText"
-      placeholder="Escribe tu comentario sobre tu viaje..."
+      placeholder="Escribe tu nota rapida..."
       required
       rows="3"
     ></textarea>
 
     <div class="buttons">
       <button type="submit" [disabled]="!commentForm.form.valid">
-        {{ editingId !== null ? 'Actualizar' : 'Agregar' }} Comentario
+        {{ editingId !== null ? 'Actualizar' : 'Agregar' }} Nota
       </button>
       <button type="button" *ngIf="editingId !== null" (click)="cancelEdit()">Cancelar</button>
     </div>
   </form>
-<h3>Comentarios Guardados</h3>
+<h3>Notas Guardadas</h3>
 <ul class="comments-list">
   <li *ngFor="let comment of comments">
     <div class="comment-content">

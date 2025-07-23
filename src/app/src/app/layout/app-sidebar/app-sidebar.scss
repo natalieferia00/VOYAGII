@@ -139,7 +139,7 @@
   margin-top: 1rem;
   background: none;
   border: none;
-  color: #007bff;
+  color: #e0eaff;
   cursor: pointer;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -176,7 +176,7 @@ body.dark-mode .dark-toggle {
   }
 
   &:hover {
-    color: #6b46c1; // color primario pastel
+    color: #e0eaff; // color primario pastel
     transform: scale(1.05);
   }
 }

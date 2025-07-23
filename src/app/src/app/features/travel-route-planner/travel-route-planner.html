@@ -78,14 +78,16 @@
       </div>
     </div>
 
-    <!-- Visualización de las secciones del mapa de ruta (línea de tiempo) -->
+     <!-- Visualización de las secciones del mapa de ruta (línea de tiempo) -->
     <div class="route-timeline">
       <h3>Itinerario Detallado</h3>
       <div *ngIf="activeMap.sections.length === 0" class="empty-message">
-        <p>Este Itinenrario aún no tiene secciones. ¡Añade la primera!</p>
+        <p>Este Itinerario aún no tiene secciones. ¡Añade la primera!</p>
       </div>
       <div *ngIf="activeMap.sections.length > 0" class="timeline-items">
-        <div *ngFor="let section of activeMap.sections; let isLast = last" class="timeline-item">
+        <div *ngFor="let section of activeMap.sections; let i = index" 
+             class="timeline-item" 
+             [ngClass]="{'left-aligned': i % 2 === 0, 'right-aligned': i % 2 !== 0}"> <!-- CLAVE: Alternar clases -->
           <div class="timeline-marker"></div>
           <div class="timeline-content planner-card">
             <button type="button" (click)="removeSection(section)" class="remove-section-button">✕</button>
@@ -105,4 +107,4 @@
       </div>
     </div>
   </section>
-</div>
+  </div>

@@ -47,6 +47,7 @@ export class TravelRoutePlannerComponent implements OnInit {
   newSectionDescription: string = '';
   newSectionPhotoFile: File | null = null;
   newSectionPhotoPreviewUrl: string | ArrayBuffer | null = null;
+isLast: any;
 
   constructor() { }
 

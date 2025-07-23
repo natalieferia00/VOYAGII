@@ -3,36 +3,30 @@
 /* Importa la fuente Roboto de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* Colores y espaciados (valores directos) */
-/* $primary-purple: #4A148C; */
-/* $secondary-purple: #6A1B9A; */
-/* $light-gray-bg: #F8F8F8; */
-/* $medium-gray-border: #E0E0E0; */
-/* $dark-gray-text: #424242; */
-/* $light-text: #FFFFFF; */
-
-/* $spacing-xl: 32px; */
-/* $spacing-lg: 24px; */
-/* $spacing-md: 16px; */
-/* $spacing-sm: 12px; */
-/* $border-radius-lg: 12px; */
+/* Colores de la nueva paleta para la línea de tiempo */
+$color1: #2E8B57; /* Amarillo Atardecer */
+$color2: #003fa3; /* Azul Horizonte */
+$color3: #FF6F3C; /* Verde Explorador */
+$color4: #FFC857; /* Naranja Tierra */
+$color5: #a000fe; /* Morado Vibrante */
+$color6: #000000; /* Negro Profundo */
 
 .route-planner-container {
-  padding: 74px; /* $spacing-lg */
-  background-color: #ffffff; /* $light-gray-bg */
-  border-radius: 12px; /* $border-radius-lg */
+  padding: 24px; /* Ajustado a 24px para consistencia con otros componentes */
+  background-color: #ffffff;
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   font-family: 'Roboto', sans-serif;
-  max-width: 1200px; /* Ancho máximo para el contenido del planificador de rutas */
-  margin: 24px auto; /* Centrar y añadir margen superior/inferior */
+  max-width: 1200px;
+  margin: 24px auto;
 }
 
 .planner-title {
-  font-size: 1.50rem;
+  font-size: 1.55rem; /* Ajustado para consistencia */
   line-height: 2.5rem;
   font-weight: bold;
-  color: #000000; /* $primary-purple */
-  margin-bottom: 32px; /* $spacing-xl */
+  color: #000000;
+  margin-bottom: 32px;
   text-align: center;
 }
 
@@ -45,26 +39,25 @@
 .section-heading {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #424242; /* $dark-gray-text */
-  margin-bottom: 16px; /* $spacing-md */
-  padding-bottom: 12px; /* $spacing-sm */
-  border-bottom: 1px solid #fefefe; /* $medium-gray-border */
+  color: #424242;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E0E0E0; /* Borde sutil */
 }
 
-/* Estilo general para las "tarjetas" de contenido (formularios, secciones de timeline) */
 .planner-card {
-  background-color: #fefefe; /* $light-text */
-  padding: 24px; /* $spacing-lg */
-  border-radius: 12px; /* $border-radius-lg */
+  background-color: #FFFFFF; /* Fondo blanco por defecto para las tarjetas fuera de la línea de tiempo */
+  padding: 24px;
+  border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 32px; /* $spacing-xl - Espacio entre secciones */
+  margin-bottom: 32px;
 }
 
-/* --- Estilos de Formulario --- */
+/* --- Estilos de Formulario (manteniendo el foco azul bebé) --- */
 .form-row {
   display: flex;
-  gap: 16px; /* $spacing-md */
-  margin-bottom: 16px; /* $spacing-md */
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 @media (max-width: 768px) {
@@ -81,8 +74,8 @@
   display: block;
   font-size: 0.9rem;
   font-weight: bold;
-  color: #424242; /* $dark-gray-text */
-  margin-bottom: 6px; /* $spacing-sm / 2 */
+  color: #424242;
+  margin-bottom: 6px;
 }
 
 .form-group input[type="text"],
@@ -90,11 +83,11 @@
 .form-group input[type="file"],
 .form-group textarea {
   width: 100%;
-  padding: 12px; /* $spacing-sm */
-  border: 1px solid #E0E0E0; /* $medium-gray-border */
+  padding: 12px;
+  border: 1px solid #E0E0E0;
   border-radius: 0.375rem;
   font-size: 1rem;
-  color: #424242; /* $dark-gray-text */
+  color: #424242;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -103,7 +96,8 @@
 .form-group input[type="date"]:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #34a853;
+  border-color:  #34a853;
+  background: #ffffff;
 
 }
 
@@ -115,14 +109,14 @@
 .form-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px; /* $spacing-md */
+  margin-top: 16px;
 }
 
 .action-button {
-  background-color: #000000; /* $secondary-purple */
-  color: #FFFFFF; /* $light-text */
-  padding: 12px 20px; /* Ajustado para botones */
-  border-radius: 9999px; /* rounded-full */
+  background-color: #000000; /* Negro */
+  color: #FFFFFF;
+  padding: 12px 20px;
+  border-radius: 9999px;
   font-size: 1rem;
   font-weight: 600;
   border: none;
@@ -131,16 +125,16 @@
   transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background-color:  #e0eaff;
+    background-color: #333333; /* Gris oscuro al pasar el ratón */
     transform: translateY(-2px);
   }
 }
 
 /* --- Estilos para la lista de Mapas de Ruta --- */
 .map-list-area {
-  margin-top: 24px; /* $spacing-lg */
-  padding-top: 16px; /* $spacing-md */
-  border-top: 1px solid #E0E0E0; /* $medium-gray-border */
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #E0E0E0;
 }
 
 .map-list-area h3 {
@@ -159,8 +153,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #F8F8F8; /* $light-gray-bg */
-  border: 1px solid #E0E0E0; /* $medium-gray-border */
+  background-color: #F8F8F8;
+  border: 1px solid #E0E0E0;
   border-radius: 8px;
   padding: 12px 16px;
   margin-bottom: 8px;
@@ -173,8 +167,8 @@
   }
 
   &.active {
-    background-color: #000000; /* $secondary-purple */
-    color: #FFFFFF; /* $light-text */
+    background-color: #000000; /* Negro */
+    color: #FFFFFF;
     border-color: #000000;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
@@ -194,7 +188,7 @@
 
   .map-dates {
     font-size: 0.85rem;
-    color: #6C757D; /* $accent-neutral */
+    color: #6C757D;
   }
 
   &.active .map-dates {
@@ -203,8 +197,8 @@
 
   .remove-button {
     background: none;
-    border: 1px solid #E74C3C; /* $accent-red */
-    color: #E74C3C; /* $accent-red */
+    border: 1px solid #E74C3C;
+    color: #E74C3C;
     border-radius: 50%;
     width: 24px;
     height: 24px;
@@ -241,130 +235,266 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* --- Estilos para la Línea de Tiempo del Itinerario --- */
+/* --- Estilos para la Línea de Tiempo del Itinerario (¡Grandes Cambios aquí!) --- */
 .route-timeline {
-  margin-top: 32px; /* $spacing-xl */
-  padding-top: 16px; /* $spacing-md */
-  border-top: 1px solid #E0E0E0; /* $medium-gray-border */
+  margin-top: 32px;
+  padding: 0 16px; /* Ajusta el padding para el diseño alterno */
+  position: relative; /* Para la línea central */
+  max-width: 100%; /* Asegura que no se desborde */
 }
 
 .route-timeline h3 {
   font-size: 1.25rem;
   color: #424242;
-  margin-bottom: 24px; /* $spacing-lg */
+  margin-bottom: 24px;
   text-align: center;
 }
 
 .timeline-items {
   position: relative;
-  padding-left: 50px; /* Espacio para la línea vertical y los marcadores */
+  /* La línea vertical central */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%; /* Centra la línea */
+    top: 0;
+    bottom: 0;
+    width: 4px; /* Ancho de la línea */
+    background-color: #E0E0E0; /* Color de la línea */
+    transform: translateX(-50%); /* Ajusta la posición para que esté perfectamente centrada */
+    z-index: 0;
+  }
+
+  /* Media query para pantallas pequeñas: la línea de tiempo se vuelve de una sola columna */
+  @media (max-width: 768px) {
+    padding-left: 20px; /* Espacio para la línea a la izquierda */
+    &::before {
+      left: 10px; /* Mueve la línea a la izquierda */
+      transform: translateX(0);
+    }
+  }
 }
 
 .timeline-item {
+  display: flex;
   position: relative;
-  margin-bottom: 32px; /* Espacio entre ítems de la línea de tiempo */
+  margin-bottom: 40px; /* Espacio entre ítems */
+  width: 100%; /* Ocupa todo el ancho */
+  justify-content: center; /* Centra los elementos horizontalmente */
 
   &:last-child {
     margin-bottom: 0;
   }
-}
 
-.timeline-marker {
-  position: absolute;
-  left: -20px; /* Posición del marcador en la línea */
-  top: 0;
-  width: 20px;
-  height: 20px;
-  background-color: #000000; /* $secondary-purple */
-  border-radius: 50%;
-  border: 4px solid #FFFFFF; /* Borde blanco para el marcador */
-  z-index: 1; /* Asegura que esté por encima de la línea */
-}
+  /* Marcador de la línea de tiempo */
+  .timeline-marker {
+    position: absolute;
+    left: 50%; /* Centrado en la línea vertical */
+    top: 10px; /* Alineado con la parte superior de la tarjeta */
+    width: 24px; /* Tamaño del marcador */
+    height: 24px;
+    background-color: #000000; /* Color por defecto, se sobrescribirá */
+    border-radius: 50%;
+    border: 4px solid #FFFFFF; /* Borde blanco */
+    transform: translateX(-50%); /* Centra el marcador */
+    z-index: 1; /* Asegura que esté por encima de la línea */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para el marcador */
 
-.timeline-line {
-  position: absolute;
-  left: -11px; /* Posición de la línea vertical */
-  top: 20px; /* Comienza después del marcador */
-  bottom: -32px; /* Termina antes del siguiente marcador */
-  width: 2px;
-  background-color: #E0E0E0; /* $medium-gray-border */
-}
+    @media (max-width: 768px) {
+      left: 10px; /* Mueve el marcador a la izquierda en móviles */
+      transform: translateX(-50%); /* Centra el marcador en la nueva posición */
+    }
+  }
 
-.timeline-content {
-  position: relative;
-  padding: 20px; /* Padding interno de la tarjeta de contenido */
-  text-align: left; /* Alineación del texto dentro de la tarjeta */
-  margin-left: 20px; /* Desplaza el contenido para que no choque con la línea */
-}
+  /* Contenido de la tarjeta de la línea de tiempo */
+  .timeline-content {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra para las tarjetas */
+    width: calc(50% - 40px); /* Ocupa la mitad del ancho menos el espacio del marcador */
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación al pasar el ratón */
 
-.remove-section-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  color: #E74C3C; /* $accent-red */
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 50%;
-  transition: background-color 0.2s ease;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
 
-  &:hover {
-    background-color: rgba(231, 76, 60, 0.1);
+    /* Media query para pantallas pequeñas: el contenido ocupa todo el ancho */
+    @media (max-width: 768px) {
+      width: calc(100% - 60px); /* Ocupa casi todo el ancho, dejando espacio para la línea/marcador */
+      margin-left: 50px; /* Margen para la línea a la izquierda */
+      margin-right: 0;
+    }
+  }
+
+  /* Estilos para alinear a la izquierda */
+  &.left-aligned {
+    justify-content: flex-start; /* Alinea el contenido a la izquierda */
+    .timeline-content {
+      margin-right: 40px; /* Espacio para la línea */
+      text-align: right; /* Texto alineado a la derecha dentro de la tarjeta izquierda */
+      .remove-section-button {
+        left: 10px; /* Mueve el botón de eliminar a la izquierda */
+        right: auto;
+      }
+    }
+    .timeline-date {
+      text-align: right; /* Alinea la fecha a la derecha */
+    }
+    .timeline-title {
+      text-align: right; /* Alinea el título a la derecha */
+    }
+    .timeline-description {
+      text-align: right; /* Alinea la descripción a la derecha */
+    }
+    .timeline-photo-container {
+      text-align: right; /* Alinea la foto a la derecha */
+    }
+
+    @media (max-width: 768px) {
+      justify-content: flex-start; /* Vuelve a la alineación izquierda en móviles */
+      .timeline-content {
+        text-align: left; /* Texto alineado a la izquierda */
+        .remove-section-button {
+          right: 10px; /* Vuelve a la derecha */
+          left: auto;
+        }
+      }
+      .timeline-date, .timeline-title, .timeline-description, .timeline-photo-container {
+        text-align: left; /* Alinea todo a la izquierda */
+      }
+    }
+  }
+
+  /* Estilos para alinear a la derecha */
+  &.right-aligned {
+    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    .timeline-content {
+      margin-left: 40px; /* Espacio para la línea */
+      text-align: left; /* Texto alineado a la izquierda dentro de la tarjeta derecha */
+      .remove-section-button {
+        right: 10px; /* Mantiene el botón de eliminar a la derecha */
+        left: auto;
+      }
+    }
+    .timeline-date {
+      text-align: left; /* Alinea la fecha a la izquierda */
+    }
+    .timeline-title {
+      text-align: left; /* Alinea el título a la izquierda */
+    }
+    .timeline-description {
+      text-align: left; /* Alinea la descripción a la izquierda */
+    }
+    .timeline-photo-container {
+      text-align: left; /* Alinea la foto a la izquierda */
+    }
+
+    @media (max-width: 768px) {
+      justify-content: flex-start; /* Vuelve a la alineación izquierda en móviles */
+      .timeline-content {
+        text-align: left; /* Texto alineado a la izquierda */
+      }
+    }
+  }
+
+  /* Estilos para el texto y botones dentro de las tarjetas de la línea de tiempo */
+  .timeline-date {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6C757D; /* Color neutro para la fecha */
+    margin-bottom: 8px;
+  }
+
+  .timeline-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #000000; /* Título en negro */
+    margin-top: 0;
+    margin-bottom: 8px;
+    outline: none;
+    cursor: text;
+    word-break: break-word;
+    &:focus {
+      background-color: #F0F0F0;
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+  }
+
+  .timeline-description {
+    font-size: 0.95rem;
+    color: #424242;
+    margin-bottom: 16px;
+    line-height: 1.5;
+    outline: none;
+    cursor: text;
+    white-space: pre-wrap;
+    word-break: break-word;
+    &:focus {
+      background-color: #F0F0F0;
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+  }
+
+  .timeline-photo-container {
+    margin-top: 16px;
+  }
+
+  .timeline-photo {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #E0E0E0;
+  }
+
+  .remove-section-button {
+    background: none;
+    border: none;
+    color: #E74C3C;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    z-index: 2; /* Asegura que esté por encima de la tarjeta */
+
+    &:hover {
+      background-color: rgba(231, 76, 60, 0.1);
+    }
   }
 }
 
-.timeline-date {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #6C757D; /* $accent-neutral */
-  margin-bottom: 8px;
-}
+/* 🎨 Colores cíclicos para los marcadores y bordes de las tarjetas de la línea de tiempo */
+.timeline-item:nth-child(6n+1) .timeline-marker { background-color: $color1; }
+.timeline-item:nth-child(6n+1) .timeline-content { border-left: 5px solid $color1; } /* Borde izquierdo */
+.timeline-item:nth-child(6n+1).right-aligned .timeline-content { border-left: none; border-right: 5px solid $color1; } /* Borde derecho si está a la derecha */
 
-.timeline-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #000000; /* $primary-purple */
-  margin-top: 0;
-  margin-bottom: 8px;
-  outline: none; /* Remove default focus outline */
-  cursor: text; /* Indicate editable */
-  word-break: break-word; /* Ensure long words wrap */
+.timeline-item:nth-child(6n+2) .timeline-marker { background-color: $color2; }
+.timeline-item:nth-child(6n+2) .timeline-content { border-left: 5px solid $color2; }
+.timeline-item:nth-child(6n+2).right-aligned .timeline-content { border-left: none; border-right: 5px solid $color2; }
 
-  &:focus {
-    background-color: #F0F0F0;
-    border-radius: 4px;
-    padding: 2px 4px;
-  }
-}
+.timeline-item:nth-child(6n+3) .timeline-marker { background-color: $color3; }
+.timeline-item:nth-child(6n+3) .timeline-content { border-left: 5px solid $color3; }
+.timeline-item:nth-child(6n+3).right-aligned .timeline-content { border-left: none; border-right: 5px solid $color3; }
 
-.timeline-description {
-  font-size: 0.95rem;
-  color: #424242; /* $dark-gray-text */
-  margin-bottom: 16px;
-  line-height: 1.5;
-  outline: none; /* Remove default focus outline */
-  cursor: text; /* Indicate editable */
-  white-space: pre-wrap; /* Preserve line breaks */
-  word-break: break-word; /* Ensure long words wrap */
+.timeline-item:nth-child(6n+4) .timeline-marker { background-color: $color4; }
+.timeline-item:nth-child(6n+4) .timeline-content { border-left: 5px solid $color4; }
+.timeline-item:nth-child(6n+4).right-aligned .timeline-content { border-left: none; border-right: 5px solid $color4; }
 
-  &:focus {
-    background-color: #F0F0F0;
-    border-radius: 4px;
-    padding: 2px 4px;
-  }
-}
+.timeline-item:nth-child(6n+5) .timeline-marker { background-color: $color5; }
+.timeline-item:nth-child(6n+5) .timeline-content { border-left: 5px solid $color5; }
+.timeline-item:nth-child(6n+5).right-aligned .timeline-content { border-left: none; border-right: 5px solid $color5; }
 
-.timeline-photo-container {
-  margin-top: 16px;
-  text-align: center;
-}
+.timeline-item:nth-child(6n+6) .timeline-marker { background-color: $color6; }
+.timeline-item:nth-child(6n+6) .timeline-content { border-left: 5px solid $color6; }
+.timeline-item:nth-child(6n+6).right-aligned .timeline-content { border-left: none; border-right: 5px solid $color6; }
 
-.timeline-photo {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #E0E0E0;
-}
+/* Ajustes de color de texto para tarjetas con fondos claros (si aplica) */
+/* En este caso, las tarjetas de contenido son blancas, así que el texto oscuro es bueno.
+   Si en el futuro cambias el background-color de .timeline-content a un color claro,
+   podrías necesitar reglas similares a las de .plan-card para asegurar el contraste. */

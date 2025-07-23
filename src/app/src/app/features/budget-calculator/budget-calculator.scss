@@ -159,7 +159,7 @@ body.dark-mode .form-group label {
   }
 }
 
-/* Resumen */
+/* Resumen (summary-item) - ¡Aquí aplicamos los colores! */
 .budget-summary-section {
   text-align: center;
 }
@@ -172,50 +172,95 @@ body.dark-mode .form-group label {
 }
 
 .summary-item {
-  background: #f9f9f9;
+  background: #f9f9f9; /* Fondo por defecto, será sobrescrito por nth-child */
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra más pronunciada */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transición al hover */
+
+  &:hover {
+    transform: translateY(-5px); /* Elevación al pasar el ratón */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más grande al pasar el ratón */
+  }
 
   h3 {
-    font-size: 1.1rem;
+    font-size: 1.15rem; /* Un poco más grande */
     font-weight: 600;
     margin-bottom: 10px;
-    color: #333;
+    color: #FFFFFF; /* Por defecto, texto blanco para fondos oscuros */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Sombra sutil para el texto */
   }
 
   .amount {
-    font-size: 2rem;
+    font-size: 2.2rem; /* Más grande para el monto */
     font-weight: bold;
-    color: #000;
+    color: #FFFFFF; /* Por defecto, texto blanco */
     margin-bottom: 5px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
   }
 
   .status-message {
-    font-size: 0.9rem;
+    font-size: 0.95rem; /* Ligeramente más grande */
     font-weight: 500;
-    color: #777;
+    color: rgba(255, 255, 255, 0.9); /* Blanco ligeramente transparente */
   }
 }
 
-body.dark-mode .summary-item {
-  background: #1e1e1e;
-  color: #ddd;
+/* 🎨 Colores cíclicos para las tarjetas de resumen */
+.summary-item:nth-child(6n+1) { background-color: #2E8B57; } /* Azul Horizonte */
+.summary-item:nth-child(6n+2) { background-color: #FFC857; } /* Verde Explorador */ 
+.summary-item:nth-child(6n+3) { background-color: #a000fe; } /* Morado Vibrante */
+.summary-item:nth-child(6n+4) { background-color: #FF6F3C; } /* Naranja Tierra */
+.summary-item:nth-child(6n+5) { background-color: #3A86FF; } /* Amarillo Atardecer (¡Texto oscuro aquí!) */
+.summary-item:nth-child(6n+6) { background-color: #000000; } /* Negro Profundo */
+
+/* Ajustes de color de texto para tarjetas con fondos claros */
+.summary-item:nth-child(6n+5) h3,
+.summary-item:nth-child(6n+5) .amount,
+.summary-item:nth-child(6n+5) .status-message {
+  color: #424242; /* Gris oscuro para el texto en la tarjeta amarilla */
+  text-shadow: none; /* Eliminar sombra de texto */
 }
 
+
+body.dark-mode .summary-item {
+  background: #1e1e1e; /* Fondo oscuro por defecto */
+  color: #ddd; /* Texto claro por defecto */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Sombra más oscura */
+  
+  h3, .amount, .status-message {
+    color: #e0e0e0; /* Texto claro en modo oscuro */
+    text-shadow: none;
+  }
+}
+
+/* Modos de presupuesto (over/under) */
 .summary-item.total-expenses.over-budget .amount {
-  color: #e74c3c;
+  color: #e74c3c; /* Rojo para sobrepresupuesto */
 }
 
 .summary-item.total-expenses.under-budget .amount {
-  color: #28a745;
+  color: #28a745; /* Verde para bajo presupuesto */
 }
 
 /* Tabla */
+.expense-table-section { /* Asegura que la tabla también sea una planner-card */
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 32px;
+}
+
+body.dark-mode .expense-table-section {
+  background: #1e1e1e;
+  color: #e0e0e0;
+}
+
 .planner-table-wrapper {
   width: 100%;
   overflow-x: auto;
@@ -224,20 +269,30 @@ body.dark-mode .summary-item {
 .planner-table {
   width: 100%;
   border-collapse: separate;
+  border-spacing: 0; /* Asegura que no haya espacio extra */
   min-width: 600px;
   font-family: 'Roboto', sans-serif;
 
   thead tr {
-    background: #000;
+    background: #000; /* Negro */
     color: #fff;
     text-align: left;
     font-weight: 600;
     font-size: 0.9rem;
+    border-radius: 12px 12px 0 0; /* Bordes redondeados solo arriba */
   }
 
-  thead th,
-  tbody td {
+  thead th {
     padding: 12px;
+    border-bottom: 1px solid #333; /* Borde más oscuro */
+  }
+
+  thead th:first-child { border-top-left-radius: 12px; }
+  thead th:last-child { border-top-right-radius: 12px; }
+
+
+  tbody tr {
+    transition: background-color 0.2s;
   }
 
   tbody tr:hover {
@@ -245,8 +300,15 @@ body.dark-mode .summary-item {
   }
 
   tbody td {
+    padding: 12px;
     font-size: 0.95rem;
     vertical-align: top;
+    border-bottom: 1px solid #E0E0E0; /* Borde gris claro */
+    color: #424242; /* Color de texto oscuro */
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none; /* Elimina borde inferior de la última fila */
   }
 }
 
@@ -256,6 +318,24 @@ body.dark-mode .planner-table thead tr {
 
 body.dark-mode .planner-table tbody tr:hover {
   background: #2a2a2a;
+}
+
+body.dark-mode .planner-table tbody td {
+  color: #e0e0e0;
+  border-bottom: 1px solid #333;
+}
+
+/* Celdas editables en la tabla */
+.editable-cell {
+  cursor: text;
+  outline: none;
+  &:focus {
+    background-color: #F0F0F0;
+    border-radius: 4px;
+    padding: 2px 4px;
+    border: 1px solid #e0eaff; /* Azul bebé */
+    box-shadow: 0 0 0 2px #e0eaff; /* Sombra azul bebé */
+  }
 }
 
 /* Botón eliminar */
