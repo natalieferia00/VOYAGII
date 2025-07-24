@@ -100,7 +100,6 @@
   display: block;
   font-size: 1rem; /* Un poco más grande para las etiquetas */
   font-weight: bold;
-  color: #424242;
   margin-bottom: 8px; /* Más espacio debajo de la etiqueta */
 }
 
@@ -115,7 +114,6 @@
   border: 1px solid #E0E0E0;
   border-radius: 0.5rem; /* Bordes un poco más redondeados */
   font-size: 1.05rem; /* Fuente ligeramente más grande en los inputs */
-  color: #424242;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -218,7 +216,6 @@
 
 .planner-table thead tr {
   background-color: #000000;
-  color: #FFFFFF;
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
@@ -316,7 +313,6 @@ $icon-color-6: #000000; /* Negro Profundo */
   display: block;
   font-size: 1rem;
   font-weight: bold;
-  color: #424242;
   margin-bottom: 8px;
 }
 
@@ -331,7 +327,6 @@ $icon-color-6: #000000; /* Negro Profundo */
   border: 1px solid #E0E0E0;
   border-radius: 0.5rem;
   font-size: 1.05rem;
-  color: #424242;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -413,7 +408,6 @@ $icon-color-6: #000000; /* Negro Profundo */
 .empty-planner-message {
   text-align: center;
   padding: 32px;
-  color: #424242;
   font-size: 1.1rem;
   border-radius: 12px;
 }
@@ -434,7 +428,6 @@ $icon-color-6: #000000; /* Negro Profundo */
 
 .planner-table thead tr {
   background-color: #000000;
-  color: #FFFFFF;
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
@@ -488,7 +481,6 @@ $icon-color-6: #000000; /* Negro Profundo */
 
 /* --- Estilos para Enlaces de URL en la Tabla --- */
 .table-url-link {
-  color: #000000;
   text-decoration: none;
   word-break: break-all;
   display: block;

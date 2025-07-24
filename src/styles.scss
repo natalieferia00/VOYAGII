@@ -14,17 +14,17 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #ffffff; /* Fondo general de la aplicación en modo día */
-    color: #000000;
+    color: #333333; /* Color de texto global en modo día */
     transition: background-color 0.3s ease, color 0.3s ease;
     min-height: 100vh;
-    display: flex; /* Para que el app-container ocupe el espacio */
-    overflow-x: hidden; /* Evita scroll horizontal por el sidebar oculto */
+    display: flex;
+    overflow-x: hidden;
 }
 
 /* 🌑 DARK MODE para el BODY */
 body.dark-mode {
     background-color: #121212;
-    color: #ffffff;
+    color: #e0e0e0; /* Color de texto global en dark mode */
 }
 
 /* Cuando el sidebar está abierto en móvil, evita el scroll del body */
@@ -36,14 +36,14 @@ body.sidebar-open {
 .app-container {
     display: flex;
     flex: 1;
-    transition: transform 0.3s ease; /* Para mover el contenido cuando el sidebar se abre */
-    position: relative; /* Para posicionar el botón de hamburguesa */
-    z-index: 1; /* Asegura que el contenido esté por encima del overlay pero debajo del sidebar */
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 /* ✅ SIDEBAR - Estilos Base (Escritorio) */
 .sidebar-container {
-    width: 250px; /* Ancho fijo en escritorio */
+    width: 250px;
     min-height: 100vh;
     background-color: #FFFFFF; /* Blanco en modo día */
     color: #333333;
@@ -52,15 +52,15 @@ body.sidebar-open {
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
-    position: fixed; /* Fijo en escritorio */
+    position: fixed;
     top: 0;
     left: 0;
     font-family: 'Roboto', sans-serif;
     justify-content: space-between;
     box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08);
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-    z-index: 1000; /* Siempre encima */
-    overflow-y: auto; /* Scroll si el contenido del sidebar es largo */
+    z-index: 1000;
+    overflow-y: auto;
 }
 
 /* 🌑 Dark Mode para Sidebar */
@@ -83,14 +83,14 @@ body.dark-mode .sidebar-container {
 /* ✅ Navegación Principal */
 .sidebar-nav {
     width: 100%;
-    flex: 1; /* Ocupa el espacio disponible */
-    overflow-y: auto; /* Para el scroll interno del nav en escritorio */
+    flex: 1;
+    overflow-y: auto;
 }
 
 .sidebar-nav-list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0; /* Ajustado para consistencia */
 }
 
 .nav-link {
@@ -102,7 +102,7 @@ body.dark-mode .sidebar-container {
     font-weight: 500;
     transition: background-color 0.2s ease, color 0.2s ease;
     font-family: 'Roboto', sans-serif;
-    white-space: nowrap; /* Evita saltos de línea en escritorio */
+    white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -146,12 +146,12 @@ body.dark-mode .nav-link.active {
 .sidebar-separator {
     width: 80%;
     border: none;
-    border-top: 1px solid #ffffff;
+    border-top: 1px solid #E0E0E0; /* Modo día */
     margin: 1.2rem 0;
 }
 
 body.dark-mode .sidebar-separator {
-    border-top: 1px solid #dfdddd;
+    border-top: 1px solid #444444; /* Modo oscuro */
 }
 
 /* ✅ Sección de Login/Cerrar Sesión */
@@ -166,40 +166,39 @@ body.dark-mode .sidebar-separator {
 /* ✅ Contenido principal (el área donde se carga el router-outlet) */
 .content-area {
     flex: 1;
-    padding: 20px; /* Padding uniforme en todas las direcciones por defecto */
+    padding: 20px;
     box-sizing: border-box;
-    transition: padding 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     overflow-y: auto;
-    /* En escritorio, el contenido principal debe empezar después del sidebar */
-    margin-left: 250px; /* Ancho del sidebar */
-    width: calc(100% - 250px); /* Ocupa el resto del ancho */
+    margin-left: 250px;
+    width: calc(100% - 250px);
 }
 
 /* 🌑 Dark Mode para Content Area */
 body.dark-mode .content-area {
-    background-color: #121212; /* Mismo fondo que el body en dark mode */
+    background-color: #121212;
     color: #f3f1f1;
 }
 
-/* ✅ DASHBOARD CONTENT (el contenedor de las secciones del dashboard) */
+/* ✅ DASHBOARD CONTENT */
 .dashboard-content {
-    padding: 0; /* Ya no necesita padding aquí, lo maneja content-area */
+    padding: 0;
     font-family: 'Roboto', sans-serif;
     background-color: transparent;
-    min-height: calc(100vh - 40px); /* Ajusta si es necesario, 40px para padding top/bottom de content-area */
+    min-height: calc(100vh - 40px);
     display: flex;
     flex-direction: column;
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
-    transform: translateX(0); /* Elimina el transform por defecto */
+    transform: translateX(0);
     transition: transform 0.3s ease;
 }
 
-/* ✅ Secciones generales (tarjetas de contenido como .metrics-section, .charts-and-map-section) */
+/* ✅ Secciones generales (tarjetas de contenido) */
 .dashboard-section {
     background: #ffffff;
-    color: #5b5b5b;
+    color: #333333; /* Texto oscuro en modo día */
     border-radius: 12px;
     padding: 1.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -217,15 +216,15 @@ body.dark-mode .content-area {
 /* 🌑 Dark Mode para secciones generales */
 body.dark-mode .dashboard-section {
     background: #1e1e1e;
-    color: #fefcfc;
+    color: #e0e0e0;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 body.dark-mode .dashboard-section .section-title {
-    color: #f8f8f8;
+    color: #f0f0f0;
 }
 
-/* ✅ Grid para secciones dobles (para escritorio) */
+/* ✅ Grid para secciones dobles */
 .charts-and-map-section,
 .planning-and-comments-section {
     display: flex;
@@ -245,7 +244,7 @@ body.dark-mode .dashboard-section .section-title {
 /* 🌑 Dark Mode para tarjetas internas */
 body.dark-mode .section-card {
     background: #262626;
-    color: #f0f0f0;
+    color: #e0e0e0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -260,8 +259,99 @@ body.dark-mode .section-card {
 }
 
 body.dark-mode .section-card .card-title {
-    color: #f7f7f7;
+    color: #f0f0f0;
 }
+
+/* ✅ Estilos Globales para Inputs y Labels */
+/* Modo Día/Normal */
+label {
+    color: #333333; /* Texto negro para labels en modo día */
+    transition: color 0.3s ease;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #E0E0E0; /* Borde gris claro */
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333333; /* Texto negro en modo día */
+    background-color: #FFFFFF; /* Fondo blanco en modo día */
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Estilo para el placeholder en modo día */
+input::placeholder,
+textarea::placeholder {
+    color: #888888; /* Gris medio para placeholder */
+    transition: color 0.3s ease;
+}
+
+/* Foco en inputs */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="url"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #3A86FF; /* Color de acento azul al enfocar */
+    box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+}
+
+/* Flecha del select en modo día */
+select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4-3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+    padding-right: 2.5em;
+}
+
+/* 🌑 DARK MODE para Inputs y Labels */
+body.dark-mode label {
+    color: #e0e0e0; /* Texto blanco para labels en dark mode */
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="number"],
+body.dark-mode input[type="url"],
+body.dark-mode input[type="date"],
+body.dark-mode select,
+body.dark-mode textarea {
+    background-color: #000000; /* Fondo negro para inputs en dark mode */
+    color: #bbbbbb; /* Texto gris claro en dark mode */
+    border-color: #444444; /* Borde gris oscuro */
+}
+
+/* Estilo para el placeholder en dark mode */
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #777777; /* Gris más oscuro para placeholder en dark mode */
+}
+
+/* Foco en inputs en dark mode */
+body.dark-mode input[type="text"]:focus,
+body.dark-mode input[type="number"]:focus,
+body.dark-mode input[type="url"]:focus,
+body.dark-mode input[type="date"]:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    border-color: #6DAFFE; /* Color de acento azul más claro al enfocar */
+    box-shadow: 0 0 0 3px rgba(109, 175, 254, 0.3);
+}
+
+/* Flecha del select en dark mode */
+body.dark-mode select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e0e0e0%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4-3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
+}
+
 
 /* ✅ Imágenes responsivas */
 img {
@@ -277,11 +367,11 @@ body.dark-mode {
 
 /* --- Botón de Hamburguesa (Solo visible en tablets y móviles) --- */
 .hamburger-menu-btn {
-    display: none; /* Oculto por defecto en escritorio */
+    display: none;
     position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 1001; /* Por encima del sidebar cuando está oculto */
+    z-index: 1001;
     background-color: #3A86FF;
     color: white;
     border: none;
@@ -301,14 +391,14 @@ body.dark-mode {
 
 /* Overlay para cuando el sidebar está abierto en móvil */
 .sidebar-overlay {
-    display: none; /* Oculto por defecto */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 998; /* Detrás del sidebar, delante del contenido */
+    z-index: 998;
     transition: opacity 0.3s ease;
     opacity: 0;
 }
@@ -322,49 +412,42 @@ body.dark-mode {
 
 /* Tablet y Móviles (hasta 1023px) */
 @media (max-width: 1023px) {
-    /* Ocultar sidebar por defecto en tablets/móviles */
     .sidebar-container {
-        transform: translateX(-250px); /* Mueve el sidebar fuera de la vista */
-        /* Aseguramos que el logo, separador y login estén visibles cuando se abre */
+        transform: translateX(-250px);
         .sidebar-logo, .sidebar-separator, .sidebar-login {
-            display: flex; /* O block, según necesites */
+            display: flex;
         }
-        width: 250px; /* Mantener el ancho del sidebar cuando está oculto/abierto */
-        position: fixed; /* Asegura que se deslice desde el borde */
-        height: 100vh; /* Altura completa para el menú desplegable */
+        width: 250px;
+        position: fixed;
+        height: 100vh;
         top: 0;
         left: 0;
-        padding-bottom: 20px; /* Restaurar padding inferior para el menú desplegable */
+        padding-bottom: 20px;
     }
 
-    /* Cuando el sidebar está abierto (clase 'open' en el sidebar-container) */
     .sidebar-container.open {
-        transform: translateX(0); /* Desliza el sidebar a la vista */
+        transform: translateX(0);
     }
 
-    /* Mostrar el botón de hamburguesa */
     .hamburger-menu-btn {
         display: block;
     }
 
-    /* El contenido principal no tiene margen izquierdo fijo */
     .content-area {
-        margin-left: 0; /* Elimina el margen del sidebar */
-        width: 100%; /* Ocupa todo el ancho disponible */
-        padding: 20px; /* Padding uniforme */
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
     }
 
-    /* El app-container se mantiene normal, el sidebar se superpone */
     .app-container {
-        flex-direction: column; /* Apila el botón y el contenido */
+        flex-direction: column;
         gap: 0;
     }
 
-    /* Ajustes para el dashboard content en tablets/móviles */
     .dashboard-content {
-        padding: 0; /* El padding ya lo da content-area */
-        transform: translateX(0); /* Elimina el transform */
-        max-width: 100%; /* Ocupa todo el ancho */
+        padding: 0;
+        transform: translateX(0);
+        max-width: 100%;
     }
 
     .dashboard-section {
@@ -384,7 +467,7 @@ body.dark-mode {
     .charts-and-map-section,
     .planning-and-comments-section {
         display: flex;
-        flex-direction: column; /* Apilados en tablet/móvil */
+        flex-direction: column;
         gap: 1.2rem;
     }
 }
@@ -400,7 +483,7 @@ body.dark-mode {
     }
 
     .content-area {
-        padding: 15px; /* Menos padding en móviles muy pequeños */
+        padding: 15px;
     }
 
     .dashboard-section {
@@ -419,34 +502,33 @@ body.dark-mode {
 /* Escritorio (1024px y más) */
 @media (min-width: 1024px) {
     .sidebar-container {
-        transform: translateX(0); /* Asegura que esté visible */
-        position: fixed; /* Vuelve a ser fijo */
-        /* Aseguramos que el logo, separador y login estén visibles */
+        transform: translateX(0);
+        position: fixed;
         .sidebar-logo, .sidebar-separator, .sidebar-login {
-            display: flex; /* O block, según necesites */
+            display: flex;
         }
     }
 
     .hamburger-menu-btn {
-        display: none; /* Oculta el botón de hamburguesa */
+        display: none;
     }
 
     .content-area {
-        margin-left: 250px; /* Margen para el sidebar fijo */
-        width: calc(100% - 250px); /* Ocupa el resto del ancho */
-        padding: 20px; /* Padding normal de escritorio */
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        padding: 20px;
     }
 
     .dashboard-content {
-        padding: 0; /* El padding ya lo maneja content-area */
-        transform: translateX(0); /* Elimina el transform */
-        max-width: 1200px; /* Vuelve al ancho máximo */
+        padding: 0;
+        transform: translateX(0);
+        max-width: 1200px;
     }
 
     .charts-and-map-section,
     .planning-and-comments-section {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* Vuelve a ser un grid de 2 columnas */
+        grid-template-columns: 1fr 1fr;
         gap: 30px;
     }
 }
@@ -460,5 +542,5 @@ body.dark-mode {
 
 /* Asegura que los íconos se vean bien en todos los modos */
 .nav-link .nav-icon {
-    color: inherit; /* Hereda el color del nav-link */
+    color: inherit;
 }

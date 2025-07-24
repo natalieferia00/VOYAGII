@@ -16,10 +16,6 @@ import { PackingPlannerComponent } from "../packing-planner/packing-planner"; //
     CommonModule, // Elimina la coma extra aquí
     SidebarComponent,
     TravelPlannerComponent,
-    AccommodationPlannerComponent,
-    TransportationPlannerComponent,
-    FoodPlannerComponent,
-    InsurancePlannerComponent,
 
 ],
   templateUrl: './travel-organizer.html', // Asegúrate de que el nombre del archivo HTML sea correcto (travel-organizer.html o .component.html)

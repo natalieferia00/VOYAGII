@@ -7,7 +7,6 @@
   .metrics-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #969696;
     margin-bottom: 1rem;
     transition: color 0.3s ease;
   }
@@ -38,7 +37,6 @@
     h3 {
       font-size: 1.1rem;
       font-weight: 500;
-      color: #999898;
       margin: 0.5rem 0;
       transition: color 0.3s ease;
     }
@@ -46,13 +44,11 @@
     .metric-value {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #999898;
       transition: color 0.3s ease;
     }
 
     .metric-trend {
       font-size: 0.9rem;
-      color: #999898;
       transition: color 0.3s ease;
     }
 
@@ -64,7 +60,6 @@
       height: 32px;
       border-radius: 20%;
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-      background-color: #ffffff;
       border: 1px solid #fff;
     }
   }

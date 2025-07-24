@@ -27,7 +27,6 @@ $main-icon-color-6: #000000; /* Negro Profundo */
   font-size: 1.8rem; /* text-3xl */
   line-height: 2.5rem;
   font-weight: 700;
-  color: #5d5d5d; /* $primary-purple */
   margin-bottom: 40px; /* $spacing-xl */
   text-align: center;
 }
@@ -47,7 +46,6 @@ $main-icon-color-6: #000000; /* Negro Profundo */
 .section-heading {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #6e6d6d; /* $dark-gray-text */
   margin-bottom: 16px; /* $spacing-md */
   padding-bottom: 12px; /* $spacing-sm */
   border-bottom: 1px solid #E0E0E0; /* $medium-gray-border */
@@ -91,7 +89,6 @@ $main-icon-color-6: #000000; /* Negro Profundo */
   display: block;
   font-size: 1rem;
   font-weight: bold;
-  color: #868585;
   margin-bottom: 8px;
 }
 
@@ -106,7 +103,6 @@ $main-icon-color-6: #000000; /* Negro Profundo */
   border: 1px solid #E0E0E0;
   border-radius: 0.5rem;
   font-size: 1.05rem;
-  color: #7c7e91;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -188,7 +184,6 @@ $main-icon-color-6: #000000; /* Negro Profundo */
 .empty-planner-message {
   text-align: center;
   padding: 32px;
-  color: #dfdede;
   font-size: 1.1rem;
   border-radius: 12px;
 }
@@ -209,7 +204,6 @@ $main-icon-color-6: #000000; /* Negro Profundo */
 
 .planner-table thead tr {
   background-color: #000000;
-  color: #FFFFFF;
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
@@ -243,11 +237,11 @@ $main-icon-color-6: #000000; /* Negro Profundo */
 }
 
 .planner-table tbody td:first-child {
-  border-left: 1px solid #E0E0E0;
+
 }
 
 .planner-table tbody td:last-child {
-  border-right: 1px solid #E0E0E0;
+
 }
 
 .planner-table tbody tr:last-child td {
