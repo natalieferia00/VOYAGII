@@ -14,7 +14,6 @@ $main-icon-color-6: #000000; /* Negro Profundo */
 
 .insurance-planner-container {
   padding: 24px; /* $spacing-lg */
-
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   font-family: 'Roboto', sans-serif; /* Apply Roboto */
@@ -236,13 +235,7 @@ $main-icon-color-6: #000000; /* Negro Profundo */
   vertical-align: top;
 }
 
-.planner-table tbody td:first-child {
 
-}
-
-.planner-table tbody td:last-child {
-
-}
 
 .planner-table tbody tr:last-child td {
   border-bottom: none;

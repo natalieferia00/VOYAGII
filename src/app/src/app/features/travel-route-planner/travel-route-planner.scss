@@ -4,33 +4,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 /* Colores de la nueva paleta para la línea de tiempo */
-$color1: #2E8B57; /* Amarillo Atardecer */
-$color2: #003fa3; /* Azul Horizonte */
-$color3: #FF6F3C; /* Verde Explorador */
-$color4: #FFC857; /* Naranja Tierra */
+$color1: #2E8B57; /* Verde Explorador */
+$color2: #003fa3; /* Azul Profundo */
+$color3: #FF6F3C; /* Naranja Tierra */
+$color4: #FFC857; /* Amarillo Atardecer */
 $color5: #a000fe; /* Morado Vibrante */
 $color6: #000000; /* Negro Profundo */
 
+/* Colores base para el modo día (referencia, idealmente desde styles.css) */
+$day-bg-light: #fefefe;
+$day-bg-medium: #FFFFFF;
+$day-bg-dark: #F8F8F8;
+$day-text-dark: #424242;
+$day-text-medium: #666666;
+$day-text-light: #939393;
+$day-border-light: #E0E0E0;
+$day-link-color: #615bff;
+
+/* Colores base para el modo noche (referencia, idealmente desde styles.css) */
+$dark-bg-light: #121212;
+$dark-bg-medium: #1e1e1e;
+$dark-bg-dark: #262626;
+$dark-text-light: #e0e0e0;
+$dark-text-medium: #bbbbbb;
+$dark-text-dark: #888888;
+$dark-border-light: #333333;
+$dark-border-medium: #444444;
+$dark-link-color: #938eff;
+
+
 .route-planner-container {
-  padding: 24px; /* Ajustado a 24px para consistencia con otros componentes */
+  padding: 34px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra para modo día */
   font-family: 'Roboto', sans-serif;
-  max-width: 1200px;
-  margin: 24px auto;
+  max-width: 1800px; /* Ancho máximo para el contenido */
+  margin: 14px auto; /* CLAVE: Centra el contenedor horizontalmente y añade margen vertical */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transform: translateX(-200px); 
 }
 
 .planner-title {
-  font-size: 1.55rem; /* Ajustado para consistencia */
+  font-size: 1.55rem;
   line-height: 2.5rem;
   font-weight: bold;
   margin-bottom: 32px;
   text-align: center;
+  transition: color 0.3s ease;
 }
 
 @media (max-width: 640px) {
   .planner-title {
-    font-size: 1.75rem;
+    font-size: 1.4rem; /* Ajuste para móviles */
+    margin-bottom: 24px;
+  }
+  .route-planner-container {
+    padding: 16px;
+    margin: 16px auto; /* Centra también en móviles */
+    border-radius: 8px;
   }
 }
 
@@ -39,17 +70,21 @@ $color6: #000000; /* Negro Profundo */
   font-weight: 600;
   margin-bottom: 16px;
   padding-bottom: 12px;
+  border-bottom: 1px solid; /* Modo día */
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .planner-card {
-
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   margin-bottom: 32px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* --- Estilos de Formulario (manteniendo el foco azul bebé) --- */
+/* --- Estilos de Formulario (usando estilos globales de styles.css) --- */
+/* Las reglas para input, select, textarea, label, etc., ya están en styles.css.
+   Aquí solo definimos el layout del formulario. */
 .form-row {
   display: flex;
   gap: 16px;
@@ -66,39 +101,12 @@ $color6: #000000; /* Negro Profundo */
   flex: 1;
 }
 
-.form-group label {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-.form-group input[type="text"],
-.form-group input[type="date"],
-.form-group input[type="file"],
-.form-group textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #E0E0E0;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.form-group input[type="text"]:focus,
-.form-group input[type="date"]:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color:  #34a853;
-
-
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 80px;
+/* Asegurarse de que input[type="file"] no cause desbordamiento */
+.form-group input[type="file"] {
+  max-width: 100%; /* Asegura que el input de archivo no se desborde */
+  overflow: hidden; /* Oculta cualquier parte que se desborde */
+  text-overflow: ellipsis; /* Añade puntos suspensivos si el nombre es muy largo */
+  white-space: nowrap; /* Mantiene el texto en una sola línea */
 }
 
 .form-actions {
@@ -108,7 +116,7 @@ $color6: #000000; /* Negro Profundo */
 }
 
 .action-button {
-  background-color: #000000; /* Negro */
+  background-color: #000000;
   color: #FFFFFF;
   padding: 12px 20px;
   border-radius: 9999px;
@@ -117,10 +125,10 @@ $color6: #000000; /* Negro Profundo */
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
-    background-color: #333333; /* Gris oscuro al pasar el ratón */
+    background-color: #333333;
     transform: translateY(-2px);
   }
 }
@@ -129,12 +137,15 @@ $color6: #000000; /* Negro Profundo */
 .map-list-area {
   margin-top: 24px;
   padding-top: 16px;
-  border-top: 1px solid #E0E0E0;
+  border-top: 1px solid $day-border-light; /* Modo día */
+  transition: border-color 0.3s ease;
 }
 
 .map-list-area h3 {
   font-size: 1.25rem;
   margin-bottom: 16px;
+  color: $day-text-dark; /* Modo día */
+  transition: color 0.3s ease;
 }
 
 .map-list {
@@ -147,15 +158,16 @@ $color6: #000000; /* Negro Profundo */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #E0E0E0;
+  border: 1px solid; /* Modo día */
   border-radius: 8px;
   padding: 12px 16px;
   margin-bottom: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 
+
   &:hover {
-    background-color: #E0E0E0;
+    background-color: lighten($day-bg-dark, 2%); /* Ligero cambio al pasar el ratón */
     transform: translateY(-2px);
   }
 
@@ -177,11 +189,14 @@ $color6: #000000; /* Negro Profundo */
   .map-name {
     font-weight: 600;
     margin-right: 8px;
+    color: $day-text-dark; /* Modo día */
+    transition: color 0.3s ease;
   }
 
   .map-dates {
     font-size: 0.85rem;
-    color: #6C757D;
+    color: $day-text-medium; /* Modo día */
+    transition: color 0.3s ease;
   }
 
   &.active .map-dates {
@@ -215,31 +230,38 @@ $color6: #000000; /* Negro Profundo */
   text-align: center;
   padding: 16px;
   font-style: italic;
+  color: $day-text-medium; /* Modo día */
+  transition: color 0.3s ease;
 }
 
 /* --- Estilos para la Vista Previa de Imagen --- */
 .selected-image-preview {
-  max-width: 150px;
-  max-height: 100px;
+  max-width: 100%; /* CLAVE: Asegura que la imagen no se desborde */
+  height: auto; /* Mantiene la proporción */
+  max-height: 150px; /* Limita la altura para que no ocupe demasiado espacio */
+  object-fit: contain; /* Ajusta la imagen dentro de los límites sin recortar */
   border-radius: 8px;
   margin-top: 12px;
-  border: 1px solid #E0E0E0;
+  border: 1px solid $day-border-light; /* Modo día */
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* --- Estilos para la Línea de Tiempo del Itinerario (¡Grandes Cambios aquí!) --- */
 .route-timeline {
   margin-top: 32px;
   padding: 0 16px; /* Ajusta el padding para el diseño alterno */
-  position: relative; /* Para la línea central */
-  max-width: 100%; /* Asegura que no se desborde */
+  position: relative;
+  max-width: 100%;
+  overflow: hidden; /* CLAVE: Oculta cualquier desbordamiento horizontal */
 }
 
 .route-timeline h3 {
   font-size: 1.25rem;
-
   margin-bottom: 24px;
   text-align: center;
+  color: $day-text-dark; /* Modo día */
+  transition: color 0.3s ease;
 }
 
 .timeline-items {
@@ -251,10 +273,11 @@ $color6: #000000; /* Negro Profundo */
     left: 50%; /* Centra la línea */
     top: 0;
     bottom: 0;
-    width: 4px; /* Ancho de la línea */
-    background-color: #E0E0E0; /* Color de la línea */
-    transform: translateX(-50%); /* Ajusta la posición para que esté perfectamente centrada */
+    width: 4px;
+    background-color: $day-border-light; /* Color de la línea en modo día */
+    transform: translateX(-50%);
     z-index: 0;
+    transition: background-color 0.3s ease;
   }
 
   /* Media query para pantallas pequeñas: la línea de tiempo se vuelve de una sola columna */
@@ -270,8 +293,8 @@ $color6: #000000; /* Negro Profundo */
 .timeline-item {
   display: flex;
   position: relative;
-  margin-bottom: 40px; /* Espacio entre ítems */
-  width: 100%; /* Ocupa todo el ancho */
+  margin-bottom: 40px;
+  width: 100%;
   justify-content: center; /* Centra los elementos horizontalmente */
 
   &:last-child {
@@ -281,32 +304,31 @@ $color6: #000000; /* Negro Profundo */
   /* Marcador de la línea de tiempo */
   .timeline-marker {
     position: absolute;
-    left: 50%; /* Centrado en la línea vertical */
-    top: 10px; /* Alineado con la parte superior de la tarjeta */
-    width: 24px; /* Tamaño del marcador */
+    left: 50%;
+    top: 10px;
+    width: 24px;
     height: 24px;
-
     border-radius: 50%;
-    border: 4px solid #FFFFFF; /* Borde blanco */
-    transform: translateX(-50%); /* Centra el marcador */
-    z-index: 1; /* Asegura que esté por encima de la línea */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para el marcador */
+    border: 4px solid #FFFFFF; /* Borde blanco en modo día */
+    transform: translateX(-50%);
+    z-index: 1;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 
     @media (max-width: 768px) {
-      left: 10px; /* Mueve el marcador a la izquierda en móviles */
-      transform: translateX(-50%); /* Centra el marcador en la nueva posición */
+      left: 10px;
+      transform: translateX(-50%);
     }
   }
 
   /* Contenido de la tarjeta de la línea de tiempo */
   .timeline-content {
-
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra para las tarjetas */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: calc(50% - 40px); /* Ocupa la mitad del ancho menos el espacio del marcador */
     position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación al pasar el ratón */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 
     &:hover {
       transform: translateY(-5px);
@@ -323,71 +345,49 @@ $color6: #000000; /* Negro Profundo */
 
   /* Estilos para alinear a la izquierda */
   &.left-aligned {
-    justify-content: flex-start; /* Alinea el contenido a la izquierda */
+    justify-content: flex-start;
     .timeline-content {
-      margin-right: 40px; /* Espacio para la línea */
-      text-align: right; /* Texto alineado a la derecha dentro de la tarjeta izquierda */
+      margin-right: 40px;
+      text-align: right;
       .remove-section-button {
-        left: 10px; /* Mueve el botón de eliminar a la izquierda */
+        left: 10px;
         right: auto;
       }
     }
-    .timeline-date {
-      text-align: right; /* Alinea la fecha a la derecha */
-    }
-    .timeline-title {
-      text-align: right; /* Alinea el título a la derecha */
-    }
-    .timeline-description {
-      text-align: right; /* Alinea la descripción a la derecha */
-    }
-    .timeline-photo-container {
-      text-align: right; /* Alinea la foto a la derecha */
+    .timeline-date, .timeline-title, .timeline-description, .timeline-photo-container {
+      text-align: right;
     }
 
     @media (max-width: 768px) {
-      justify-content: flex-start; /* Vuelve a la alineación izquierda en móviles */
+      justify-content: flex-start;
       .timeline-content {
-        text-align: left; /* Texto alineado a la izquierda */
-        .remove-section-button {
-          right: 10px; /* Vuelve a la derecha */
-          left: auto;
-        }
+        text-align: left;
       }
       .timeline-date, .timeline-title, .timeline-description, .timeline-photo-container {
-        text-align: left; /* Alinea todo a la izquierda */
+        text-align: left;
       }
     }
   }
 
   /* Estilos para alinear a la derecha */
   &.right-aligned {
-    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    justify-content: flex-end;
     .timeline-content {
-      margin-left: 40px; /* Espacio para la línea */
-      text-align: left; /* Texto alineado a la izquierda dentro de la tarjeta derecha */
+      margin-left: 40px;
+      text-align: left;
       .remove-section-button {
-        right: 10px; /* Mantiene el botón de eliminar a la derecha */
+        right: 10px;
         left: auto;
       }
     }
-    .timeline-date {
-      text-align: left; /* Alinea la fecha a la izquierda */
-    }
-    .timeline-title {
-      text-align: left; /* Alinea el título a la izquierda */
-    }
-    .timeline-description {
-      text-align: left; /* Alinea la descripción a la izquierda */
-    }
-    .timeline-photo-container {
-      text-align: left; /* Alinea la foto a la izquierda */
+    .timeline-date, .timeline-title, .timeline-description, .timeline-photo-container {
+      text-align: left;
     }
 
     @media (max-width: 768px) {
-      justify-content: flex-start; /* Vuelve a la alineación izquierda en móviles */
+      justify-content: flex-start;
       .timeline-content {
-        text-align: left; /* Texto alineado a la izquierda */
+        text-align: left;
       }
     }
   }
@@ -397,6 +397,8 @@ $color6: #000000; /* Negro Profundo */
     font-size: 0.9rem;
     font-weight: 500;
     margin-bottom: 8px;
+    color: $day-text-dark; /* Modo día */
+    transition: color 0.3s ease;
   }
 
   .timeline-title {
@@ -406,9 +408,11 @@ $color6: #000000; /* Negro Profundo */
     margin-bottom: 8px;
     outline: none;
     cursor: text;
-    word-break: break-word;
+    word-break: break-word; /* CLAVE: Para que el texto largo no desborde */
+    transition: background-color 0.3s ease, color 0.3s ease;
+
     &:focus {
-      background-color: #F0F0F0;
+      background-color: lighten($day-bg-dark, 5%); /* Ligero cambio de fondo al editar */
       border-radius: 4px;
       padding: 2px 4px;
     }
@@ -421,9 +425,11 @@ $color6: #000000; /* Negro Profundo */
     outline: none;
     cursor: text;
     white-space: pre-wrap;
-    word-break: break-word;
+    word-break: break-word; /* CLAVE: Para que el texto largo no desborde */
+    transition: background-color 0.3s ease, color 0.3s ease;
+
     &:focus {
-      background-color: #F0F0F0;
+      background-color: lighten($day-bg-dark, 5%);
       border-radius: 4px;
       padding: 2px 4px;
     }
@@ -431,14 +437,18 @@ $color6: #000000; /* Negro Profundo */
 
   .timeline-photo-container {
     margin-top: 16px;
+    text-align: center; /* Centra la imagen dentro de su contenedor */
   }
 
   .timeline-photo {
-    max-width: 100%;
-    height: auto;
+    max-width: 100%; /* CLAVE: Asegura que la imagen no se desborde */
+    height: auto; /* Mantiene la proporción */
+    max-height: 250px; /* Limita la altura para que no ocupe demasiado espacio */
+    object-fit: contain; /* Ajusta la imagen dentro de los límites sin recortar */
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #E0E0E0;
+    border: 1px solid $day-border-light; /* Modo día */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   .remove-section-button {
@@ -449,8 +459,11 @@ $color6: #000000; /* Negro Profundo */
     cursor: pointer;
     padding: 5px;
     border-radius: 50%;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.3s ease;
     z-index: 2; /* Asegura que esté por encima de la tarjeta */
+    position: absolute; /* Para posicionar el botón */
+    top: 5px; /* Ajusta la posición vertical */
+    /* Left/Right se definen en .left-aligned y .right-aligned */
 
     &:hover {
       background-color: rgba(231, 76, 60, 0.1);
@@ -460,8 +473,8 @@ $color6: #000000; /* Negro Profundo */
 
 /* 🎨 Colores cíclicos para los marcadores y bordes de las tarjetas de la línea de tiempo */
 .timeline-item:nth-child(6n+1) .timeline-marker { background-color: $color1; }
-.timeline-item:nth-child(6n+1) .timeline-content { border-left: 5px solid $color1; } /* Borde izquierdo */
-.timeline-item:nth-child(6n+1).right-aligned .timeline-content { border-left: none; border-right: 5px solid $color1; } /* Borde derecho si está a la derecha */
+.timeline-item:nth-child(6n+1) .timeline-content { border-left: 5px solid $color1; }
+.timeline-item:nth-child(6n+1).right-aligned .timeline-content { border-left: none; border-right: 5px solid $color1; }
 
 .timeline-item:nth-child(6n+2) .timeline-marker { background-color: $color2; }
 .timeline-item:nth-child(6n+2) .timeline-content { border-left: 5px solid $color2; }
@@ -483,7 +496,103 @@ $color6: #000000; /* Negro Profundo */
 .timeline-item:nth-child(6n+6) .timeline-content { border-left: 5px solid $color6; }
 .timeline-item:nth-child(6n+6).right-aligned .timeline-content { border-left: none; border-right: 5px solid $color6; }
 
-/* Ajustes de color de texto para tarjetas con fondos claros (si aplica) */
-/* En este caso, las tarjetas de contenido son blancas, así que el texto oscuro es bueno.
-   Si en el futuro cambias el background-color de .timeline-content a un color claro,
-   podrías necesitar reglas similares a las de .plan-card para asegurar el contraste. */
+
+/* ==========================================================================
+   🌑 DARK MODE STYLES
+   ========================================================================== */
+body.dark-mode .route-planner-container {
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+body.dark-mode .planner-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .form-group input[type="text"]:focus,
+body.dark-mode .form-group input[type="date"]:focus,
+body.dark-mode .form-group textarea:focus {
+  border-color: #34a853; /* Mantener color de foco */
+  box-shadow: 0 0 0 4px rgba(52, 168, 83, 0.4);
+}
+
+body.dark-mode .action-button {
+  background-color: #333333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  &:hover {
+    background-color: #555555;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+}
+
+body.dark-mode .map-list li {
+  &:hover {
+    background-color: lighten($dark-bg-dark, 5%);
+  }
+  &.active {
+    background-color: #222222; /* Un negro más suave para el activo en dark mode */
+    border-color: #222222;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+}
+
+body.dark-mode .remove-button {
+  border-color: #777; /* Borde más visible en dark mode */
+  color: #FF7F7F; /* Rojo más suave */
+  &:hover {
+    background-color: rgba(255, 127, 127, 0.2);
+  }
+}
+
+body.dark-mode .selected-image-preview {
+  border-color: $dark-border-light;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .timeline-items::before {
+  background-color: $dark-border-medium; /* Línea central más oscura */
+}
+
+body.dark-mode .timeline-item .timeline-marker {
+  border-color: $dark-bg-medium; /* Borde del marcador oscuro */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .timeline-item .timeline-content {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+
+body.dark-mode .timeline-item .timeline-photo {
+  border-color: $dark-border-light;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .timeline-item .remove-section-button {
+  color: #FF7F7F;
+  &:hover {
+    background-color: rgba(255, 127, 127, 0.2);
+  }
+}
+
+/* Colores cíclicos para los marcadores y bordes de las tarjetas de la línea de tiempo en DARK MODE */
+body.dark-mode .timeline-item:nth-child(6n+1) .timeline-content { border-left-color: lighten($color1, 15%); }
+body.dark-mode .timeline-item:nth-child(6n+1).right-aligned .timeline-content { border-right-color: lighten($color1, 15%); }
+
+body.dark-mode .timeline-item:nth-child(6n+2) .timeline-content { border-left-color: lighten($color2, 15%); }
+body.dark-mode .timeline-item:nth-child(6n+2).right-aligned .timeline-content { border-right-color: lighten($color2, 15%); }
+
+body.dark-mode .timeline-item:nth-child(6n+3) .timeline-content { border-left-color: lighten($color3, 15%); }
+body.dark-mode .timeline-item:nth-child(6n+3).right-aligned .timeline-content { border-right-color: lighten($color3, 15%); }
+
+body.dark-mode .timeline-item:nth-child(6n+4) .timeline-content { border-left-color: lighten($color4, 15%); }
+body.dark-mode .timeline-item:nth-child(6n+4).right-aligned .timeline-content { border-right-color: lighten($color4, 15%); }
+
+body.dark-mode .timeline-item:nth-child(6n+5) .timeline-content { border-left-color: lighten($color5, 15%); }
+body.dark-mode .timeline-item:nth-child(6n+5).right-aligned .timeline-content { border-right-color: lighten($color5, 15%); }
+
+body.dark-mode .timeline-item:nth-child(6n+6) .timeline-content { border-left: none; border-right: 5px solid lighten($color6, 15%); }
