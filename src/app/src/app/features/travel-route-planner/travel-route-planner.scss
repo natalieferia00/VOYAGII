@@ -57,11 +57,13 @@ $dark-link-color: #938eff;
   .planner-title {
     font-size: 1.4rem; /* Ajuste para móviles */
     margin-bottom: 24px;
+
   }
   .route-planner-container {
     padding: 16px;
     margin: 16px auto; /* Centra también en móviles */
     border-radius: 8px;
+     transform: translateX(-10px); 
   }
 }
 

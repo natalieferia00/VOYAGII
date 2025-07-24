@@ -23,11 +23,11 @@
   padding: 24px; /* Padding interno del contenedor principal */
   border-radius: 12px;
   font-family: 'Roboto', sans-serif;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra sutil para el contenedor principal */
-
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra sutil para el contenedor principal */ 
   /* CLAVE: Ancho máximo y centrado para toda la página del planificador */
-  max-width: 1100px; /* Ajusta este valor para controlar el ancho máximo de la página */
+  max-width: 2200px; /* Ajusta este valor para controlar el ancho máximo de la página */
   margin: 24px auto; /* Centra el contenedor principal horizontalmente y añade margen vertical */
+      transform: translateX(-4px); 
 }
 
 .planner-title {
@@ -44,10 +44,13 @@
     margin-bottom: 24px;
   }
   .transportation-planner-container {
-    padding: 16px; /* Reducir padding en móviles */
-    margin: 16px auto; /* Reducir margen en móviles */
+    padding: 10px; /* Reducir padding en móviles */
+    margin: 10px auto; /* Reducir margen en móviles */
     border-radius: 8px; /* Reducir radio de borde en móviles */
+        transform: translateX(-2px);
+    
   }
+
 }
 
 .section-heading {
@@ -55,7 +58,7 @@
   font-weight: 600;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #E0E0E0; /* Borde sutil */
+  border-bottom: 1px solid ; /* Borde sutil */
 }
 
 /* --- Estilos del Formulario de Añadir Entrada --- */
@@ -85,10 +88,12 @@
   .add-entry-form .form-row {
     flex-direction: column; /* Columnas en pantallas pequeñas */
     gap: 16px; /* Mantener el gap original para móviles si es preferible */
+     transform: translateX(-10px); 
   }
   .planner-add-section {
     padding: 24px; /* Reducir el padding en móviles */
     margin-bottom: 24px; /* Reducir margen en móviles */
+     transform: translateX(-10px); 
   }
 }
 
@@ -116,6 +121,7 @@
   font-size: 1.05rem; /* Fuente ligeramente más grande en los inputs */
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+   transform: translateX(-10px); 
 }
 
 /* Estilos de foco para inputs, selects y textareas: AZUL BEBÉ */
@@ -128,6 +134,7 @@
   outline: none;
   border-color: #e0eaff; /* Azul bebé */
   box-shadow: 0 0 0 4px #e0eaff; /* Sombra azul bebé más pronunciada */
+   transform: translateX(-10px); 
 }
 
 .add-entry-form .form-group textarea {
@@ -188,7 +195,7 @@
 .planner-table-section {
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada para la tabla también */
+  box-shadow: 0 4px 15px ; /* Sombra más pronunciada para la tabla también */
   overflow-x: auto;
 }
 
@@ -329,6 +336,7 @@ $icon-color-6: #000000; /* Negro Profundo */
   font-size: 1.05rem;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+   transform: translateX(-10px); 
 }
 
 /* Estilos de foco para inputs, selects y textareas: AZUL BEBÉ */
@@ -391,7 +399,6 @@ $icon-color-6: #000000; /* Negro Profundo */
   transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: #333333;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
@@ -427,7 +434,6 @@ $icon-color-6: #000000; /* Negro Profundo */
 }
 
 .planner-table thead tr {
-  background-color: #000000;
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
@@ -436,7 +442,7 @@ $icon-color-6: #000000; /* Negro Profundo */
 
 .planner-table thead th {
   padding: 16px;
-  border-bottom: 1px solid #333333;
+  border-bottom: 1px solid;
 }
 
 .planner-table thead th:first-child {
