@@ -5,14 +5,14 @@
 
 /* Contenedor principal del contenido del dashboard */
 .dashboard-content {
-  padding: 20px; /* Padding base para móviles */
+  padding: 80px; /* Padding base para móviles */
   font-family: 'Roboto', sans-serif;
 
   min-height: calc(100vh - 60px); /* Ajusta si tienes un header fijo en app.component */
   display: flex;
   flex-direction: column; /* Las secciones principales se apilan por defecto */
-  gap: 30px; /* Espacio entre las secciones principales */
-  max-width: 1200px; /* Ancho máximo para el contenido en escritorio */
+  gap: 50px; /* Espacio entre las secciones principales */
+  max-width: 2200px; /* Ancho máximo para el contenido en escritorio */
   margin: 0 auto; /* Centra el contenido en pantallas grandes por defecto */
   transform: translateX(400px); /* Mueve el contenido 50px a la derecha */
 }

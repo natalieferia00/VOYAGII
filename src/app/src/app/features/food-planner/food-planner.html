@@ -1,6 +1,29 @@
-<!-- src/app/features/food-planner/food-planner.component.html -->
+<!-- src/app/features/food-planner/food-planner.html -->
 <div class="food-planner-container">
   <h1 class="planner-title">Planificador de Alimentación</h1>
+
+  <!-- Sección de Resumen del Presupuesto de Alimentación -->
+  <section class="budget-summary-section">
+    <h2 class="section-heading">Resumen de Presupuesto de Alimentación</h2>
+    <div class="budget-info">
+      <p>Presupuesto definido: 
+        <span class="budget-value" *ngIf="foodBudget !== null">
+          {{ foodBudget | currency:'USD':'symbol':'1.0-0' }}
+        </span>
+        <span class="budget-value" *ngIf="foodBudget === null">
+          No definido
+        </span>
+      </p>
+      <p>Gasto total en alimentación: 
+        <span class="total-cost-value">
+          {{ totalFoodCost | currency:'USD':'symbol':'1.0-0' }}
+        </span>
+      </p>
+      <div class="budget-status-message" [ngClass]="getBudgetStatusClass()">
+        {{ getBudgetStatusMessage() }}
+      </div>
+    </div>
+  </section>
 
   <!-- Sección para añadir nueva entrada de alimentación -->
   <section class="planner-add-section">
@@ -96,30 +119,27 @@
             <th>Fecha</th>
             <th>URL</th>
             <th>Notas</th>
-            <th>Acciones</th> <!-- Añadimos la columna de acciones -->
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let entry of foodEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
             <td>
-             <!-- Icono de plato con colores cíclicos -->
               <strong>{{entry.tripName}}</strong><br>
               <small>({{entry.tripCode}})</small>
             </td>
             <td>{{entry.country}} / {{entry.city}}</td>
             <td>
-              <!-- Icono condicional según el tipo de comida -->
               <ng-container [ngSwitch]="entry.mealType">
                 <i *ngSwitchCase="'Desayuno'" class="fa-solid fa-mug-saucer meal-type-icon"></i>
                 <i *ngSwitchCase="'Almuerzo'" class="fa-solid fa-burger meal-type-icon"></i>
                 <i *ngSwitchCase="'Cena'" class="fa-solid fa-pizza-slice meal-type-icon"></i>
                 <i *ngSwitchCase="'Snack'" class="fa-solid fa-cookie-bite meal-type-icon"></i>
-                <i *ngSwitchCase="'Café'" class="fa-solid fa-coffee meal-type-icon"></i>
-                <i *ngSwitchCase="'Bebida'" class="fa-solid fa-martini-glass meal-type-icon"></i>
+                <i *ngSwitchCase="'Bebidas'" class="fa-solid fa-martini-glass meal-type-icon"></i>
                 <i *ngSwitchCase="'Otro'" class="fa-solid fa-question meal-type-icon"></i>
-                <i *ngSwitchDefault class="fa-solid fa-bowl-food meal-type-icon"></i> <!-- Icono por defecto -->
+                <i *ngSwitchDefault class="fa-solid fa-bowl-food meal-type-icon"></i>
               </ng-container>
-              {{entry.mealType}} <!-- Muestra también el texto del tipo -->
+              {{entry.mealType}}
             </td>
             <td>{{entry.restaurantName}}</td>
             <td>{{entry.cuisine || '-'}}</td>
@@ -132,8 +152,10 @@
             <td contenteditable="true" (input)="onNotesChange(entry, $event)" class="editable-notes-cell">
               {{entry.notes}}
             </td>
-            <td class="action-cell"> <!-- Celda para el botón eliminar -->
-              <button type="button" (click)="removeFoodEntry(entry)" class="remove-button">✕</button>
+            <td class="action-cell">
+              <button type="button" (click)="removeFoodEntry(entry)" class="remove-button">
+                <i class="fas fa-trash-alt"></i>
+              </button>
             </td>
           </tr>
         </tbody>

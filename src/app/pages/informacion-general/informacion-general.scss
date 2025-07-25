@@ -1,0 +1,140 @@
+.info-general-container {
+  /* Centrado ya lo maneja el body con flexbox */
+  max-width: 2050px; /* Aumentado para hacerlo más grande */
+  width: 700px; /* Asegura que sea responsivo en pantallas más pequeñas */
+  padding: 7rem; /* Aumentado el padding para más espacio interno */
+  border-radius: 16px; /* Bordes más redondeados */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada y profesional */
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; /* Añadida transición para fondo */
+ transform: translate(450px, 40px); /* 400px a la derecha, 50px hacia abajo */
+}
+
+
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+
+.form-group {
+  margin-bottom: 1.2rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  body.dark-mode label {
+    color: #bbb;
+  }
+
+  input[type="number"],
+  input[type="date"],
+  input[type="text"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+
+    &:focus {
+     border-color: #4caf50; /* Verde de acento */
+      outline: none;
+    }
+  }
+
+
+  body.dark-mode input:focus {
+    border-color: #66bb6a;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+  }
+
+  .btn-save {
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+
+    &:hover {
+      background-color: #3b3e42;
+      transform: translateY(-2px);
+    }
+  }
+
+  body.dark-mode .btn-save {
+    background-color: #66bb6a;
+  }
+
+  body.dark-mode .btn-save:hover {
+    background-color: #4caf50;
+  }
+
+  .btn-reset {
+    background-color: #6c757d;
+    color: white;
+
+    &:hover {
+      background-color: #5a6268;
+      transform: translateY(-2px);
+    }
+  }
+
+  body.dark-mode .btn-reset {
+    background-color: #777;
+  }
+
+  body.dark-mode .btn-reset:hover {
+    background-color: #555;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .info-general-container {
+    padding: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-group input {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}

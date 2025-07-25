@@ -1,18 +1,26 @@
 <!-- src/app/features/budget-calculator/budget-calculator.component.html -->
-<div class="content-wrapper"></div>
+<div class="content-wrapper">
   <h1 class="planner-title">Calculadora de Presupuesto de Viaje</h1>
 
-  <!-- Sección de Configuración de Presupuesto y Tasas de Cambio -->
+  <!-- Sección de Configuración de Monedas y Tasas de Cambio -->
   <section class="budget-settings-section planner-card">
-    <h2 class="section-heading">Configuración de Presupuesto y Monedas</h2>
+    <h2 class="section-heading">Configuración de Monedas y Tasas de Cambio</h2>
     <div class="form-row">
+      <!-- El presupuesto general ahora se muestra, no se edita aquí -->
       <div class="form-group">
-        <label for="budgetAmount">Presupuesto Total ({{baseCurrency}}):</label>
-        <input type="number" id="budgetAmount" name="budgetAmount" [(ngModel)]="budgetAmount" placeholder="Opcional">
+        <label>Presupuesto General (de Información General):</label>
+        <p class="read-only-budget">
+          <span *ngIf="generalBudget !== null">
+            {{ generalBudget | currency:baseCurrency:'symbol':'1.0-0' }}
+          </span>
+          <span *ngIf="generalBudget === null">
+            No definido
+          </span>
+        </p>
       </div>
       <div class="form-group">
-        <label for="baseCurrency">Moneda Base:</label>
-        <select id="baseCurrency" name="baseCurrency" [(ngModel)]="baseCurrency" (change)="calculateTotals()">
+        <label for="baseCurrency">Moneda Base para Cálculos:</label>
+        <select id="baseCurrency" name="baseCurrency" [(ngModel)]="baseCurrency" (change)="onBaseCurrencyChange()">
           <option value="USD">USD - Dólar Estadounidense</option>
           <option value="EUR">EUR - Euro</option>
           <option value="COP">COP - Peso Colombiano</option>
@@ -75,9 +83,11 @@
       <div class="summary-item total-expenses" [ngClass]="getBudgetStatusClass()">
         <h3>Total Gastos ({{baseCurrency}})</h3>
         <p class="amount">{{ totalExpenses | currency:baseCurrency:'symbol':'1.0-0' }}</p>
-        <p *ngIf="budgetAmount !== null" class="status-message">
-          <span *ngIf="totalExpenses > budgetAmount">¡Te has pasado por {{ (totalExpenses - budgetAmount) | currency:baseCurrency:'symbol':'1.0-0' }}!</span>
-          <span *ngIf="totalExpenses <= budgetAmount">Te quedan {{ (budgetAmount - totalExpenses) | currency:baseCurrency:'symbol':'1.0-0' }} de presupuesto.</span>
+        <p *ngIf="generalBudget !== null" class="status-message">
+          {{ getBudgetStatusMessage() }}
+        </p>
+        <p *ngIf="generalBudget === null" class="status-message info-message">
+          Presupuesto general no definido.
         </p>
       </div>
       <div class="summary-item">
@@ -123,12 +133,13 @@
               {{entry.amount | currency:baseCurrency:'symbol':'1.0-0'}}
             </td>
             <td class="action-cell">
-              <button type="button" (click)="removeExpense(entry)" class="remove-button">✕</button>
+              <button type="button" (click)="removeExpense(entry)" class="remove-button">
+                <i class="fas fa-trash-alt"></i>
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
-
-  
+</div>

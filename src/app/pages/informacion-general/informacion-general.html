@@ -1,1 +1,88 @@
-<p>informacion-general works!</p>
+<app-sidebar></app-sidebar>
+
+<div class="info-general-container">
+  <h2>Información General del Viaje</h2>
+
+
+  <form (ngSubmit)="saveGeneralInfo()">
+    <!-- Sección de Información del Viaje (viene del registro, se puede editar) -->
+    <h3>Datos Principales del Viaje</h3>
+    <div class="form-group">
+      <label for="travelerName">Nombre del Viajero:</label>
+      <input type="text" id="travelerName" [(ngModel)]="travelerName" name="travelerName" placeholder="Tu nombre" required>
+    </div>
+
+    <div class="form-group">
+      <label for="generalBudget">Presupuesto General:</label>
+      <input type="number" id="generalBudget" [(ngModel)]="generalBudget" name="generalBudget" placeholder="Ej: 2500" min="0">
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Fecha de Inicio del Viaje:</label>
+      <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate">
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">Fecha de Fin del Viaje:</label>
+      <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate">
+    </div>
+
+    <div class="form-group">
+      <label for="numberOfPlannedCountries">Número de Países Planificados:</label>
+      <input type="number" id="numberOfPlannedCountries" [(ngModel)]="numberOfPlannedCountries" name="numberOfPlannedCountries" placeholder="Ej: 3" min="0">
+    </div>
+
+    <div class="form-group">
+      <label for="mainDestination">Destino Principal:</label>
+      <input type="text" id="mainDestination" [(ngModel)]="mainDestination" name="mainDestination" placeholder="Ej: París, Francia">
+    </div>
+
+    <div class="form-group">
+      <label for="tripDurationDays">Duración del Viaje (días):</label>
+      <input type="number" id="tripDurationDays" [(ngModel)]="tripDurationDays" name="tripDurationDays" placeholder="Ej: 10" min="1">
+    </div>
+
+    <!-- Sección de Información Adicional (solo se gestiona aquí) -->
+    <h3>Detalles Adicionales y Presupuestos Específicos</h3>
+    <div class="form-group">
+      <label for="plannedCountriesList">Lista de Países (detallada, separados por coma):</label>
+      <input type="text" id="plannedCountriesList" [(ngModel)]="plannedCountriesList" name="plannedCountriesList" placeholder="Ej: España, Portugal, Italia">
+    </div>
+
+    <div class="form-group">
+      <label for="travelMotto">Lema del Viaje:</label>
+      <input type="text" id="travelMotto" [(ngModel)]="travelMotto" name="travelMotto" placeholder="Ej: ¡A explorar el mundo!">
+    </div>
+
+    <div class="form-group">
+      <label for="emergencyContact">Contacto de Emergencia:</label>
+      <input type="text" id="emergencyContact" [(ngModel)]="emergencyContact" name="emergencyContact" placeholder="Nombre y teléfono">
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Notas Generales:</label>
+      <textarea id="notes" [(ngModel)]="notes" name="notes" rows="4" placeholder="Cualquier otra información relevante..."></textarea>
+    </div>
+
+    <!-- Nuevos campos de presupuesto -->
+    <div class="form-group">
+      <label for="transportBudget">Presupuesto para Transporte:</label>
+      <input type="number" id="transportBudget" [(ngModel)]="transportBudget" name="transportBudget" placeholder="Ej: 1000" min="0">
+    </div>
+
+    <div class="form-group">
+      <label for="foodBudget">Presupuesto para Comida:</label>
+      <input type="number" id="foodBudget" [(ngModel)]="foodBudget" name="foodBudget" placeholder="Ej: 500" min="0">
+    </div>
+
+    <div class="form-group">
+      <label for="accommodationBudget">Presupuesto para Alojamiento:</label>
+      <input type="number" id="accommodationBudget" [(ngModel)]="accommodationBudget" name="accommodationBudget" placeholder="Ej: 800" min="0">
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-save">Guardar Información</button>
+      <button type="button" class="btn-reset" (click)="resetForm()">Restablecer</button>
+    </div>
+  </form>
+</div>

@@ -2,6 +2,29 @@
 <div class="accommodation-planner-container">
   <h1 class="planner-title">Planificador de Alojamientos</h1>
 
+  <!-- Sección de Resumen del Presupuesto de Alojamiento -->
+  <section class="budget-summary-section">
+    <h2 class="section-heading">Resumen de Presupuesto de Alojamiento</h2>
+    <div class="budget-info">
+      <p>Presupuesto definido: 
+        <span class="budget-value" *ngIf="accommodationBudget !== null">
+          {{ accommodationBudget | currency:'USD':'symbol':'1.0-0' }}
+        </span>
+        <span class="budget-value" *ngIf="accommodationBudget === null">
+          No definido
+        </span>
+      </p>
+      <p>Gasto total en alojamientos: 
+        <span class="total-cost-value">
+          {{ totalAccommodationCost | currency:'USD':'symbol':'1.0-0' }}
+        </span>
+      </p>
+      <div class="budget-status-message" [ngClass]="getBudgetStatusClass()">
+        {{ getBudgetStatusMessage() }}
+      </div>
+    </div>
+  </section>
+
   <!-- Sección para añadir nueva entrada de alojamiento -->
   <section class="planner-add-section">
     <h2 class="section-heading">Añadir Nuevo Alojamiento</h2>
@@ -94,6 +117,7 @@
             <th>Foto</th>
             <th>Estrellas</th>
             <th>Opinión</th>
+            <th>Acciones</th> <!-- Nueva columna para el botón de eliminar -->
           </tr>
         </thead>
         <tbody>
@@ -123,6 +147,11 @@
             </td>
             <td contenteditable="true" (input)="onOpinionChange(entry, $event)" class="editable-opinion-cell">
               {{entry.opinion}}
+            </td>
+            <td>
+              <button (click)="removeEntry(entry)" class="remove-entry-button">
+                <i class="fas fa-trash-alt"></i>
+              </button>
             </td>
           </tr>
         </tbody>

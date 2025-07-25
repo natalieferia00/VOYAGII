@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router'; // Import Router
-import { AuthService } from '../../src/app/core/services/auth.service'; // Import AuthService
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../src/app/core/services/auth.service';
+import { GeneralTripInfo } from '../../shared/components/interfaces/general-trip-info.interface'; // Importa la interfaz centralizada
 
 @Component({
   selector: 'app-register',
@@ -22,9 +23,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
   passwordMismatch: boolean = false;
   logoSrc: string = 'assets/images/logo.png';
 
+  showGeneralInfoForm: boolean = false;
+  travelerName: string = '';
+  generalBudget: number | null = null;
+  startDate: string = '';
+  endDate: string = '';
+  numberOfPlannedCountries: number | null = null;
+  mainDestination: string = '';
+  tripDurationDays: number | null = null;
+
   private observer: MutationObserver | undefined;
 
-  // Inyecta Renderer2, Router y AuthService
   constructor(private renderer: Renderer2, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -62,17 +71,37 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.checkPasswordMatch();
 
     if (form.valid && !this.passwordMismatch) {
-      // Llama al servicio de autenticación para registrar al usuario
       const registrationSuccess = this.authService.register(this.email, this.password);
 
       if (registrationSuccess) {
-        alert('¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.');
-        this.router.navigate(['/login']); // Redirige al login
+        this.showGeneralInfoForm = true;
+        alert('¡Cuenta creada exitosamente! Ahora, por favor, ingresa la información general de tu primer viaje.');
       } else {
         alert('Error al crear la cuenta: El correo electrónico ya está registrado.');
       }
     } else {
       alert('Error: Por favor, revisa los campos y asegúrate que las contraseñas coincidan.');
     }
+  }
+
+  saveGeneralTripInfo(): void {
+    if (!this.travelerName || !this.startDate || !this.endDate || this.numberOfPlannedCountries === null || this.numberOfPlannedCountries < 0 || !this.mainDestination || this.tripDurationDays === null || this.tripDurationDays < 0) {
+      alert('Por favor, completa todos los campos obligatorios: Nombre del Viajero, Fechas de Inicio y Fin, Número de Países, Destino Principal y Duración del Viaje.');
+      return;
+    }
+
+    const infoToSave: GeneralTripInfo = {
+      travelerName: this.travelerName,
+      generalBudget: this.generalBudget,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      numberOfPlannedCountries: this.numberOfPlannedCountries,
+      mainDestination: this.mainDestination,
+      tripDurationDays: this.tripDurationDays
+    };
+    localStorage.setItem('generalTripInfo', JSON.stringify(infoToSave));
+    console.log('Información general inicial guardada desde registro:', infoToSave);
+    alert('Información del viaje guardada. ¡Ahora puedes iniciar sesión!');
+    this.router.navigate(['/login']);
   }
 }

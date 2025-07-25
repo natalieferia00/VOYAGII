@@ -3,241 +3,11 @@
 /* Importa la fuente Roboto de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* Colores y espaciados (valores directos, sin variables SCSS) */
-/* Se asume que estos valores son los mismos que en src/styles.scss */
-/* $primary-purple: #4A148C; */
-/* $secondary-purple: #6A1B9A; */
-/* $light-gray-bg: #F8F8F8; */
-/* $medium-gray-border: #E0E0E0; */
-/* $dark-gray-text: #424242; */
-/* $light-text: #FFFFFF; */
-
-/* $spacing-xl: 32px; */
-/* $spacing-lg: 24px; */
-/* $spacing-md: 16px; */
-/* $spacing-sm: 12px; */
-/* $border-radius-lg: 12px; */
-
-
-.transportation-planner-container {
-  padding: 24px; /* Padding interno del contenedor principal */
-  border-radius: 12px;
-  font-family: 'Roboto', sans-serif;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra sutil para el contenedor principal */ 
-  /* CLAVE: Ancho máximo y centrado para toda la página del planificador */
-  max-width: 2200px; /* Ajusta este valor para controlar el ancho máximo de la página */
-  margin: 24px auto; /* Centra el contenedor principal horizontalmente y añade margen vertical */
-      transform: translateX(-4px); 
-}
-
-.planner-title {
-  font-size: 1.8rem; /* Título un poco más grande y prominente */
-  line-height: 2.5rem;
-  font-weight: 700; /* Más negrita */
-  margin-bottom: 40px; /* Más espacio debajo del título principal */
-  text-align: center;
-}
-
-@media (max-width: 640px) {
-  .planner-title {
-    font-size: 1.75rem;
-    margin-bottom: 24px;
-  }
-  .transportation-planner-container {
-    padding: 10px; /* Reducir padding en móviles */
-    margin: 10px auto; /* Reducir margen en móviles */
-    border-radius: 8px; /* Reducir radio de borde en móviles */
-        transform: translateX(-2px);
-    
-  }
-
-}
-
-.section-heading {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid ; /* Borde sutil */
-}
-
-/* --- Estilos del Formulario de Añadir Entrada --- */
-.planner-add-section {
-
-  padding: 32px; /* Aumentado el padding para hacerlo visualmente más grande */
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
-  margin-bottom: 40px; /* Más espacio debajo del formulario */
-  
-  /* El formulario se expandirá dentro de .transportation-planner-container */
-  /* No necesita max-width ni margin: auto aquí si el contenedor padre ya lo hace */
-}
-
-.add-entry-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* Aumentado el espacio entre los grupos de formulario */
-}
-
-.add-entry-form .form-row {
-  display: flex;
-  gap: 20px; /* Aumentado el espacio entre los elementos en la misma fila */
-}
-
-@media (max-width: 768px) {
-  .add-entry-form .form-row {
-    flex-direction: column; /* Columnas en pantallas pequeñas */
-    gap: 16px; /* Mantener el gap original para móviles si es preferible */
-     transform: translateX(-10px); 
-  }
-  .planner-add-section {
-    padding: 24px; /* Reducir el padding en móviles */
-    margin-bottom: 24px; /* Reducir margen en móviles */
-     transform: translateX(-10px); 
-  }
-}
-
-.add-entry-form .form-group {
-  flex: 1;
-}
-
-.add-entry-form .form-group label {
-  display: block;
-  font-size: 1rem; /* Un poco más grande para las etiquetas */
-  font-weight: bold;
-  margin-bottom: 8px; /* Más espacio debajo de la etiqueta */
-}
-
-.add-entry-form .form-group input[type="text"],
-.add-entry-form .form-group input[type="number"],
-.add-entry-form .form-group input[type="url"],
-.add-entry-form .form-group input[type="date"],
-.add-entry-form .form-group select,
-.add-entry-form .form-group textarea {
-  width: 100%;
-  padding: 14px; /* Aumentado el padding interno de los inputs */
-  border: 1px solid #E0E0E0;
-  border-radius: 0.5rem; /* Bordes un poco más redondeados */
-  font-size: 1.05rem; /* Fuente ligeramente más grande en los inputs */
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-   transform: translateX(-10px); 
-}
-
-/* Estilos de foco para inputs, selects y textareas: AZUL BEBÉ */
-.add-entry-form .form-group input[type="text"]:focus,
-.add-entry-form .form-group input[type="number"]:focus,
-.add-entry-form .form-group input[type="url"]:focus,
-.add-entry-form .form-group input[type="date"]:focus,
-.add-entry-form .form-group select:focus,
-.add-entry-form .form-group textarea:focus {
-  outline: none;
-  border-color:   #34a853;
-   transform: translateX(-10px); 
-}
-
-.add-entry-form .form-group textarea {
-  resize: vertical;
-  min-height: 100px; /* Altura mínima un poco mayor para textareas */
-}
-
-.add-entry-form .form-group select {
-  appearance: none;
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
-  background-repeat: no-repeat;
-  background-position: right 0.7em top 50%, 0 0;
-  background-size: 0.65em auto, 100%;
-  padding-right: 2.5em;
-}
-
-.add-entry-form .form-group.price-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.add-entry-form .form-group.price-group input[type="number"] {
-  flex: 1;
-}
-
-.add-entry-form .form-group.price-group .currency-select {
-  width: auto;
-  min-width: 100px;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-}
-
-.add-entry-button {
-  background-color: #000000;
-  color: #FFFFFF;
-  padding: 18px 30px;
-  border-radius: 9999px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.2s ease, transform 0.2s ease;
-
-  &:hover {
-    background-color: #333333;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-}
-
-/* --- Estilos de la Tabla de Planificación --- */
-.planner-table-section {
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px ; /* Sombra más pronunciada para la tabla también */
-  overflow-x: auto;
-}
-
-.empty-planner-message {
-  text-align: center;
-  padding: 20px;
-
-  font-size: 1.1rem;
-  border-radius: 12px;
-}
-
-.planner-table-wrapper {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.planner-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  min-width: 1000px;
-  font-family: 'Roboto', sans-serif;
-}
-
-.planner-table thead tr {
-  background-color: #000000;
-  text-align: left;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-}
-
-/* src/app/features/transportation-planner/transportation-planner.component.scss */
-
-/* Importa la fuente Roboto de Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-
-/* Colores para los iconos de avión */
-$icon-color-1: #62abff; /* Amarillo Atardecer */
-$icon-color-2: #ff4f4f; /* Azul Horizonte */
-$icon-color-3: #2E8B57; /* Verde Explorador */
-$icon-color-4: #ffcc00; /* Naranja Tierra */
+/* Colores para los iconos de Font Awesome */
+$icon-color-1: #62abff; /* Azul Cielo */
+$icon-color-2: #ff4f4f; /* Rojo Coral */
+$icon-color-3: #2E8B57; /* Verde Bosque */
+$icon-color-4: #ffcc00; /* Amarillo Sol */
 $icon-color-5: #a000fe; /* Morado Vibrante */
 $icon-color-6: #000000; /* Negro Profundo */
 
@@ -246,11 +16,13 @@ $icon-color-6: #000000; /* Negro Profundo */
   padding: 24px;
   border-radius: 12px;
   font-family: 'Roboto', sans-serif;
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   max-width: 1100px;
   margin: 24px auto;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
+
+
 
 .planner-title {
   font-size: 1.8rem;
@@ -258,7 +30,10 @@ $icon-color-6: #000000; /* Negro Profundo */
   font-weight: 700;
   margin-bottom: 40px;
   text-align: center;
+  transition: color 0.3s ease;
 }
+
+
 
 @media (max-width: 640px) {
   .planner-title {
@@ -277,17 +52,21 @@ $icon-color-6: #000000; /* Negro Profundo */
   font-weight: 600;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0; /* Borde sutil */
+
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
+
 
 /* --- Estilos del Formulario de Añadir Entrada --- */
 .planner-add-section {
-
   padding: 32px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   margin-bottom: 40px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 .add-entry-form {
   display: flex;
@@ -320,6 +99,11 @@ $icon-color-6: #000000; /* Negro Profundo */
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .add-entry-form .form-group label {
+  color: #ccc;
 }
 
 .add-entry-form .form-group input[type="text"],
@@ -334,11 +118,10 @@ $icon-color-6: #000000; /* Negro Profundo */
   border-radius: 0.5rem;
   font-size: 1.05rem;
   box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-   transform: translateX(-10px); 
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Estilos de foco para inputs, selects y textareas: AZUL BEBÉ */
+
 .add-entry-form .form-group input[type="text"]:focus,
 .add-entry-form .form-group input[type="number"]:focus,
 .add-entry-form .form-group input[type="url"]:focus,
@@ -346,7 +129,15 @@ $icon-color-6: #000000; /* Negro Profundo */
 .add-entry-form .form-group select:focus,
 .add-entry-form .form-group textarea:focus {
   outline: none;
-  border-color:   #34a853;
+  border-color: #129900;
+ 
+}
+
+body.dark-mode .add-entry-form .form-group input:focus,
+body.dark-mode .add-entry-form .form-group select:focus,
+body.dark-mode .add-entry-form .form-group textarea:focus {
+  border-color: #129900;
+
 }
 
 .add-entry-form .form-group textarea {
@@ -356,11 +147,15 @@ $icon-color-6: #000000; /* Negro Profundo */
 
 .add-entry-form .form-group select {
   appearance: none;
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4-3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
   padding-right: 2.5em;
+}
+
+body.dark-mode .add-entry-form .form-group select {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23CCCCCC%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
 }
 
 .add-entry-form .form-group.price-group {
@@ -397,9 +192,18 @@ $icon-color-6: #000000; /* Negro Profundo */
   transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
+    background-color: #6A1B9A;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
+}
+
+body.dark-mode .add-entry-button {
+  background-color: #000000;
+}
+
+body.dark-mode .add-entry-button:hover {
+  background-color: #000000;
 }
 
 /* --- Estilos de la Tabla de Planificación --- */
@@ -408,14 +212,19 @@ $icon-color-6: #000000; /* Negro Profundo */
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   overflow-x: auto;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+
 
 .empty-planner-message {
   text-align: center;
   padding: 32px;
   font-size: 1.1rem;
   border-radius: 12px;
+
 }
+
 
 .planner-table-wrapper {
   width: 100%;
@@ -432,16 +241,20 @@ $icon-color-6: #000000; /* Negro Profundo */
 }
 
 .planner-table thead tr {
+  background-color: #000000;
+  color: #FFFFFF;
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
   text-transform: uppercase;
 }
 
+
 .planner-table thead th {
   padding: 16px;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid ;
 }
+
 
 .planner-table thead th:first-child {
   border-top-left-radius: 12px;
@@ -456,20 +269,17 @@ $icon-color-6: #000000; /* Negro Profundo */
 }
 
 
+
 .planner-table tbody td {
   padding: 16px;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #E0E0E0;
   font-size: 0.95rem;
   vertical-align: top;
+ 
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
-.planner-table tbody td:first-child {
-  border-left: 1px solid;
-}
 
-.planner-table tbody td:last-child {
-  border-right: 1px solid;
-}
 
 .planner-table tbody tr:last-child td {
   border-bottom: none;
@@ -483,15 +293,34 @@ $icon-color-6: #000000; /* Negro Profundo */
   border-bottom-right-radius: 12px;
 }
 
+.planner-table tbody tr:hover {
+  background-color: #F0F0F0;
+  color: #000000;
+}
+
+body.dark-mode .planner-table tbody tr:hover {
+  background-color: #4a4a4a;
+}
+
 /* --- Estilos para Enlaces de URL en la Tabla --- */
 .table-url-link {
   text-decoration: none;
   word-break: break-all;
   display: block;
+  transition: color 0.2s ease;
+}
+
+body.dark-mode .table-url-link {
+  color: #87CEEB;
 }
 
 .table-url-link:hover {
   text-decoration: underline;
+  color: #0056b3;
+}
+
+body.dark-mode .table-url-link:hover {
+  color: #6495ED;
 }
 
 /* --- Estilos para Celda de Opinión Editable --- */
@@ -504,40 +333,132 @@ $icon-color-6: #000000; /* Negro Profundo */
   word-break: break-word;
 }
 
+.editable-opinion-cell:focus {
+  border: 1px solid;
+  box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.2);
+  border-radius: 4px;
+}
 
 
-/* --- Estilos del icono de avión en la tabla (¡Actualizado para Font Awesome!) --- */
-.trip-icon-fa { /* Nueva clase para el icono de Font Awesome */
+
+/* --- Estilos del icono de transporte en la tabla --- */
+.trip-icon-fa {
   display: inline-block;
   margin-right: 8px;
-  font-size: 1.2rem; /* Tamaño del icono */
-  transform: rotate(90deg); /* Rotar el icono de Font Awesome para que apunte a la derecha */
-  transition: color 0.2s ease;
-  vertical-align: middle; /* Alineación vertical para que quede bien con el texto */
-}
-
-/* Colores cíclicos para los iconos de avión de Font Awesome */
-.planner-table tbody tr:nth-child(6n+1) .trip-icon-fa { color: $icon-color-1; } /* Amarillo Atardecer */
-.planner-table tbody tr:nth-child(6n+2) .trip-icon-fa { color: $icon-color-2; } /* Azul Horizonte */
-.planner-table tbody tr:nth-child(6n+3) .trip-icon-fa { color: $icon-color-3; } /* Verde Explorador */
-.planner-table tbody tr:nth-child(6n+4) .trip-icon-fa { color: $icon-color-4; } /* Naranja Tierra */
-.planner-table tbody tr:nth-child(6n+5) .trip-icon-fa { color: $icon-color-5; } /* Morado Vibrante */
-.planner-table tbody tr:nth-child(6n+6) .trip-icon-fa { color: $icon-color-6; } /* Negro Profundo */
-
-
-/* --- Estilos del botón eliminar (ya existente, pero lo incluyo para contexto) --- */
-.remove-button {
-  background: none;
-  border: none;
-  color: #E74C3C; /* Rojo de eliminación */
   font-size: 1.2rem;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 50%;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background: rgba(231, 76, 60, 0.1);
+  /* Rotar el icono de Font Awesome para que apunte a la derecha si es un avión */
+  &.fa-plane {
+    transform: rotate(90deg);
   }
+  vertical-align: middle;
+  transition: color 0.2s ease;
 }
 
+/* Colores cíclicos para los iconos de transporte */
+.planner-table tbody tr:nth-child(6n+1) .trip-icon-fa { color: $icon-color-1; }
+.planner-table tbody tr:nth-child(6n+2) .trip-icon-fa { color: $icon-color-2; }
+.planner-table tbody tr:nth-child(6n+3) .trip-icon-fa { color: $icon-color-3; }
+.planner-table tbody tr:nth-child(6n+4) .trip-icon-fa { color: $icon-color-4; }
+.planner-table tbody tr:nth-child(6n+5) .trip-icon-fa { color: $icon-color-5; }
+.planner-table tbody tr:nth-child(6n+6) .trip-icon-fa { color: $icon-color-6; }
+
+/* --- Estilos del botón eliminar --- */
+.remove-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.remove-button:hover {
+  background-color: #C0392B;
+  transform: translateY(-1px);
+}
+
+body.dark-mode .remove-button {
+  background-color: #FF6347;
+}
+
+body.dark-mode .remove-button:hover {
+  background-color: #FF4500;
+}
+
+/* --- Estilos para la sección de resumen de presupuesto (NUEVOS/ACTUALIZADOS) --- */
+.budget-summary-section {
+
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+
+.budget-info p {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+
+  transition: color 0.3s ease;
+}
+
+
+.budget-value, .total-cost-value {
+  font-weight: bold;
+  font-size: 1.2rem;
+
+  transition: color 0.3s ease;
+}
+
+
+
+.budget-status-message {
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.budget-status-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+body.dark-mode .budget-status-warning {
+  background-color: #6b5c21;
+  color: #ffd700;
+  border-color: #8a732a;
+}
+
+.budget-status-exceeded {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+body.dark-mode .budget-status-exceeded {
+  background-color: #7a2a2a;
+  color: #ff8a8a;
+  border-color: #a03a3a;
+}
+
+.budget-status-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+body.dark-mode .budget-status-info {
+  background-color: #2a4a5a;
+  color: #87CEEB;
+  border-color: #4a6a7a;
+}

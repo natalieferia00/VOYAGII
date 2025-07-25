@@ -173,7 +173,6 @@ $main-icon-color-6: #000000; /* Negro Profundo */
 
 /* --- Styles for Planner Table --- */
 .planner-table-section {
-
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -202,7 +201,6 @@ $main-icon-color-6: #000000; /* Negro Profundo */
 }
 
 .planner-table thead tr {
-  background-color: #000000;
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
@@ -251,7 +249,7 @@ $main-icon-color-6: #000000; /* Negro Profundo */
 
 /* --- Styles for URL Link in Table --- */
 .table-url-link {
-  color: #615bff;
+  
   text-decoration: none;
   word-break: break-all;
   display: block;

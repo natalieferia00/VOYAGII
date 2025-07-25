@@ -1,63 +1,105 @@
 <div class="auth-container">
   <div class="auth-logo">
-    <img id="sidebar-logo" src="logo.png" alt="Travel App Logo">
+ <img id="sidebar-logo" src="logo.png" alt="Travel App Logo">
   </div>
-  <h2>Regístrate</h2>
-  <!-- Añadimos #registerForm="ngForm" para acceder al estado del formulario -->
-  <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
-    <input
-      type="email"
-      [(ngModel)]="email"
-      name="email"
-      placeholder="Correo electrónico"
-      required
-      email
-      #emailInput="ngModel"
-    />
-    <!-- Mensajes de validación para el correo electrónico -->
-    <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="validation-message">
-      <div *ngIf="emailInput.errors?.['required']">El correo electrónico es obligatorio.</div>
-      <div *ngIf="emailInput.errors?.['email']">Por favor, introduce un correo electrónico válido.</div>
-    </div>
 
-    <input
-      type="password"
-      [(ngModel)]="password"
-      name="password"
-      placeholder="Contraseña"
-      required
-      minlength="6"
-      #passwordInput="ngModel"
-      (input)="checkPasswordMatch()"
-    />
-    <!-- Mensajes de validación para la contraseña -->
-    <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="validation-message">
-      <div *ngIf="passwordInput.errors?.['required']">La contraseña es obligatoria.</div>
-      <div *ngIf="passwordInput.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
-    </div>
+  <!-- Formulario de Registro -->
+  <ng-container *ngIf="!showGeneralInfoForm">
+    <h2>Regístrate</h2>
+    <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Correo electrónico"
+        required
+        email
+        #emailInput="ngModel"
+      />
+      <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="validation-message">
+        <div *ngIf="emailInput.errors?.['required']">El correo electrónico es obligatorio.</div>
+        <div *ngIf="emailInput.errors?.['email']">Por favor, introduce un correo electrónico válido.</div>
+      </div>
 
-    <input
-      type="password"
-      [(ngModel)]="confirmPassword"
-      name="confirmPassword"
-      placeholder="Confirmar contraseña"
-      required
-      #confirmPasswordInput="ngModel"
-      (input)="checkPasswordMatch()"
-    />
-    <!-- Mensajes de validación para la confirmación de contraseña -->
-    <div *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="validation-message">
-      <div *ngIf="confirmPasswordInput.errors?.['required']">La confirmación de contraseña es obligatoria.</div>
-    </div>
-    <div *ngIf="passwordMismatch && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="validation-message">
-      Las contraseñas no coinciden.
-    </div>
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Contraseña"
+        required
+        minlength="6"
+        #passwordInput="ngModel"
+        (input)="checkPasswordMatch()"
+      />
+      <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="validation-message">
+        <div *ngIf="passwordInput.errors?.['required']">La contraseña es obligatoria.</div>
+        <div *ngIf="passwordInput.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
+      </div>
 
-    <!-- El botón se deshabilita si el formulario no es válido o las contraseñas no coinciden -->
-    <button type="submit" [disabled]="registerForm.invalid || passwordMismatch">Crear cuenta</button>
-  </form>
-  <p class="switch-link">
-    ¿Ya tienes cuenta? 
-    <a routerLink="/login">Iniciar sesión</a>
-  </p>
+      <input
+        type="password"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        placeholder="Confirmar contraseña"
+        required
+        #confirmPasswordInput="ngModel"
+        (input)="checkPasswordMatch()"
+      />
+      <div *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="validation-message">
+        <div *ngIf="confirmPasswordInput.errors?.['required']">La confirmación de contraseña es obligatoria.</div>
+      </div>
+      <div *ngIf="passwordMismatch && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="validation-message">
+        Las contraseñas no coinciden.
+      </div>
+
+      <button type="submit" [disabled]="registerForm.invalid || passwordMismatch">Crear cuenta</button>
+    </form>
+    <p class="switch-link">
+      ¿Ya tienes cuenta? 
+      <a routerLink="/login">Iniciar sesión</a>
+    </p>
+  </ng-container>
+
+  <!-- Formulario de Información General del Viaje (se muestra después del registro exitoso) -->
+  <ng-container *ngIf="showGeneralInfoForm">
+    <h2>Información de tu Primer Viaje</h2>
+    <form (ngSubmit)="saveGeneralTripInfo()">
+      <div class="form-group">
+        <label for="travelerName">Nombre del Viajero:</label> <!-- Nuevo input -->
+        <input type="text" id="travelerName" [(ngModel)]="travelerName" name="travelerName" placeholder="Tu nombre" required>
+      </div>
+
+      <div class="form-group">
+        <label for="generalBudget">Presupuesto General:</label>
+        <input type="number" id="generalBudget" [(ngModel)]="generalBudget" name="generalBudget" placeholder="Ej: 2500" min="0">
+      </div>
+
+      <div class="form-group">
+        <label for="startDate">Fecha de Inicio del Viaje:</label>
+        <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="endDate">Fecha de Fin del Viaje:</label>
+        <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="numberOfPlannedCountries">Número de Países Planificados:</label>
+        <input type="number" id="numberOfPlannedCountries" [(ngModel)]="numberOfPlannedCountries" name="numberOfPlannedCountries" placeholder="Ej: 3" min="0" required>
+      </div>
+
+      <div class="form-group">
+        <label for="mainDestination">Destino Principal:</label> <!-- Nuevo input -->
+        <input type="text" id="mainDestination" [(ngModel)]="mainDestination" name="mainDestination" placeholder="Ej: París, Francia" required>
+      </div>
+
+      <div class="form-group">
+        <label for="tripDurationDays">Duración del Viaje (días):</label> <!-- Nuevo input -->
+        <input type="number" id="tripDurationDays" [(ngModel)]="tripDurationDays" name="tripDurationDays" placeholder="Ej: 10" min="1" required>
+      </div>
+
+      <button type="submit" class="btn-save">Guardar Información del Viaje</button>
+    </form>
+  </ng-container>
 </div>

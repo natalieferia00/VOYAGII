@@ -28,7 +28,11 @@
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   font-family: 'Roboto', sans-serif; /* Aplica Roboto */
+
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
+
+
 
 .planner-title {
   font-size: 1.55rem; /* text-3xl */
@@ -36,7 +40,10 @@
   font-weight: bold;
   margin-bottom: 32px; /* $spacing-xl */
   text-align: center;
+  transition: color 0.3s ease;
 }
+
+
 
 @media (max-width: 640px) {
   .planner-title {
@@ -49,7 +56,9 @@
   font-weight: 600;
   margin-bottom: 16px; /* $spacing-md */
   padding-bottom: 12px; /* $spacing-sm */
-  border-bottom: 1px solid #fefefe; /* $medium-gray-border */
+  border-bottom: 1px solid #E0E0E0; /* $medium-gray-border */
+
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 /* --- Estilos del Formulario de Añadir Entrada --- */
@@ -57,6 +66,11 @@
   padding: 24px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
   margin-bottom: 32px; /* $spacing-xl */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .planner-add-section {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .add-entry-form {
@@ -85,11 +99,16 @@
   font-size: 0.9rem;
   font-weight: bold;
   margin-bottom: 6px; /* $spacing-sm / 2 */
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .add-entry-form .form-group label {
+  color: #ccc;
 }
 
 .add-entry-form .form-group input[type="text"],
 .add-entry-form .form-group input[type="number"],
-.add-entry-form .form-group input[type="url"], /* Nuevo tipo */
+.add-entry-form .form-group input[type="url"],
 .add-entry-form .form-group input[type="date"],
 .add-entry-form .form-group select,
 .add-entry-form .form-group textarea {
@@ -99,8 +118,10 @@
   border-radius: 0.375rem;
   font-size: 1rem;
   box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
+
+
 
 .add-entry-form .form-group input[type="text"]:focus,
 .add-entry-form .form-group input[type="number"]:focus,
@@ -109,7 +130,15 @@
 .add-entry-form .form-group select:focus,
 .add-entry-form .form-group textarea:focus {
   outline: none;
-  border-color:   #34a853;
+  border-color: #6A1B9A; /* $secondary-purple */
+
+}
+
+body.dark-mode .add-entry-form .form-group input:focus,
+body.dark-mode .add-entry-form .form-group select:focus,
+body.dark-mode .add-entry-form .form-group textarea:focus {
+  border-color: #9C27B0;
+  box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.2);
 }
 
 .add-entry-form .form-group textarea {
@@ -118,29 +147,45 @@
 }
 
 .add-entry-form .form-group select {
-  appearance: none; /* Elimina estilos por defecto del select */
+  appearance: none;
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
-  padding-right: 2.5em; /* Espacio para la flecha del select */
+  padding-right: 2.5em;
 }
+
+body.dark-mode .add-entry-form .form-group select {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23CCCCCC%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E'); /* Flecha blanca para modo oscuro */
+}
+
 
 .add-entry-form .form-group.price-group {
   display: flex;
   align-items: center;
-  gap: 6px; /* Espacio entre input de precio y select de moneda */
+  gap: 6px;
 }
 
 .add-entry-form .form-group.price-group input[type="number"] {
-  flex: 1; /* Ocupa el espacio restante */
+  flex: 1;
 }
 
 .add-entry-form .form-group.price-group .currency-select {
-  width: auto; /* Ajusta el ancho según el contenido */
+  width: auto;
   min-width: 80px;
 }
 
+.selected-image-preview {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px solid #E0E0E0;
+}
+
+body.dark-mode .selected-image-preview {
+  border-color: #666;
+}
 
 .form-actions {
   display: flex;
@@ -165,34 +210,46 @@
   transform: translateY(-2px);
 }
 
+
+
+
 /* --- Estilos de la Tabla de Planificación --- */
 .planner-table-section {
   padding: 20px; /* $spacing-lg */
   border-radius: 12px; /* $border-radius-lg */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  overflow-x: auto; /* Permite scroll horizontal en móviles si la tabla es ancha */
+  overflow-x: auto;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+
 
 .empty-planner-message {
   text-align: center;
   padding: 32px; /* $spacing-xl */
   font-size: 1.1rem;
-  background-color: #fefefe; /* $light-gray-bg */
+
   border-radius: 12px; /* $border-radius-lg */
+
+}
+
+body.dark-mode .empty-planner-message {
+  background-color: #4a4a4a;
+  color: #e0e0e0;
 }
 
 .planner-table-wrapper {
   width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* Para un scroll más suave en iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 .planner-table {
   width: 100%;
-  border-collapse: separate; /* Necesario para border-radius en thead */
+  border-collapse: separate;
   border-spacing: 0;
-  min-width: 1000px; /* Ancho mínimo para que la tabla no se colapse demasiado en móvil */
-  font-family: 'Roboto', sans-serif; /* Asegura que la fuente se aplique a la tabla */
+  min-width: 1000px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .planner-table thead tr {
@@ -204,17 +261,22 @@
   text-transform: uppercase;
 }
 
-.planner-table thead th {
-  padding: 16px; /* $spacing-md */
-  border-bottom: 1px solid #000000; /* lighten($primary-purple, 10%) */
+body.dark-mode .planner-table thead tr {
+  background-color: #000000;
 }
 
+.planner-table thead th {
+  padding: 16px; /* $spacing-md */
+  border-bottom: 1px solid ; /* lighten($primary-purple, 10%) */
+}
+
+
 .planner-table thead th:first-child {
-  border-top-left-radius: 12px; /* $border-radius-lg */
+  border-top-left-radius: 12px;
 }
 
 .planner-table thead th:last-child {
-  border-top-right-radius: 12px; /* $border-radius-lg */
+  border-top-right-radius: 12px;
 }
 
 .planner-table tbody tr {
@@ -227,64 +289,70 @@
   padding: 12px; /* $spacing-md */
   border-bottom: 1px solid #E0E0E0; /* $medium-gray-border */
   font-size: 0.95rem;
-  vertical-align: top; /* Alinea el contenido de la celda arriba */
+  vertical-align: top;
+
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark-mode .planner-table tbody td {
+  border-color: #666;
+  color: #e0e0e0;
 }
 
 .planner-table tbody td:first-child {
-  border-left: 1px solid ; /* $medium-gray-border */
+  border-left: 1px solid #E0E0E0;
 }
 
-.planner-table tbody td:last-child {
-  border-right: 1px solid; /* $medium-gray-border */
-}
 
 .planner-table tbody tr:last-child td {
-  border-bottom: none; /* Eliminar borde inferior de la última fila */
+  border-bottom: none;
 }
 
 .planner-table tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 12px; /* $border-radius-lg */
+  border-bottom-left-radius: 12px;
 }
 
 .planner-table tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 12px; /* $border-radius-lg */
+  border-bottom-right-radius: 12px;
+}
+
+.planner-table tbody tr:hover {
+  background-color: #F0F0F0; /* Lighter hover */
 }
 
 /* --- Estilos para la Foto en Tabla --- */
 .table-photo-thumbnail {
-  width: 60px; /* Ancho fijo */
-  height: 40px; /* Altura fija */
-  object-fit: cover; /* Ajusta la imagen sin distorsionarla */
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
   border-radius: 4px;
   border: 1px solid #E0E0E0;
 }
 
-/* --- Estilos para el Enlace de URL en Tabla --- */
-.table-url-link {
-  text-decoration: none;
-  word-break: break-all; /* Rompe palabras largas para que no desborden */
-  display: block; /* Para que word-break funcione bien */
-}
-
 .table-url-link:hover {
   text-decoration: underline;
+  color: #0056b3;
+}
+
+body.dark-mode .table-url-link:hover {
+  color: #6495ED;
 }
 
 /* --- Estilos para las Estrellas en Tabla --- */
 .rating-container {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Alinea a la izquierda en el form */
-  gap: 1px; /* Espacio entre estrellas */
+  justify-content: flex-start;
+  gap: 1px;
 }
 
 .planner-add-section .rating-container {
-  justify-content: center; /* Centra las estrellas en el formulario */
-  margin-bottom: 16px; /* $spacing-md */
+  justify-content: flex-start; /* Alinea a la izquierda en el formulario de añadir */
+  margin-bottom: 16px;
 }
 
 .star {
-  font-size: 1.5rem; /* Tamaño de la estrella */
+  font-size: 1.5rem;
   cursor: pointer;
   transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -294,24 +362,129 @@
 }
 
 .star.empty {
-  color: #E0E0E0; /* $medium-gray-border */
+  color: #E0E0E0; /* Gris claro */
 }
+
 
 /* --- Estilos para la Celda de Opinión Editable --- */
 .editable-opinion-cell {
-  cursor: text; /* Indica que es editable */
-  outline: none; /* Elimina el borde de enfoque por defecto */
-  min-width: 150px; /* Ancho mínimo para la columna de opinión */
-  max-width: 300px; /* Ancho máximo para evitar que se estire demasiado */
-  white-space: pre-wrap; /* Mantiene saltos de línea y espacios */
-  word-break: break-word; /* Rompe palabras largas */
+  cursor: text;
+  outline: none;
+  min-width: 150px;
+  max-width: 300px;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .editable-opinion-cell:focus {
   border: 1px solid #000000; /* Borde de enfoque */
   box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.2);
+  border-radius: 4px; /* Borde redondeado al enfocar */
 }
-.planner-table tbody tr:hover {
-  background-color: #FCFCFC; /* Fondo muy claro al pasar el ratón */
-  color: #000000;
+
+body.dark-mode .editable-opinion-cell:focus {
+  border-color: #000000;
+  box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.2);
+}
+
+/* --- Estilos para el botón de eliminar --- */
+.remove-entry-button {
+  background-color: #000000; /* Rojo */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.remove-entry-button:hover {
+  background-color: #C0392B; /* Rojo más oscuro */
+  transform: translateY(-1px);
+}
+
+body.dark-mode .remove-entry-button {
+  background-color: #FF6347; /* Tomate en modo oscuro */
+}
+
+body.dark-mode .remove-entry-button:hover {
+  background-color: #FF4500; /* Naranja rojizo en modo oscuro */
+}
+
+/* --- Estilos para la sección de resumen de presupuesto --- */
+.budget-summary-section {
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ffffff; /* Borde sutil */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+.budget-info p {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+
+  transition: color 0.3s ease;
+}
+
+
+.budget-value, .total-cost-value {
+  font-weight: bold;
+  font-size: 1.2rem;
+
+  transition: color 0.3s ease;
+}
+
+
+
+.budget-status-message {
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
+
+.budget-status-warning {
+  background-color: #fff3cd; /* Amarillo claro */
+  color: #856404; /* Amarillo oscuro */
+  border: 1px solid #ffeeba;
+}
+
+body.dark-mode .budget-status-warning {
+  background-color: #6b5c21;
+  color: #ffd700;
+  border-color: #8a732a;
+}
+
+.budget-status-exceeded {
+  background-color: #f8d7da; /* Rojo claro */
+  color: #721c24; /* Rojo oscuro */
+  border: 1px solid #f5c6cb;
+}
+
+body.dark-mode .budget-status-exceeded {
+  background-color: #7a2a2a;
+  color: #ff8a8a;
+  border-color: #a03a3a;
+}
+
+.budget-status-info {
+  background-color: #d1ecf1; /* Azul claro */
+  color: #0c5460; /* Azul oscuro */
+  border: 1px solid #bee5eb;
+}
+
+body.dark-mode .budget-status-info {
+  background-color: #2a4a5a;
+  color: #87CEEB;
+  border-color: #4a6a7a;
 }

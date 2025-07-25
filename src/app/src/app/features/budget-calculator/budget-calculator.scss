@@ -5,17 +5,21 @@
 
 /* General */
 :host {
-    margin-left: 200px; /* espacio para el sidebar */
+  margin-left: 200px; /* espacio para el sidebar */
   display: block;
   padding: 24px;
-    min-height: 100vh;
-  box-sizing: border-box;
   min-height: 100vh;
+  box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+ 
+}
 
-  @media (max-width: 768px) {
+
+@media (max-width: 768px) {
+  :host {
     padding: 16px;
+    margin-left: 0; /* Eliminar margen del sidebar en móvil */
   }
 }
 
@@ -26,19 +30,13 @@
   width: 100%;
 }
 
-
-.content-wrapper {
-  width: 100%;
-  max-width: 800px;
-}
-
-
 /* Títulos */
 .planner-title {
   font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 32px;
   text-align: center;
+  transition: color 0.3s ease;
 }
 
 
@@ -49,18 +47,19 @@
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid #ddd;
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 
 /* Cards */
 .planner-card {
-
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   margin-bottom: 32px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 
 /* Formulario */
@@ -81,8 +80,26 @@
     display: block;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #333;
     margin-bottom: 6px;
+    transition: color 0.3s ease;
+  }
+
+  /* Estilo para el texto de presupuesto de solo lectura */
+  .read-only-budget {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2e7d32; /* Un verde para el presupuesto */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #e8f5e9; /* Fondo suave para el presupuesto */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  body.dark-mode .read-only-budget {
+    background-color: #3a4a3a;
+    color: #a3e6a3;
+    border-color: #555;
   }
 
   input,
@@ -94,10 +111,11 @@
     border-radius: 6px;
     font-size: 1rem;
     box-sizing: border-box;
-    transition: border-color 0.2s, box-shadow 0.2s;
+
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s ease, color 0.3s ease;
 
     &:focus {
-      border-color: #34a853;
+      border-color: #00a835; /* Color de enfoque */
       outline: none;
     }
   }
@@ -109,15 +127,54 @@
 
   select {
     appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
     background-repeat: no-repeat;
-    background-position: right 0.7em top 50%;
-    background-size: 0.65em auto;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
     padding-right: 2.5em;
+  }
+
+  body.dark-mode select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23CCCCCC%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-3.2-3.2-8.4-3.2-11.6%2C0L5.4%2C197.3c-3.2%2C3.2-3.2%2C8.4%2C0%2C11.6l12.8%2C12.8c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l110.2-110.2c3.2-3.2%2C8.4-3.2%2C11.6%2C0l110.2%2C110.2c3.2%2C3.2%2C8.4%2C3.2%2C11.6%2C0l12.8-12.8C290.2%2C205.7%2C290.2%2C200.5%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
   }
 }
 
 body.dark-mode .form-group label {
   color: #ddd;
+}
+
+.currency-rates-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px dashed #E0E0E0;
+  transition: border-color 0.3s ease;
+}
+
+
+
+.currency-rates-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+
+
+.rate-info {
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .rate-info {
+  color: #aaa;
+}
+
+.currency-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
 }
 
 .form-actions {
@@ -127,7 +184,7 @@ body.dark-mode .form-group label {
 }
 
 .action-button {
-  background: #000;
+  background: #000000;
   color: #fff;
   padding: 12px 20px;
   border-radius: 9999px;
@@ -135,13 +192,15 @@ body.dark-mode .form-group label {
   font-weight: 600;
   border: none;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: background-color 0.2s, transform 0.2s;
 
   &:hover {
-    background: #222;
+    background: #1b191c;
     transform: translateY(-2px);
   }
 }
+
 
 /* Resumen (summary-item) - ¡Aquí aplicamos los colores! */
 .budget-summary-section {
@@ -156,88 +215,83 @@ body.dark-mode .form-group label {
 }
 
 .summary-item {
- 
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra más pronunciada */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transición al hover */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px); /* Elevación al pasar el ratón */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más grande al pasar el ratón */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
 
   h3 {
-    font-size: 1.15rem; /* Un poco más grande */
+    font-size: 1.15rem;
     font-weight: 600;
     margin-bottom: 10px;
-
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Sombra sutil para el texto */
+    color: #FFFFFF; /* Texto blanco por defecto para fondos de colores */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
   }
 
   .amount {
-    font-size: 2.2rem; /* Más grande para el monto */
+    font-size: 2.2rem;
     font-weight: bold;
- 
+    color: #FFFFFF; /* Texto blanco por defecto para montos */
     margin-bottom: 5px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
   }
 
   .status-message {
-    font-size: 0.95rem; /* Ligeramente más grande */
+    font-size: 0.95rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.9); /* Blanco ligeramente transparente */
   }
 }
 
 /* 🎨 Colores cíclicos para las tarjetas de resumen */
-.summary-item:nth-child(6n+1) { background-color: #2E8B57; } /* Azul Horizonte */
-.summary-item:nth-child(6n+2) { background-color: #FFC857; } /* Verde Explorador */ 
+.summary-item:nth-child(6n+1) { background-color: #2E8B57; } /* Verde Esmeralda */
+.summary-item:nth-child(6n+2) { background-color: #FFC857; } /* Amarillo Sol */
 .summary-item:nth-child(6n+3) { background-color: #a000fe; } /* Morado Vibrante */
-.summary-item:nth-child(6n+4) { background-color: #FF6F3C; } /* Naranja Tierra */
-.summary-item:nth-child(6n+5) { background-color: #3A86FF; } /* Amarillo Atardecer (¡Texto oscuro aquí!) */
+.summary-item:nth-child(6n+4) { background-color: #FF6F3C; } /* Naranja Calabaza */
+.summary-item:nth-child(6n+5) { background-color: #3A86FF; } /* Azul Eléctrico */
 .summary-item:nth-child(6n+6) { background-color: #000000; } /* Negro Profundo */
 
-/* Ajustes de color de texto para tarjetas con fondos claros */
-.summary-item:nth-child(6n+5) h3,
-.summary-item:nth-child(6n+5) .amount,
-.summary-item:nth-child(6n+5) .status-message {
-
-  text-shadow: none; /* Eliminar sombra de texto */
+/* Ajustes de color de texto para tarjetas con fondos claros (si los hubiera) */
+/* Por ahora, todos los fondos son oscuros, así que el texto blanco está bien */
+.summary-item.total-expenses.over-budget .amount {
+  color: #FFD700; /* Dorado para sobrepresupuesto en fondos oscuros */
 }
 
+.summary-item.total-expenses.under-budget .amount {
+  color: #A3E6A3; /* Verde claro para bajo presupuesto en fondos oscuros */
+}
+
+/* Mensajes de estado específicos para el resumen total */
+.status-message.info-message {
+  color: #f0f0f0; /* Color claro para mensajes informativos en fondos oscuros */
+  font-style: italic;
+}
 
 body.dark-mode .summary-item {
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Sombra más oscura */
-  
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   h3, .amount, .status-message {
-
     text-shadow: none;
   }
 }
 
-/* Modos de presupuesto (over/under) */
-.summary-item.total-expenses.over-budget .amount {
-  color: #e74c3c; /* Rojo para sobrepresupuesto */
-}
-
-.summary-item.total-expenses.under-budget .amount {
-  color: #28a745; /* Verde para bajo presupuesto */
-}
-
 /* Tabla */
-.expense-table-section { /* Asegura que la tabla también sea una planner-card */
-
+.expense-table-section {
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   margin-bottom: 32px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 
 .planner-table-wrapper {
@@ -248,58 +302,54 @@ body.dark-mode .summary-item {
 .planner-table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0; /* Asegura que no haya espacio extra */
+  border-spacing: 0;
   min-width: 600px;
   font-family: 'Roboto', sans-serif;
 
   thead tr {
- 
+    background-color: #000000; /* Fondo de encabezado de tabla */
+    color: #FFFFFF;
     text-align: left;
     font-weight: 600;
     font-size: 0.9rem;
-    border-radius: 12px 12px 0 0; /* Bordes redondeados solo arriba */
+    border-radius: 12px 12px 0 0;
+    transition: background-color 0.3s ease;
   }
+
+
 
   thead th {
     padding: 12px;
-    border-bottom: 1px solid #333; /* Borde más oscuro */
+    border-bottom: 1px solid; /* Borde más oscuro */
+    transition: border-color 0.3s ease;
   }
 
+ 
   thead th:first-child { border-top-left-radius: 12px; }
   thead th:last-child { border-top-right-radius: 12px; }
 
-
   tbody tr {
-    transition: background-color 0.2s;
+    transition: background-color 0.2s ease;
   }
 
-  tbody tr:hover {
-    background: #f0f0f0;
-  }
+
 
   tbody td {
     padding: 12px;
     font-size: 0.95rem;
     vertical-align: top;
-    border-bottom: 1px solid #E0E0E0; /* Borde gris claro */
+    border-bottom: 1px solid #E0E0E0;
+
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+
+  body.dark-mode .planner-table tbody td {
+    border-bottom: 1px solid;
   }
 
   tbody tr:last-child td {
-    border-bottom: none; /* Elimina borde inferior de la última fila */
+    border-bottom: none;
   }
-}
-
-body.dark-mode .planner-table thead tr {
-  background: #222;
-}
-
-body.dark-mode .planner-table tbody tr:hover {
-  background: #2a2a2a;
-}
-
-body.dark-mode .planner-table tbody td {
-  color: #e0e0e0;
-  border-bottom: 1px solid #333;
 }
 
 /* Celdas editables en la tabla */
@@ -307,12 +357,16 @@ body.dark-mode .planner-table tbody td {
   cursor: text;
   outline: none;
   &:focus {
-    background-color: #F0F0F0;
+
     border-radius: 4px;
     padding: 2px 4px;
-    border: 1px solid #e0eaff; /* Azul bebé */
-    box-shadow: 0 0 0 2px #e0eaff; /* Sombra azul bebé */
+    border: 1px solid ; /* Azul bebé */
+    box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.2); /* Sombra azul bebé */
   }
+}
+
+body.dark-mode .editable-cell:focus {
+  box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.2);
 }
 
 /* Botón eliminar */
@@ -329,4 +383,17 @@ body.dark-mode .planner-table tbody td {
   &:hover {
     background: rgba(231, 76, 60, 0.1);
   }
+}
+
+body.dark-mode .remove-button {
+  color: #FF6347;
+}
+
+body.dark-mode .remove-button:hover {
+  background: rgba(255, 99, 71, 0.1);
+}
+
+/* Estilos para el icono de Font Awesome en el botón de eliminar */
+.remove-button i {
+  vertical-align: middle;
 }

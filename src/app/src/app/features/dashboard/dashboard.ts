@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // <-- ¡Añadir CommonModule aquí!
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
-// Importar módulos de PrimeNG si los estás usando en el HTML de este componente
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { SidebarComponent } from "../../layout/app-sidebar/app-sidebar";
-import { MetricsComponent } from "../../../../shared/components/metrics/metrics";
 import { WorldMapComponent } from "../../../../shared/components/world-map/world-map";
-import { VisitedFormComponent } from "../../../../shared/components/visited-form";
 import { CommentsFormComponent} from "../../../../shared/components/comments-form";
 import { PlanningSectionComponent } from "../../../../shared/components/planning-section";
 import { TasksSectionComponent } from "../../../../shared/components/tasks-section.component";
@@ -17,6 +14,16 @@ import { TravelSeasonChartComponent } from "../../../../shared/components/travel
 import { ProgressChartComponent } from "../../../../progress-chart/progress-chart";
 import { PreparationChecklistChartComponent } from "../../../../preparation-checklist-chart/preparation-checklist-chart";
 import { PackingPlannerComponent } from "../packing-planner/packing-planner";
+import { VisitedFormComponent } from "../../../../shared/components/visited-form";
+import { GeneralTripInfo } from '../../../../shared/components/interfaces/general-trip-info.interface';
+import { AdditionalGeneralInfo } from '../../../../shared/components/interfaces/additional-general-info.interface';
+import { MetricsComponent } from '../../../../shared/components/metrics/metrics';
+import { WelcomeMessageComponent } from "../../../../welcome-message/welcome-message";
+
+
+
+// Interfaz combinada que MetricsComponent espera
+type CombinedTripInfo = GeneralTripInfo & AdditionalGeneralInfo;
 
 @Component({
   selector: 'app-dashboard',
@@ -32,22 +39,79 @@ import { PackingPlannerComponent } from "../packing-planner/packing-planner";
     CommentsFormComponent,
     PlanningSectionComponent,
     PreparationChecklistChartComponent,
-    TasksSectionComponent
+    TasksSectionComponent,
+    WelcomeMessageComponent
 ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
-
-
-
 export class DashboardComponent implements OnInit {
-  metrics = [
-    { title: 'Países Visitados', value: '12', trend: '+1.5%', color: '#6A1B9A' },
-    { title: 'Ciudades Exploradas', value: '45', trend: '+3.2%', color: '#4A148C' },
-    { title: 'Fotos Guardadas', value: '768', trend: '+0.8%', color: '#9C27B0' },
-    { title: 'Próximos Viajes', value: '3', trend: '-0.2%', color: '#7B1FA2' },
-  ];
-
+   generalTripInfoForMetrics: CombinedTripInfo | null = null;
+  travelerName: string | null = null; // Nuevo: para pasar el nombre al WelcomeMessageComponent
   constructor() { }
-  ngOnInit(): void { }
+
+  ngOnInit(): void {
+    this.loadAllGeneralInfo();
+  }
+
+  private loadAllGeneralInfo(): void {
+    let loadedRegInfo: GeneralTripInfo | null = null;
+    let loadedAddInfo: AdditionalGeneralInfo | null = null;
+
+    const storedRegInfo = localStorage.getItem('generalTripInfo');
+    if (storedRegInfo) {
+      try {
+        loadedRegInfo = JSON.parse(storedRegInfo);
+        console.log('Info del registro cargada en Dashboard:', loadedRegInfo);
+      } catch (e) {
+        console.error('Error al parsear info del registro desde localStorage en Dashboard:', e);
+      }
+    }
+
+    const storedAddInfo = localStorage.getItem('additionalGeneralInfo');
+    if (storedAddInfo) {
+      try {
+        loadedAddInfo = JSON.parse(storedAddInfo);
+        console.log('Info adicional cargada en Dashboard:', loadedAddInfo);
+      } catch (e) {
+        console.error('Error al parsear info adicional desde localStorage en Dashboard:', e);
+      }
+    }
+
+    // Combinar la información si ambas partes existen
+    if (loadedRegInfo && loadedAddInfo) {
+      this.generalTripInfoForMetrics = {
+        ...loadedRegInfo,
+        ...loadedAddInfo
+      };
+    } else if (loadedRegInfo) {
+      // Si solo hay info de registro, inicializar los campos adicionales a vacíos/null
+      this.generalTripInfoForMetrics = {
+        ...loadedRegInfo,
+        plannedCountriesList: '',
+        travelMotto: '',
+        emergencyContact: '',
+        notes: '',
+        transportBudget: null, // Inicializar nuevos campos
+        foodBudget: null,
+        accommodationBudget: null
+      };
+    } else if (loadedAddInfo) {
+      // Si solo hay info adicional (caso menos común, pero para robustez)
+      this.generalTripInfoForMetrics = {
+        travelerName: '',
+        generalBudget: null,
+        startDate: '',
+        endDate: '',
+        numberOfPlannedCountries: null,
+        mainDestination: '',
+        tripDurationDays: null,
+        ...loadedAddInfo
+      };
+    } else {
+      // Si no hay ninguna información, establecer a null
+      this.generalTripInfoForMetrics = null;
+      console.log('No hay información general del viaje ni adicional guardada en localStorage para el Dashboard.');
+    }
+  }
 }

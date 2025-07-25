@@ -1,0 +1,46 @@
+/* src/app/shared/components/welcome-message/welcome-message.component.scss */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+.welcome-card {
+  padding: 30px 20px;
+  border-radius: 15px;
+  text-align: center;
+  margin-bottom: 30px; /* Espacio debajo del mensaje */
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s ease-in-out;
+  cursor: default; /* No es interactivo */
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.welcome-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.welcome-question {
+  font-size: 1.3rem;
+  font-weight: 400;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .welcome-card {
+    padding: 20px 15px;
+    margin-bottom: 20px;
+  }
+
+  .welcome-title {
+    font-size: 1.8rem;
+  }
+
+  .welcome-question {
+    font-size: 1.1rem;
+  }
+}

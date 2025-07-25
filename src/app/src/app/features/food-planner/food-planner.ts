@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common'; // CommonModule for directives, CurrencyPipe for currency formatting
 import { FormsModule } from '@angular/forms'; // For ngModel
+import { AdditionalGeneralInfo } from '../../../../shared/components/interfaces/additional-general-info.interface';
+
 
 // Meal types
 type MealType = 'Desayuno' | 'Almuerzo' | 'Cena' | 'Snack' | 'Bebidas' | 'Otro';
@@ -27,7 +29,8 @@ interface FoodEntry {
   standalone: true,
   imports: [
     CommonModule, // For structural directives like *ngFor, *ngIf
-    FormsModule   // For two-way data binding with ngModel
+    FormsModule,  // For two-way data binding with ngModel
+    CurrencyPipe  // Para formatear moneda en el HTML
   ],
   templateUrl: './food-planner.html',
   styleUrls: ['./food-planner.scss']
@@ -35,6 +38,10 @@ interface FoodEntry {
 export class FoodPlannerComponent implements OnInit {
   foodEntries: FoodEntry[] = [];
   nextId: number = 1;
+
+  // Presupuesto de alimentación desde Información General
+  foodBudget: number | null = null;
+  totalFoodCost: number = 0; // Nuevo: total gastado en alimentación
 
   // Form properties for new entry
   newEntryTripName: string = '';
@@ -57,7 +64,90 @@ export class FoodPlannerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.loadFoodEntries(); // Cargar datos al inicio
+    this.loadFoodEntries(); // Cargar datos de comida
+    this.loadFoodBudget(); // Cargar el presupuesto de comida
+    this.calculateTotalFoodCost(); // Calcular el costo total inicial
+  }
+
+  /**
+   * Carga el presupuesto de alimentación desde localStorage.
+   */
+  private loadFoodBudget(): void {
+    const storedAddInfo = localStorage.getItem('additionalGeneralInfo');
+    if (storedAddInfo) {
+      try {
+        const parsedAddInfo: AdditionalGeneralInfo = JSON.parse(storedAddInfo);
+        this.foodBudget = parsedAddInfo.foodBudget;
+        console.log('Presupuesto de alimentación cargado:', this.foodBudget);
+      } catch (e) {
+        console.error('Error al parsear información adicional desde localStorage para presupuesto de alimentación:', e);
+        this.foodBudget = null;
+      }
+    } else {
+      console.log('No hay información adicional guardada para el presupuesto de alimentación.');
+      this.foodBudget = null;
+    }
+  }
+
+  /**
+   * Calcula el costo total de todas las entradas de comida.
+   * Asume que todos los precios están en la misma moneda (USD en este ejemplo simple).
+   * Si las monedas fueran diferentes, necesitarías tasas de conversión.
+   */
+  private calculateTotalFoodCost(): void {
+    this.totalFoodCost = this.foodEntries.reduce((sum, entry) => {
+      // Solo suma si el precio no es null y es en USD (o la moneda base que decidas)
+      if (entry.estimatedCost !== null && entry.currency === 'USD') { // Ajusta la moneda base si es necesario
+        return sum + entry.estimatedCost;
+      }
+      return sum;
+    }, 0);
+    console.log('Costo total de alimentación:', this.totalFoodCost);
+  }
+
+  /**
+   * Obtiene la clase CSS para el estado del presupuesto de alimentación.
+   */
+  getBudgetStatusClass(): string {
+    if (this.foodBudget === null || this.foodBudget === 0) {
+      return 'budget-status-info'; // No hay presupuesto definido o es cero
+    }
+    const remaining = this.foodBudget - this.totalFoodCost;
+    if (remaining < 0) {
+      return 'budget-status-exceeded'; // Excedido
+    } else if (remaining <= this.foodBudget * 0.15) { // Advertencia si queda el 15% o menos
+      return 'budget-status-warning'; // Cerca de exceder
+    } else {
+      return 'budget-status-ok'; // Dentro del presupuesto
+    }
+  }
+
+  /**
+   * Obtiene el mensaje del estado del presupuesto de alimentación.
+   */
+  getBudgetStatusMessage(): string {
+    if (this.foodBudget === null) {
+      return 'Presupuesto de alimentación no definido en Información General.';
+    }
+    if (this.foodBudget === 0) {
+        return 'Presupuesto de alimentación es cero. No hay límite establecido.';
+    }
+
+    const remaining = this.foodBudget - this.totalFoodCost;
+    const formattedRemaining = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(Math.abs(remaining));
+
+    if (remaining < 0) {
+      return `¡ATENCIÓN! Has excedido tu presupuesto de alimentación por ${formattedRemaining}.`;
+    } else if (remaining <= this.foodBudget * 0.15) {
+      return `ADVERTENCIA: Te quedan ${formattedRemaining} de tu presupuesto de alimentación. ¡Estás cerca del límite!`;
+    } else {
+      return `Tienes ${formattedRemaining} restantes de tu presupuesto de alimentación.`;
+    }
   }
 
   /**
@@ -71,7 +161,6 @@ export class FoodPlannerComponent implements OnInit {
     if (storedEntries) {
       try {
         const parsedEntries: FoodEntry[] = JSON.parse(storedEntries);
-        // Verificar si los datos parseados son un array y no está vacío
         if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
           this.foodEntries = parsedEntries;
           console.log('Entradas de comida cargadas desde localStorage:', this.foodEntries);
@@ -87,14 +176,13 @@ export class FoodPlannerComponent implements OnInit {
       console.log('No hay datos de comida en localStorage.');
     }
 
-    // Si no se cargaron datos exitosamente, inicializar con datos de ejemplo
     if (!loadedSuccessfully) {
       this.initializeExampleData();
       console.log('Datos de ejemplo de comida inicializados.');
     }
 
-    // Siempre calcular el nextId después de que this.foodEntries esté poblado
     this.calculateNextId();
+    this.calculateTotalFoodCost(); // Recalcular al cargar
   }
 
   /**
@@ -115,6 +203,7 @@ export class FoodPlannerComponent implements OnInit {
   private saveFoodEntries(): void {
     localStorage.setItem('foodEntries', JSON.stringify(this.foodEntries));
     console.log('Entradas de comida guardadas en localStorage.');
+    this.calculateTotalFoodCost(); // Recalcular al guardar
   }
 
   /**
@@ -122,7 +211,6 @@ export class FoodPlannerComponent implements OnInit {
    * Solo se llama si no hay datos válidos en localStorage.
    */
   private initializeExampleData(): void {
-    // Usamos un contador temporal para los IDs de los datos de ejemplo
     let tempNextId = 1;
 
     this.foodEntries = [
@@ -136,7 +224,7 @@ export class FoodPlannerComponent implements OnInit {
         restaurantName: 'Le Bistrot d\'André',
         cuisine: 'Francesa',
         estimatedCost: 50,
-        currency: 'EUR',
+        currency: 'USD', // Cambiado a USD para que sume al total de ejemplo
         date: '2024-09-11',
         url: 'https://lebistrot.com',
         notes: 'Recomendado por locales, ambiente acogedor.'
@@ -151,7 +239,7 @@ export class FoodPlannerComponent implements OnInit {
         restaurantName: 'Trattoria da Enzo al 29',
         cuisine: 'Italiana',
         estimatedCost: 30,
-        currency: 'EUR',
+        currency: 'USD', // Cambiado a USD para que sume al total de ejemplo
         date: '2024-09-18',
         url: 'https://enzoal29.it',
         notes: 'Pasta casera increíble, reservar con antelación.'
@@ -166,7 +254,7 @@ export class FoodPlannerComponent implements OnInit {
         restaurantName: 'Ichiran Ramen',
         cuisine: 'Japonesa',
         estimatedCost: 15,
-        currency: 'JPY',
+        currency: 'USD', // Cambiado a USD para que sume al total de ejemplo
         date: '2025-04-05',
         url: 'https://ichiran.com',
         notes: 'Famoso por su ramen, experiencia única.'
@@ -174,14 +262,11 @@ export class FoodPlannerComponent implements OnInit {
     ];
   }
 
-  /**
-   * Adds a new food planning entry to the table.
-   */
   addFoodEntry(): void {
     if (this.newEntryTripName && this.newEntryTripCode && this.newEntryCountry && this.newEntryCity &&
         this.newEntryRestaurantName && this.newEntryDate) {
       const newEntry: FoodEntry = {
-        id: this.nextId++, // Usar el ID actual y luego incrementarlo
+        id: this.nextId++,
         tripName: this.newEntryTripName,
         tripCode: this.newEntryTripCode,
         country: this.newEntryCountry,
@@ -196,16 +281,13 @@ export class FoodPlannerComponent implements OnInit {
         notes: this.newEntryNotes
       };
       this.foodEntries.push(newEntry);
-      this.resetForm(); // Clear the form after adding
-      this.saveFoodEntries(); // Guardar cambios
+      this.resetForm();
+      this.saveFoodEntries(); // Esto también recalcula el total
     } else {
       alert('Please complete all required fields: Trip Name, Trip Code, Country, City, Restaurant Name, and Date.');
     }
   }
 
-  /**
-   * Resets the form fields.
-   */
   resetForm(): void {
     this.newEntryTripName = '';
     this.newEntryTripCode = '';
@@ -221,37 +303,25 @@ export class FoodPlannerComponent implements OnInit {
     this.newEntryNotes = '';
   }
 
-  /**
-   * Opens the URL of the entry in a new tab.
-   */
   openUrl(url: string): void {
-    if (url) { // Check if URL is not empty
+    if (url) {
       window.open(url, '_blank');
     }
   }
 
-  /**
-   * Handles the notes update directly in the table.
-   * @param entry The table entry being edited.
-   * @param event The input event.
-   */
   onNotesChange(entry: FoodEntry, event: Event): void {
     const target = event.target as HTMLElement;
     entry.notes = target.innerText;
-    this.saveFoodEntries(); // Guardar cambios al editar las notas
+    this.saveFoodEntries(); // Esto también recalcula el total
     console.log(`Notes updated for ${entry.restaurantName}: ${entry.notes}`);
   }
 
-  /**
-   * Elimina una entrada de planificación de comida de la tabla.
-   * @param entryToRemove La entrada a eliminar.
-   */
   removeFoodEntry(entryToRemove: FoodEntry): void {
     const index = this.foodEntries.findIndex(entry => entry.id === entryToRemove.id);
     if (index !== -1) {
       this.foodEntries.splice(index, 1);
-      this.saveFoodEntries(); // Guardar cambios
-      this.calculateNextId(); // Recalcular nextId después de eliminar
+      this.saveFoodEntries(); // Esto también recalcula el total
+      this.calculateNextId();
     }
   }
 }

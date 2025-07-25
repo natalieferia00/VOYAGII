@@ -1,13 +1,14 @@
 <section class="metrics-section">
   <h2 class="metrics-title">Analíticas de Viaje</h2>
   <div class="metrics-grid">
-    <div *ngFor="let metric of metrics; let i = index" class="metric-card">
+    <div *ngFor="let metric of metricsData; let i = index" class="metric-card">
       <div class="metric-dot" [ngStyle]="{'background-color': dotColors[i % dotColors.length]}">
-        <i class="fas fa-flag metric-flag-icon"></i>
+        <i [class]="metric.icon" class="metric-flag-icon"></i> <!-- Usamos metric.icon ahora -->
       </div>
-      <h3 contenteditable="true">{{ metric.title }}</h3>
-      <p class="metric-value" contenteditable="true">{{ metric.value }}</p>
-      <p class="metric-trend" contenteditable="true">{{ metric.trend }}</p>
+      <!-- Los contenteditable ahora se vinculan a metricsData -->
+      <h3 contenteditable="true" (input)="onMetricTitleChange(i, $event)">{{ metric.title }}</h3>
+      <p class="metric-value" contenteditable="true" (input)="onMetricValueChange(i, $event)">{{ metric.value }}</p>
+      <p class="metric-trend" contenteditable="true" (input)="onMetricTrendChange(i, $event)">{{ metric.trend }}</p>
     </div>
   </div>
 </section>

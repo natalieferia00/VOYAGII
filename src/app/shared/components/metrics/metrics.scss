@@ -1,6 +1,5 @@
 .metrics-section {
   padding: 2rem;
-
   font-family: 'Roboto', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 
@@ -55,34 +54,43 @@
     .metric-dot {
       position: absolute;
       top: 50px;
-      right: 30px;
-      width: 32px;
-      height: 32px;
+      right: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 20%;
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
       border: 1px solid #fff;
+       transform: translateX(18dpx); 
     }
   }
 }
-
-/* 🌑 DARK MODE: aplica cuando se añade 'dark-mode' al body */
-body.dark-mode .metrics-section {
-  background: #121212;
-  color: #e0e0e0;
+ .metric-flag-icon {
+    font-size: 1.5rem;
+    color: #FFFFFF; /* Icono en blanco */
+    text-shadow: none;
+     transform: translateY(5px); 
+  }
+/* Estilos para celdas editables */
+.metric-card h3[contenteditable="true"]:focus,
+.metric-card .metric-value[contenteditable="true"]:focus,
+.metric-card .metric-trend[contenteditable="true"]:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 2px 5px;
 }
+ .metric-title {
+    font-size: 1rem;
+  }
 
-body.dark-mode .metrics-section .metrics-title {
-  color: #f0f0f0;
-}
+  .metric-value {
+    font-size: 1.6rem;
+  }
 
-body.dark-mode .metrics-section .metric-card {
-  background: #1e1e1e;
-}
+  .metric-trend {
+    font-size: 0.8rem;
+  }
 
-body.dark-mode .metrics-section .metric-card h3,
-body.dark-mode .metrics-section .metric-card .metric-value,
-body.dark-mode .metrics-section .metric-card .metric-trend {
-  color: #e0e0e0;
-}
+
 
 

@@ -3,22 +3,22 @@
 
 <!-- src/app/features/dashboard/dashboard.component.html -->
 <main class="dashboard-content">
+  <!-- Nuevo: Componente de mensaje de bienvenida -->
+  <app-welcome-message [travelerName]="travelerName"></app-welcome-message>
+
   <!-- Sección de Resumen de Métricas -->
   <section class="dashboard-section metrics-section">
- 
-    <app-metrics></app-metrics>
+    <app-metrics [generalInfo]="generalTripInfoForMetrics"></app-metrics>
   </section>
 
   <!-- Sección de Gráficos y Mapa -->
   <section class="dashboard-section charts-and-map-section">
     <div class="section-card">
       <h2 class="card-title">Progreso del Checklist</h2>
-      <!-- Asegúrate de que app-preparation-checklist-chart sea un componente existente -->
       <app-preparation-checklist-chart></app-preparation-checklist-chart>
     </div>
     <div class="section-card">
       <h2 class="card-title">Mapa de Viaje</h2>
-      <!-- Asegúrate de que app-world-map sea un componente existente -->
       <app-world-map></app-world-map>
     </div>
   </section>
@@ -27,12 +27,10 @@
   <section class="dashboard-section planning-and-comments-section">
     <div class="section-card">
       <h2 class="card-title">Sección de Planificación</h2>
-      <!-- Asegúrate de que app-planning-section sea un componente existente -->
       <app-planning-section></app-planning-section>
     </div>
     <div class="section-card">
       <h2 class="card-title">Comentarios</h2>
-      <!-- Asegúrate de que app-comments-form sea un componente existente -->
       <app-comments-form></app-comments-form>
       <app-tasks-section></app-tasks-section>
     </div>

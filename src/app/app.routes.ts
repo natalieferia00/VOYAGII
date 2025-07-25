@@ -71,6 +71,14 @@ export const routes: Routes = [
     ),
 },
 
+{
+  path: 'informacion-general',
+  loadComponent: () =>
+    import('../app/pages/informacion-general/informacion-general').then(
+      m => m.InformacionGeneralComponent
+    ),
+},
+
   // Ruta para Login
   {
     path: 'login',

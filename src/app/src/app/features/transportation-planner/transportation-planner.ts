@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common'; // CommonModule para directivas, CurrencyPipe para formato de moneda
 import { FormsModule } from '@angular/forms'; // Para ngModel
+import { AdditionalGeneralInfo } from '../../../../shared/components/interfaces/additional-general-info.interface';
+
 
 // Tipos de transporte
 type TransportType = 'Vuelo' | 'Tren' | 'Autobús' | 'Metro' | 'Taxi' | 'Otro';
@@ -27,7 +29,8 @@ interface TransportationEntry {
   standalone: true,
   imports: [
     CommonModule, // For structural directives like *ngFor, *ngIf
-    FormsModule   // For two-way data binding with ngModel
+    FormsModule,  // For two-way data binding with ngModel
+    CurrencyPipe  // Para formatear moneda en el HTML
   ],
   templateUrl: './transportation-planner.html',
   styleUrls: ['./transportation-planner.scss']
@@ -35,6 +38,10 @@ interface TransportationEntry {
 export class TransportationPlannerComponent implements OnInit {
   transportationEntries: TransportationEntry[] = [];
   nextId: number = 1;
+
+  // Presupuesto de transporte desde Información General
+  transportBudget: number | null = null;
+  totalTransportationCost: number = 0; // Nuevo: total gastado en transporte
 
   // Form properties for new entry
   newEntryTripName: string = '';
@@ -57,7 +64,90 @@ export class TransportationPlannerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.loadTransportationEntries(); // Cargar datos al inicio
+    this.loadTransportationEntries(); // Cargar datos de transporte
+    this.loadTransportBudget(); // Cargar el presupuesto de transporte
+    this.calculateTotalTransportationCost(); // Calcular el costo total inicial
+  }
+
+  /**
+   * Carga el presupuesto de transporte desde localStorage.
+   */
+  private loadTransportBudget(): void {
+    const storedAddInfo = localStorage.getItem('additionalGeneralInfo');
+    if (storedAddInfo) {
+      try {
+        const parsedAddInfo: AdditionalGeneralInfo = JSON.parse(storedAddInfo);
+        this.transportBudget = parsedAddInfo.transportBudget;
+        console.log('Presupuesto de transporte cargado:', this.transportBudget);
+      } catch (e) {
+        console.error('Error al parsear información adicional desde localStorage para presupuesto de transporte:', e);
+        this.transportBudget = null;
+      }
+    } else {
+      console.log('No hay información adicional guardada para el presupuesto de transporte.');
+      this.transportBudget = null;
+    }
+  }
+
+  /**
+   * Calcula el costo total de todos los transportes.
+   * Asume que todos los precios están en la misma moneda (USD en este ejemplo simple).
+   * Si las monedas fueran diferentes, necesitarías tasas de conversión.
+   */
+  private calculateTotalTransportationCost(): void {
+    this.totalTransportationCost = this.transportationEntries.reduce((sum, entry) => {
+      // Solo suma si el precio no es null y es en USD (o la moneda base que decidas)
+      if (entry.price !== null && entry.currency === 'USD') { // Ajusta la moneda base si es necesario
+        return sum + entry.price;
+      }
+      return sum;
+    }, 0);
+    console.log('Costo total de transporte:', this.totalTransportationCost);
+  }
+
+  /**
+   * Obtiene la clase CSS para el estado del presupuesto de transporte.
+   */
+  getBudgetStatusClass(): string {
+    if (this.transportBudget === null || this.transportBudget === 0) {
+      return 'budget-status-info'; // No hay presupuesto definido o es cero
+    }
+    const remaining = this.transportBudget - this.totalTransportationCost;
+    if (remaining < 0) {
+      return 'budget-status-exceeded'; // Excedido
+    } else if (remaining <= this.transportBudget * 0.15) { // Advertencia si queda el 15% o menos
+      return 'budget-status-warning'; // Cerca de exceder
+    } else {
+      return 'budget-status-ok'; // Dentro del presupuesto
+    }
+  }
+
+  /**
+   * Obtiene el mensaje del estado del presupuesto de transporte.
+   */
+  getBudgetStatusMessage(): string {
+    if (this.transportBudget === null) {
+      return 'Presupuesto de transporte no definido en Información General.';
+    }
+    if (this.transportBudget === 0) {
+        return 'Presupuesto de transporte es cero. No hay límite establecido.';
+    }
+
+    const remaining = this.transportBudget - this.totalTransportationCost;
+    const formattedRemaining = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(Math.abs(remaining));
+
+    if (remaining < 0) {
+      return `¡ATENCIÓN! Has excedido tu presupuesto de transporte por ${formattedRemaining}.`;
+    } else if (remaining <= this.transportBudget * 0.15) {
+      return `ADVERTENCIA: Te quedan ${formattedRemaining} de tu presupuesto de transporte. ¡Estás cerca del límite!`;
+    } else {
+      return `Tienes ${formattedRemaining} restantes de tu presupuesto de transporte.`;
+    }
   }
 
   /**
@@ -71,7 +161,6 @@ export class TransportationPlannerComponent implements OnInit {
     if (storedEntries) {
       try {
         const parsedEntries: TransportationEntry[] = JSON.parse(storedEntries);
-        // Verificar si los datos parseados son un array y no está vacío
         if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
           this.transportationEntries = parsedEntries;
           console.log('Entradas de transporte cargadas desde localStorage:', this.transportationEntries);
@@ -87,14 +176,13 @@ export class TransportationPlannerComponent implements OnInit {
       console.log('No hay datos de transporte en localStorage.');
     }
 
-    // Si no se cargaron datos exitosamente, inicializar con datos de ejemplo
     if (!loadedSuccessfully) {
       this.initializeExampleData();
       console.log('Datos de ejemplo de transporte inicializados.');
     }
 
-    // Siempre calcular el nextId después de que this.transportationEntries esté poblado
     this.calculateNextId();
+    this.calculateTotalTransportationCost(); // Recalcular al cargar
   }
 
   /**
@@ -115,6 +203,7 @@ export class TransportationPlannerComponent implements OnInit {
   private saveTransportationEntries(): void {
     localStorage.setItem('transportationEntries', JSON.stringify(this.transportationEntries));
     console.log('Entradas de transporte guardadas en localStorage.');
+    this.calculateTotalTransportationCost(); // Recalcular al guardar
   }
 
   /**
@@ -122,7 +211,6 @@ export class TransportationPlannerComponent implements OnInit {
    * Solo se llama si no hay datos válidos en localStorage.
    */
   private initializeExampleData(): void {
-    // Usamos un contador temporal para los IDs de los datos de ejemplo
     let tempNextId = 1;
 
     this.transportationEntries = [
@@ -135,7 +223,7 @@ export class TransportationPlannerComponent implements OnInit {
         transportType: 'Vuelo',
         company: 'Iberia',
         price: 450,
-        currency: 'EUR',
+        currency: 'USD', // Asegúrate de que la moneda base coincida con la del presupuesto
         departureDate: '2024-09-10',
         arrivalDate: '2024-09-10',
         url: 'https://iberia.com/madrid-paris',
@@ -150,7 +238,7 @@ export class TransportationPlannerComponent implements OnInit {
         transportType: 'Tren',
         company: 'SNCF',
         price: 80,
-        currency: 'EUR',
+        currency: 'USD', // Cambiado a USD para que sume al total de ejemplo
         departureDate: '2024-09-12',
         arrivalDate: '2024-09-12',
         url: 'https://sncf.fr/paris-lyon',
@@ -174,14 +262,11 @@ export class TransportationPlannerComponent implements OnInit {
     ];
   }
 
-  /**
-   * Adds a new transportation entry to the table.
-   */
   addTransportationEntry(): void {
     if (this.newEntryTripName && this.newEntryTripCode && this.newEntryCountry && this.newEntryCity &&
         this.newEntryCompany && this.newEntryDepartureDate && this.newEntryArrivalDate && this.newEntryUrl) {
       const newEntry: TransportationEntry = {
-        id: this.nextId++, // Usar el ID actual y luego incrementarlo
+        id: this.nextId++,
         tripName: this.newEntryTripName,
         tripCode: this.newEntryTripCode,
         country: this.newEntryCountry,
@@ -196,16 +281,13 @@ export class TransportationPlannerComponent implements OnInit {
         opinion: this.newEntryOpinion
       };
       this.transportationEntries.push(newEntry);
-      this.resetForm(); // Clear the form after adding
-      this.saveTransportationEntries(); // Guardar cambios
+      this.resetForm();
+      this.saveTransportationEntries(); // Esto también recalcula el total
     } else {
       alert('Please complete all required fields: Trip Name, Trip Code, Country, City, Company, Departure Date, Arrival Date, and URL.');
     }
   }
 
-  /**
-   * Resets the form fields.
-   */
   resetForm(): void {
     this.newEntryTripName = '';
     this.newEntryTripCode = '';
@@ -221,35 +303,23 @@ export class TransportationPlannerComponent implements OnInit {
     this.newEntryOpinion = '';
   }
 
-  /**
-   * Opens the URL of the entry in a new tab.
-   */
   openUrl(url: string): void {
     window.open(url, '_blank');
   }
 
-  /**
-   * Handles the opinion update directly in the table.
-   * @param entry The table entry being edited.
-   * @param event The input event.
-   */
   onOpinionChange(entry: TransportationEntry, event: Event): void {
     const target = event.target as HTMLElement;
     entry.opinion = target.innerText;
-    this.saveTransportationEntries(); // Guardar cambios al editar la opinión
+    this.saveTransportationEntries(); // Esto también recalcula el total
     console.log(`Opinion updated for ${entry.company} (${entry.transportType}): ${entry.opinion}`);
   }
 
-  /**
-   * Elimina una entrada de transporte de la tabla.
-   * @param entryToRemove La entrada a eliminar.
-   */
   removeTransportation(entryToRemove: TransportationEntry): void {
     const index = this.transportationEntries.findIndex(entry => entry.id === entryToRemove.id);
     if (index !== -1) {
       this.transportationEntries.splice(index, 1);
-      this.saveTransportationEntries(); // Guardar cambios
-      this.calculateNextId(); // Recalcular nextId después de eliminar
+      this.saveTransportationEntries(); // Esto también recalcula el total
+      this.calculateNextId();
     }
   }
 }

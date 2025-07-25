@@ -1,6 +1,29 @@
-<!-- src/app/features/transportation-planner/transportation-planner.component.html -->
+<!-- src/app/features/transportation-planner/transportation-planner.html -->
 <div class="transportation-planner-container">
   <h1 class="planner-title">Planificador de Transporte</h1>
+
+  <!-- Sección de Resumen del Presupuesto de Transporte -->
+  <section class="budget-summary-section">
+    <h2 class="section-heading">Resumen de Presupuesto de Transporte</h2>
+    <div class="budget-info">
+      <p>Presupuesto definido: 
+        <span class="budget-value" *ngIf="transportBudget !== null">
+          {{ transportBudget | currency:'USD':'symbol':'1.0-0' }}
+        </span>
+        <span class="budget-value" *ngIf="transportBudget === null">
+          No definido
+        </span>
+      </p>
+      <p>Gasto total en transporte: 
+        <span class="total-cost-value">
+          {{ totalTransportationCost | currency:'USD':'symbol':'1.0-0' }}
+        </span>
+      </p>
+      <div class="budget-status-message" [ngClass]="getBudgetStatusClass()">
+        {{ getBudgetStatusMessage() }}
+      </div>
+    </div>
+  </section>
 
   <!-- Sección para añadir nueva entrada de transporte -->
   <section class="planner-add-section">
@@ -36,8 +59,8 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="newEntryCompany">Empresa:</label>
-          <input type="text" id="newEntryCompany" name="newEntryCompany" [(ngModel)]="newEntryCompany" placeholder="Ej. Iberia, SNCF" required>
+          <label for="newEntryCompany">Compañía:</label>
+          <input type="text" id="newEntryCompany" name="newEntryCompany" [(ngModel)]="newEntryCompany" placeholder="Ej. Iberia" required>
         </div>
       </div>
 
@@ -60,8 +83,8 @@
       </div>
 
       <div class="form-group">
-        <label for="newEntryUrl">URL (Reserva/Info):</label>
-        <input type="url" id="newEntryUrl" name="newEntryUrl" [(ngModel)]="newEntryUrl" placeholder="Ej. https://www.ejemplo.com/reserva" required>
+        <label for="newEntryUrl">URL de Reserva/Info:</label>
+        <input type="url" id="newEntryUrl" name="newEntryUrl" [(ngModel)]="newEntryUrl" placeholder="Ej. https://www.iberia.com/reserva/..." required>
       </div>
 
       <div class="form-group">
@@ -77,22 +100,21 @@
 
   <!-- Sección de tabla de entradas existentes -->
   <section class="planner-table-section">
-    <h2 class="section-heading">Mi Plan de Transporte</h2>
+    <h2 class="section-heading">Mis Transportes Planificados</h2>
     
     <div *ngIf="transportationEntries.length === 0" class="empty-planner-message">
-      <p>Aún no tienes transportes en tu plan. ¡Añade uno para empezar a organizar!</p>
+      <p>Aún no tienes transportes en tu plan. ¡Añade uno para empezar!</p>
     </div>
 
     <div *ngIf="transportationEntries.length > 0" class="planner-table-wrapper">
       <table class="planner-table">
         <thead>
           <tr>
-            <th>Viaje</th>
-            <th>País / Ciudad</th>
             <th>Tipo</th>
-            <th>Empresa</th>
-            <th>Precio</th>
+            <th>Compañía</th>
+            <th>Origen/Destino</th>
             <th>Fechas</th>
+            <th>Precio</th>
             <th>URL</th>
             <th>Opinión</th>
             <th>Acciones</th>
@@ -101,35 +123,28 @@
         <tbody>
           <tr *ngFor="let entry of transportationEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
             <td>
-<!-- ¡Icono de MAPA aquí! -->
-              <strong>{{entry.tripName}}</strong><br>
-              <small>({{entry.tripCode}})</small>
-            </td>
-            <td>{{entry.country}} / {{entry.city}}</td>
-            <td>
-              <!-- Icono condicional según el tipo de transporte -->
-              <ng-container [ngSwitch]="entry.transportType">
-                <i *ngSwitchCase="'Vuelo'" class="fa-solid fa-plane-departure transport-type-icon"></i>
-                <i *ngSwitchCase="'Tren'" class="fa-solid fa-train transport-type-icon"></i>
-                <i *ngSwitchCase="'Autobús'" class="fa-solid fa-bus transport-type-icon"></i>
-                <i *ngSwitchCase="'Metro'" class="fa-solid fa-subway transport-type-icon"></i>
-                <i *ngSwitchCase="'Taxi'" class="fa-solid fa-taxi transport-type-icon"></i>
-                <i *ngSwitchCase="'Otro'" class="fa-solid fa-question transport-type-icon"></i>
-                <i *ngSwitchDefault class="fa-solid fa-route transport-type-icon"></i>
-              </ng-container>
+              <i class="fas fa-plane trip-icon-fa" *ngIf="entry.transportType === 'Vuelo'"></i>
+              <i class="fas fa-train trip-icon-fa" *ngIf="entry.transportType === 'Tren'"></i>
+              <i class="fas fa-bus trip-icon-fa" *ngIf="entry.transportType === 'Autobús'"></i>
+              <i class="fas fa-subway trip-icon-fa" *ngIf="entry.transportType === 'Metro'"></i>
+              <i class="fas fa-taxi trip-icon-fa" *ngIf="entry.transportType === 'Taxi'"></i>
+              <i class="fas fa-car trip-icon-fa" *ngIf="entry.transportType === 'Otro'"></i>
               {{entry.transportType}}
             </td>
             <td>{{entry.company}}</td>
-            <td>{{entry.price !== null ? (entry.price | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
+            <td>{{entry.city}}, {{entry.country}}</td>
             <td>{{entry.departureDate}} <br> {{entry.arrivalDate}}</td>
+            <td>{{entry.price !== null ? (entry.price | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
             <td>
               <a [href]="entry.url" target="_blank" class="table-url-link">{{entry.url | slice:0:30}}...</a>
             </td>
             <td contenteditable="true" (input)="onOpinionChange(entry, $event)" class="editable-opinion-cell">
               {{entry.opinion}}
             </td>
-            <td class="action-cell">
-              <button type="button" (click)="removeTransportation(entry)" class="remove-button">✕</button>
+            <td>
+              <button (click)="removeTransportation(entry)" class="remove-button">
+                <i class="fas fa-trash-alt"></i>
+              </button>
             </td>
           </tr>
         </tbody>
