@@ -29,7 +29,7 @@ interface InsuranceEntry {
     CommonModule, // Para directivas estructurales como *ngFor, *ngIf
     FormsModule,  // Para el two-way data binding con ngModel
     CurrencyPipe, // Asegúrate de que CurrencyPipe esté importado aquí
-    HttpClientModule // Necesario para usar HttpClient
+    HttpClientModule // Necesario para usar HttpClient (aunque no se usa para localStorage)
   ],
   templateUrl: './insurance-planner.html',
   styleUrls: ['./insurance-planner.scss']
@@ -58,16 +58,83 @@ export class InsurancePlannerComponent implements OnInit {
   // Si tuvieras un backend, descomentarías esta línea y la usarías en las funciones
   // private apiUrl = 'http://localhost:3000/api'; 
 
-  constructor(private http: HttpClient) { } // Inyecta HttpClient
+  constructor(private http: HttpClient) { } // Inyecta HttpClient (no usado para localStorage)
 
   ngOnInit(): void {
-    // Cargar entradas de ejemplo al iniciar
+    this.loadInsuranceEntries(); // Cargar datos al inicio
+  }
+
+  /**
+   * Carga las entradas de seguros y extras desde localStorage.
+   * Si no hay datos válidos, inicializa con los datos de ejemplo.
+   */
+  private loadInsuranceEntries(): void {
+    const storedEntries = localStorage.getItem('insuranceEntries');
+    let loadedSuccessfully = false;
+
+    if (storedEntries) {
+      try {
+        const parsedEntries: InsuranceEntry[] = JSON.parse(storedEntries);
+        // Verificar si los datos parseados son un array y no está vacío
+        if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
+          this.insuranceEntries = parsedEntries;
+          console.log('Entradas de seguros y extras cargadas desde localStorage:', this.insuranceEntries);
+          loadedSuccessfully = true;
+        } else {
+          console.log('LocalStorage de entradas de seguros y extras vacío o inválido (array vacío).');
+        }
+      } catch (e) {
+        console.error('Error al parsear entradas de seguros y extras desde localStorage:', e);
+        console.log('Error de parseo en localStorage.');
+      }
+    } else {
+      console.log('No hay datos de seguros y extras en localStorage.');
+    }
+
+    // Si no se cargaron datos exitosamente, inicializar con datos de ejemplo
+    if (!loadedSuccessfully) {
+      this.initializeExampleData();
+      console.log('Datos de ejemplo de seguros y extras inicializados.');
+    }
+
+    // Siempre calcular el nextId después de que this.insuranceEntries esté poblado
+    this.calculateNextId();
+  }
+
+  /**
+   * Calcula el siguiente ID basándose en el ID más alto existente.
+   */
+  private calculateNextId(): void {
+    let maxId = 0;
+    if (this.insuranceEntries.length > 0) {
+      maxId = Math.max(...this.insuranceEntries.map(entry => entry.id));
+    }
+    this.nextId = maxId + 1;
+    console.log(`Calculated nextId for insurance planner: ${this.nextId}`);
+  }
+
+  /**
+   * Guarda las entradas de seguros y extras en localStorage.
+   */
+  private saveInsuranceEntries(): void {
+    localStorage.setItem('insuranceEntries', JSON.stringify(this.insuranceEntries));
+    console.log('Entradas de seguros y extras guardadas en localStorage.');
+  }
+
+  /**
+   * Inicializa los datos de ejemplo y los asigna a this.insuranceEntries.
+   * Solo se llama si no hay datos válidos en localStorage.
+   */
+  private initializeExampleData(): void {
+    // Usamos un contador temporal para los IDs de los datos de ejemplo
+    let tempNextId = 1;
+
     this.insuranceEntries = [
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
-        itemType: 'Seguro', // Actualizado
+        itemType: 'Seguro',
         itemName: 'Seguro IATI Mochilero',
         company: 'IATI Seguros',
         price: 85,
@@ -78,10 +145,10 @@ export class InsurancePlannerComponent implements OnInit {
         notes: 'Cobertura médica y de equipaje. Descargar póliza.'
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
-        itemType: 'Tarjeta SIM Local', // Actualizado
+        itemType: 'Tarjeta SIM Local',
         itemName: 'SIM Card Orange',
         company: 'Orange España',
         price: 20,
@@ -92,13 +159,13 @@ export class InsurancePlannerComponent implements OnInit {
         notes: '10GB de datos, recargar si es necesario.'
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Aventura en Asia',
         tripCode: 'ASIA25-003',
-        itemType: 'Visado', // Actualizado
+        itemType: 'Visado',
         itemName: 'Visa Japón',
         company: 'Embajada de Japón',
-        price: 0, // Algunas visas son gratuitas
+        price: 0,
         currency: 'USD',
         startDate: '2025-03-01',
         endDate: '2025-05-30',
@@ -115,7 +182,7 @@ export class InsurancePlannerComponent implements OnInit {
     if (this.newEntryTripName && this.newEntryTripCode && this.newEntryItemName &&
         this.newEntryCompany && this.newEntryStartDate && this.newEntryEndDate && this.newEntryUrl) {
       const newEntry: InsuranceEntry = {
-        id: this.nextId++,
+        id: this.nextId++, // Usar el ID actual y luego incrementarlo
         tripName: this.newEntryTripName,
         tripCode: this.newEntryTripCode,
         itemType: this.newEntryItemType,
@@ -130,8 +197,9 @@ export class InsurancePlannerComponent implements OnInit {
       };
       this.insuranceEntries.push(newEntry);
       this.resetForm(); // Limpiar el formulario después de añadir
+      this.saveInsuranceEntries(); // Guardar cambios
 
-      // Si tuvieras un backend, lo harías así:
+      // Si tuvieras un backend, descomentarías esta línea y la usarías en las funciones
       /*
       this.http.post<any>(`${this.apiUrl}/insurance`, newEntry).subscribe({
         next: (response) => {
@@ -176,6 +244,8 @@ export class InsurancePlannerComponent implements OnInit {
     console.log(`Intentando eliminar: ${entryToRemove.itemName}`);
     this.insuranceEntries = this.insuranceEntries.filter(entry => entry.id !== entryToRemove.id);
     console.log('Entrada eliminada de la lista local.');
+    this.saveInsuranceEntries(); // Guardar cambios
+    this.calculateNextId(); // Recalcular nextId después de eliminar
 
     // Si tuvieras un backend, lo harías así:
     /*
@@ -184,6 +254,8 @@ export class InsurancePlannerComponent implements OnInit {
         next: (response) => {
           console.log(response.message);
           this.insuranceEntries = this.insuranceEntries.filter(e => e.id !== entryToRemove.id);
+          this.saveInsuranceEntries(); // Guardar cambios después de la eliminación del backend
+          this.calculateNextId(); // Recalcular nextId
         },
         error: (err) => console.error('Error al eliminar entrada de seguro:', err)
       });
@@ -199,7 +271,7 @@ export class InsurancePlannerComponent implements OnInit {
   onNotesChange(entry: InsuranceEntry, event: Event): void {
     const target = event.target as HTMLElement;
     entry.notes = target.innerText;
-    // Aquí podrías guardar el cambio en un servicio o base de datos si tuvieras uno
+    this.saveInsuranceEntries(); // Guardar cambios al editar las notas
     console.log(`Notas actualizadas para ${entry.itemName}: ${entry.notes}`);
 
     // Si tuvieras un backend, lo harías así:

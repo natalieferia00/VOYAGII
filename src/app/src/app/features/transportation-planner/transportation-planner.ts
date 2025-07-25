@@ -33,9 +33,6 @@ interface TransportationEntry {
   styleUrls: ['./transportation-planner.scss']
 })
 export class TransportationPlannerComponent implements OnInit {
-removeTransportation(_t235: TransportationEntry) {
-throw new Error('Method not implemented.');
-}
   transportationEntries: TransportationEntry[] = [];
   nextId: number = 1;
 
@@ -60,10 +57,77 @@ throw new Error('Method not implemented.');
   constructor() { }
 
   ngOnInit(): void {
-    // Load example entries on init
+    this.loadTransportationEntries(); // Cargar datos al inicio
+  }
+
+  /**
+   * Carga las entradas de transporte desde localStorage.
+   * Si no hay datos válidos, inicializa con los datos de ejemplo.
+   */
+  private loadTransportationEntries(): void {
+    const storedEntries = localStorage.getItem('transportationEntries');
+    let loadedSuccessfully = false;
+
+    if (storedEntries) {
+      try {
+        const parsedEntries: TransportationEntry[] = JSON.parse(storedEntries);
+        // Verificar si los datos parseados son un array y no está vacío
+        if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
+          this.transportationEntries = parsedEntries;
+          console.log('Entradas de transporte cargadas desde localStorage:', this.transportationEntries);
+          loadedSuccessfully = true;
+        } else {
+          console.log('LocalStorage de entradas de transporte vacío o inválido (array vacío).');
+        }
+      } catch (e) {
+        console.error('Error al parsear entradas de transporte desde localStorage:', e);
+        console.log('Error de parseo en localStorage.');
+      }
+    } else {
+      console.log('No hay datos de transporte en localStorage.');
+    }
+
+    // Si no se cargaron datos exitosamente, inicializar con datos de ejemplo
+    if (!loadedSuccessfully) {
+      this.initializeExampleData();
+      console.log('Datos de ejemplo de transporte inicializados.');
+    }
+
+    // Siempre calcular el nextId después de que this.transportationEntries esté poblado
+    this.calculateNextId();
+  }
+
+  /**
+   * Calcula el siguiente ID basándose en el ID más alto existente.
+   */
+  private calculateNextId(): void {
+    let maxId = 0;
+    if (this.transportationEntries.length > 0) {
+      maxId = Math.max(...this.transportationEntries.map(entry => entry.id));
+    }
+    this.nextId = maxId + 1;
+    console.log(`Calculated nextId for transportation: ${this.nextId}`);
+  }
+
+  /**
+   * Guarda las entradas de transporte en localStorage.
+   */
+  private saveTransportationEntries(): void {
+    localStorage.setItem('transportationEntries', JSON.stringify(this.transportationEntries));
+    console.log('Entradas de transporte guardadas en localStorage.');
+  }
+
+  /**
+   * Inicializa los datos de ejemplo y los asigna a this.transportationEntries.
+   * Solo se llama si no hay datos válidos en localStorage.
+   */
+  private initializeExampleData(): void {
+    // Usamos un contador temporal para los IDs de los datos de ejemplo
+    let tempNextId = 1;
+
     this.transportationEntries = [
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
         country: 'España',
@@ -78,7 +142,7 @@ throw new Error('Method not implemented.');
         opinion: 'Vuelo directo, buena experiencia.'
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
         country: 'Francia',
@@ -93,7 +157,7 @@ throw new Error('Method not implemented.');
         opinion: 'Tren de alta velocidad, muy cómodo.'
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Escapada a la Playa',
         tripCode: 'PLAYA25-002',
         country: 'México',
@@ -117,7 +181,7 @@ throw new Error('Method not implemented.');
     if (this.newEntryTripName && this.newEntryTripCode && this.newEntryCountry && this.newEntryCity &&
         this.newEntryCompany && this.newEntryDepartureDate && this.newEntryArrivalDate && this.newEntryUrl) {
       const newEntry: TransportationEntry = {
-        id: this.nextId++,
+        id: this.nextId++, // Usar el ID actual y luego incrementarlo
         tripName: this.newEntryTripName,
         tripCode: this.newEntryTripCode,
         country: this.newEntryCountry,
@@ -133,6 +197,7 @@ throw new Error('Method not implemented.');
       };
       this.transportationEntries.push(newEntry);
       this.resetForm(); // Clear the form after adding
+      this.saveTransportationEntries(); // Guardar cambios
     } else {
       alert('Please complete all required fields: Trip Name, Trip Code, Country, City, Company, Departure Date, Arrival Date, and URL.');
     }
@@ -171,7 +236,20 @@ throw new Error('Method not implemented.');
   onOpinionChange(entry: TransportationEntry, event: Event): void {
     const target = event.target as HTMLElement;
     entry.opinion = target.innerText;
-    // Here you could save the change to a service or database if you had one
+    this.saveTransportationEntries(); // Guardar cambios al editar la opinión
     console.log(`Opinion updated for ${entry.company} (${entry.transportType}): ${entry.opinion}`);
+  }
+
+  /**
+   * Elimina una entrada de transporte de la tabla.
+   * @param entryToRemove La entrada a eliminar.
+   */
+  removeTransportation(entryToRemove: TransportationEntry): void {
+    const index = this.transportationEntries.findIndex(entry => entry.id === entryToRemove.id);
+    if (index !== -1) {
+      this.transportationEntries.splice(index, 1);
+      this.saveTransportationEntries(); // Guardar cambios
+      this.calculateNextId(); // Recalcular nextId después de eliminar
+    }
   }
 }

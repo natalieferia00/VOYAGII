@@ -63,13 +63,110 @@ export class BudgetCalculatorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // Cargar algunos gastos de ejemplo
+    this.loadBudgetPlannerData(); // Cargar datos al inicio
+    this.calculateTotals(); // Calcular totales iniciales después de cargar
+  }
+
+  /**
+   * Carga los datos del planificador de presupuesto desde localStorage.
+   * Si no hay datos válidos, inicializa con los datos de ejemplo.
+   */
+  private loadBudgetPlannerData(): void {
+    const storedBudgetAmount = localStorage.getItem('budgetAmount');
+    const storedBaseCurrency = localStorage.getItem('baseCurrency');
+    const storedCurrencyRates = localStorage.getItem('currencyRates');
+    const storedExpenseEntries = localStorage.getItem('expenseEntries');
+    const storedNextId = localStorage.getItem('budgetNextId');
+
+    let loadedSuccessfully: boolean = false; // Asegura que sea un booleano
+
+    try {
+      if (storedBudgetAmount !== null && storedBudgetAmount !== '') { // También verifica si no es una cadena vacía
+        this.budgetAmount = parseFloat(storedBudgetAmount);
+      } else {
+        this.budgetAmount = null; // Si es nulo o vacío, establecer a null
+      }
+
+      if (storedBaseCurrency) {
+        this.baseCurrency = storedBaseCurrency as BaseCurrency;
+      }
+      if (storedCurrencyRates) {
+        this.currencyRates = JSON.parse(storedCurrencyRates);
+      }
+      if (storedExpenseEntries) {
+        const parsedEntries: BudgetEntry[] = JSON.parse(storedExpenseEntries);
+        if (Array.isArray(parsedEntries)) {
+          this.expenseEntries = parsedEntries;
+        }
+      }
+      if (storedNextId) {
+        this.nextId = parseInt(storedNextId, 10);
+      }
+      // Consideramos que se cargó exitosamente si hay al menos una entrada de gasto
+      // O si se cargó alguna configuración de presupuesto/moneda/tasas
+      loadedSuccessfully = this.expenseEntries.length > 0 || 
+                           (storedBudgetAmount !== null && storedBudgetAmount !== '') || 
+                           (storedBaseCurrency !== null) || 
+                           (storedCurrencyRates !== null);
+
+    } catch (e) {
+      console.error('Error al parsear datos del presupuesto desde localStorage:', e);
+      loadedSuccessfully = false; // Si hay un error, no se cargó exitosamente
+    }
+
+    if (!loadedSuccessfully) {
+      console.log('No hay datos válidos de presupuesto en localStorage. Inicializando con datos de ejemplo.');
+      this.initializeExampleData();
+    }
+
+    // Asegurarse de que nextId sea correcto incluso si los datos de ejemplo se cargaron
+    this.calculateNextIdFromEntries();
+  }
+
+  /**
+   * Calcula el siguiente ID basándose en el ID más alto existente en expenseEntries.
+   */
+  private calculateNextIdFromEntries(): void {
+    let maxId = 0;
+    if (this.expenseEntries.length > 0) {
+      maxId = Math.max(...this.expenseEntries.map(entry => entry.id));
+    }
+    this.nextId = maxId + 1;
+    console.log(`Calculated nextId for budget entries: ${this.nextId}`);
+  }
+
+  /**
+   * Guarda todos los datos del planificador de presupuesto en localStorage.
+   */
+  private saveBudgetPlannerData(): void {
+    // Guardar budgetAmount como string o cadena vacía si es null
+    localStorage.setItem('budgetAmount', this.budgetAmount !== null ? this.budgetAmount.toString() : '');
+    localStorage.setItem('baseCurrency', this.baseCurrency);
+    localStorage.setItem('currencyRates', JSON.stringify(this.currencyRates));
+    localStorage.setItem('expenseEntries', JSON.stringify(this.expenseEntries));
+    localStorage.setItem('budgetNextId', this.nextId.toString());
+    console.log('Datos del planificador de presupuesto guardados en localStorage.');
+  }
+
+  /**
+   * Inicializa los datos de ejemplo y los asigna a las propiedades del componente.
+   * No guarda directamente en localStorage ni calcula nextId aquí.
+   */
+  private initializeExampleData(): void {
+    // Reiniciar los IDs para los datos de ejemplo
+    let tempNextId = 1;
+    this.budgetAmount = 1500;
+    this.baseCurrency = 'USD';
+    this.currencyRates = {
+      USD: 1,
+      EUR: 1.08,
+      COP: 0.00026
+    };
     this.expenseEntries = [
-      { id: this.nextId++, date: '2024-07-20', name: 'Vuelo', details: 'Bogotá-Ámsterdam', amount: 800 },
-      { id: this.nextId++, date: '2024-07-21', name: 'Hotel', details: '3 noches en Ámsterdam', amount: 300 },
-      { id: this.nextId++, date: '2024-07-21', name: 'Comida', details: 'Cena en restaurante local', amount: 50 },
+      { id: tempNextId++, date: '2024-07-20', name: 'Vuelo', details: 'Bogotá-Ámsterdam', amount: 800 },
+      { id: tempNextId++, date: '2024-07-21', name: 'Hotel', details: '3 noches en Ámsterdam', amount: 300 },
+      { id: tempNextId++, date: '2024-07-21', name: 'Comida', details: 'Cena en restaurante local', amount: 50 },
     ];
-    this.calculateTotals(); // Calcular totales iniciales
   }
 
   /**
@@ -87,6 +184,7 @@ export class BudgetCalculatorComponent implements OnInit {
       this.expenseEntries.push(newEntry);
       this.resetNewExpenseForm();
       this.calculateTotals(); // Recalcular totales
+      this.saveBudgetPlannerData(); // Guardar cambios
     } else {
       alert('Por favor, ingresa un nombre y un monto válido para el gasto.');
     }
@@ -109,9 +207,10 @@ export class BudgetCalculatorComponent implements OnInit {
     this.totalExpenses = this.expenseEntries.reduce((sum, entry) => sum + entry.amount, 0);
 
     // Conversión a otras monedas usando las tasas ingresadas por el usuario
-    this.totalInUSD = this.totalExpenses / (this.currencyRates.USD || 1); // Divide por la tasa USD a base
-    this.totalInEUR = this.totalExpenses / (this.currencyRates.EUR || 1); // Divide por la tasa EUR a base
-    this.totalInCOP = this.totalExpenses / (this.currencyRates.COP || 1); // Divide por la tasa COP a base
+    // Asegurarse de que las tasas no sean cero o nulas para evitar divisiones por cero
+    this.totalInUSD = this.totalExpenses / (this.currencyRates.USD || 1);
+    this.totalInEUR = this.totalExpenses / (this.currencyRates.EUR || 1);
+    this.totalInCOP = this.totalExpenses / (this.currencyRates.COP || 1);
   }
 
   /**
@@ -129,6 +228,7 @@ export class BudgetCalculatorComponent implements OnInit {
    */
   onRateChange(): void {
     this.calculateTotals(); // Recalcular totales cuando las tasas cambian
+    this.saveBudgetPlannerData(); // Guardar cambios
   }
 
   /**
@@ -148,9 +248,11 @@ export class BudgetCalculatorComponent implements OnInit {
         target.innerText = entry.amount.toString();
       }
     } else {
-      entry[field] = target.innerText;
+      // Asegurarse de que el tipo sea compatible
+      (entry[field] as any) = target.innerText;
     }
     this.calculateTotals(); // Recalcular totales después de editar
+    this.saveBudgetPlannerData(); // Guardar cambios
   }
 
   /**
@@ -160,5 +262,23 @@ export class BudgetCalculatorComponent implements OnInit {
   removeExpense(entryToRemove: BudgetEntry): void {
     this.expenseEntries = this.expenseEntries.filter(entry => entry.id !== entryToRemove.id);
     this.calculateTotals(); // Recalcular totales
+    this.saveBudgetPlannerData(); // Guardar cambios
+    this.calculateNextIdFromEntries(); // Recalcular nextId
+  }
+
+  /**
+   * Maneja el cambio del monto del presupuesto.
+   */
+  onBudgetAmountChange(): void {
+    this.calculateTotals(); // Recalcular totales si el presupuesto cambia
+    this.saveBudgetPlannerData(); // Guardar cambios
+  }
+
+  /**
+   * Maneja el cambio de la moneda base.
+   */
+  onBaseCurrencyChange(): void {
+    this.calculateTotals(); // Recalcular totales si la moneda base cambia
+    this.saveBudgetPlannerData(); // Guardar cambios
   }
 }

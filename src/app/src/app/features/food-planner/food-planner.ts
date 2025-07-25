@@ -33,9 +33,6 @@ interface FoodEntry {
   styleUrls: ['./food-planner.scss']
 })
 export class FoodPlannerComponent implements OnInit {
-removeFoodEntry(_t129: FoodEntry) {
-throw new Error('Method not implemented.');
-}
   foodEntries: FoodEntry[] = [];
   nextId: number = 1;
 
@@ -60,10 +57,77 @@ throw new Error('Method not implemented.');
   constructor() { }
 
   ngOnInit(): void {
-    // Load example entries on init
+    this.loadFoodEntries(); // Cargar datos al inicio
+  }
+
+  /**
+   * Carga las entradas de planificación de comida desde localStorage.
+   * Si no hay datos válidos, inicializa con los datos de ejemplo.
+   */
+  private loadFoodEntries(): void {
+    const storedEntries = localStorage.getItem('foodEntries');
+    let loadedSuccessfully = false;
+
+    if (storedEntries) {
+      try {
+        const parsedEntries: FoodEntry[] = JSON.parse(storedEntries);
+        // Verificar si los datos parseados son un array y no está vacío
+        if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
+          this.foodEntries = parsedEntries;
+          console.log('Entradas de comida cargadas desde localStorage:', this.foodEntries);
+          loadedSuccessfully = true;
+        } else {
+          console.log('LocalStorage de entradas de comida vacío o inválido (array vacío).');
+        }
+      } catch (e) {
+        console.error('Error al parsear entradas de comida desde localStorage:', e);
+        console.log('Error de parseo en localStorage.');
+      }
+    } else {
+      console.log('No hay datos de comida en localStorage.');
+    }
+
+    // Si no se cargaron datos exitosamente, inicializar con datos de ejemplo
+    if (!loadedSuccessfully) {
+      this.initializeExampleData();
+      console.log('Datos de ejemplo de comida inicializados.');
+    }
+
+    // Siempre calcular el nextId después de que this.foodEntries esté poblado
+    this.calculateNextId();
+  }
+
+  /**
+   * Calcula el siguiente ID basándose en el ID más alto existente.
+   */
+  private calculateNextId(): void {
+    let maxId = 0;
+    if (this.foodEntries.length > 0) {
+      maxId = Math.max(...this.foodEntries.map(entry => entry.id));
+    }
+    this.nextId = maxId + 1;
+    console.log(`Calculated nextId for food planner: ${this.nextId}`);
+  }
+
+  /**
+   * Guarda las entradas de planificación de comida en localStorage.
+   */
+  private saveFoodEntries(): void {
+    localStorage.setItem('foodEntries', JSON.stringify(this.foodEntries));
+    console.log('Entradas de comida guardadas en localStorage.');
+  }
+
+  /**
+   * Inicializa los datos de ejemplo y los asigna a this.foodEntries.
+   * Solo se llama si no hay datos válidos en localStorage.
+   */
+  private initializeExampleData(): void {
+    // Usamos un contador temporal para los IDs de los datos de ejemplo
+    let tempNextId = 1;
+
     this.foodEntries = [
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
         country: 'Francia',
@@ -78,7 +142,7 @@ throw new Error('Method not implemented.');
         notes: 'Recomendado por locales, ambiente acogedor.'
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
         country: 'Italia',
@@ -93,7 +157,7 @@ throw new Error('Method not implemented.');
         notes: 'Pasta casera increíble, reservar con antelación.'
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Aventura en Asia',
         tripCode: 'ASIA25-003',
         country: 'Japón',
@@ -117,7 +181,7 @@ throw new Error('Method not implemented.');
     if (this.newEntryTripName && this.newEntryTripCode && this.newEntryCountry && this.newEntryCity &&
         this.newEntryRestaurantName && this.newEntryDate) {
       const newEntry: FoodEntry = {
-        id: this.nextId++,
+        id: this.nextId++, // Usar el ID actual y luego incrementarlo
         tripName: this.newEntryTripName,
         tripCode: this.newEntryTripCode,
         country: this.newEntryCountry,
@@ -133,6 +197,7 @@ throw new Error('Method not implemented.');
       };
       this.foodEntries.push(newEntry);
       this.resetForm(); // Clear the form after adding
+      this.saveFoodEntries(); // Guardar cambios
     } else {
       alert('Please complete all required fields: Trip Name, Trip Code, Country, City, Restaurant Name, and Date.');
     }
@@ -173,7 +238,20 @@ throw new Error('Method not implemented.');
   onNotesChange(entry: FoodEntry, event: Event): void {
     const target = event.target as HTMLElement;
     entry.notes = target.innerText;
-    // Here you could save the change to a service or database if you had one
+    this.saveFoodEntries(); // Guardar cambios al editar las notas
     console.log(`Notes updated for ${entry.restaurantName}: ${entry.notes}`);
+  }
+
+  /**
+   * Elimina una entrada de planificación de comida de la tabla.
+   * @param entryToRemove La entrada a eliminar.
+   */
+  removeFoodEntry(entryToRemove: FoodEntry): void {
+    const index = this.foodEntries.findIndex(entry => entry.id === entryToRemove.id);
+    if (index !== -1) {
+      this.foodEntries.splice(index, 1);
+      this.saveFoodEntries(); // Guardar cambios
+      this.calculateNextId(); // Recalcular nextId después de eliminar
+    }
   }
 }

@@ -47,10 +47,77 @@ export class PackingPlannerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // Cargar entradas de ejemplo al iniciar
+    this.loadPackingEntries(); // Cargar datos al inicio
+  }
+
+  /**
+   * Carga las entradas de equipaje desde localStorage.
+   * Si no hay datos válidos, inicializa con los datos de ejemplo.
+   */
+  private loadPackingEntries(): void {
+    const storedEntries = localStorage.getItem('packingEntries');
+    let loadedSuccessfully = false;
+
+    if (storedEntries) {
+      try {
+        const parsedEntries: PackingEntry[] = JSON.parse(storedEntries);
+        // Verificar si los datos parseados son un array y no está vacío
+        if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
+          this.packingEntries = parsedEntries;
+          console.log('Entradas de equipaje cargadas desde localStorage:', this.packingEntries);
+          loadedSuccessfully = true;
+        } else {
+          console.log('LocalStorage de entradas de equipaje vacío o inválido (array vacío).');
+        }
+      } catch (e) {
+        console.error('Error al parsear entradas de equipaje desde localStorage:', e);
+        console.log('Error de parseo en localStorage.');
+      }
+    } else {
+      console.log('No hay datos de equipaje en localStorage.');
+    }
+
+    // Si no se cargaron datos exitosamente, inicializar con datos de ejemplo
+    if (!loadedSuccessfully) {
+      this.initializeExampleData();
+      console.log('Datos de ejemplo de equipaje inicializados.');
+    }
+
+    // Siempre calcular el nextId después de que this.packingEntries esté poblado
+    this.calculateNextId();
+  }
+
+  /**
+   * Calcula el siguiente ID basándose en el ID más alto existente.
+   */
+  private calculateNextId(): void {
+    let maxId = 0;
+    if (this.packingEntries.length > 0) {
+      maxId = Math.max(...this.packingEntries.map(entry => entry.id));
+    }
+    this.nextId = maxId + 1;
+    console.log(`Calculated nextId for packing: ${this.nextId}`);
+  }
+
+  /**
+   * Guarda las entradas de equipaje en localStorage.
+   */
+  private savePackingEntries(): void {
+    localStorage.setItem('packingEntries', JSON.stringify(this.packingEntries));
+    console.log('Entradas de equipaje guardadas en localStorage.');
+  }
+
+  /**
+   * Inicializa los datos de ejemplo y los asigna a this.packingEntries.
+   * Solo se llama si no hay datos válidos en localStorage.
+   */
+  private initializeExampleData(): void {
+    // Usamos un contador temporal para los IDs de los datos de ejemplo
+    let tempNextId = 1;
+
     this.packingEntries = [
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
         category: 'Ropa',
@@ -61,7 +128,7 @@ export class PackingPlannerComponent implements OnInit {
         packed: false
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
         category: 'Electrónica',
@@ -72,7 +139,7 @@ export class PackingPlannerComponent implements OnInit {
         packed: true
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Aventura en Asia',
         tripCode: 'ASIA25-003',
         category: 'Documentos',
@@ -83,7 +150,7 @@ export class PackingPlannerComponent implements OnInit {
         packed: true
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         tripName: 'Aventura en Asia',
         tripCode: 'ASIA25-003',
         category: 'Aseo Personal',
@@ -102,7 +169,7 @@ export class PackingPlannerComponent implements OnInit {
   addPackingEntry(): void {
     if (this.newEntryTripName && this.newEntryTripCode && this.newEntryItemName && this.newEntryQuantity > 0) {
       const newEntry: PackingEntry = {
-        id: this.nextId++,
+        id: this.nextId++, // Usar el ID actual y luego incrementarlo
         tripName: this.newEntryTripName,
         tripCode: this.newEntryTripCode,
         category: this.newEntryCategory,
@@ -114,6 +181,7 @@ export class PackingPlannerComponent implements OnInit {
       };
       this.packingEntries.push(newEntry);
       this.resetForm(); // Limpiar el formulario después de añadir
+      this.savePackingEntries(); // Guardar cambios
     } else {
       alert('Por favor, completa los campos obligatorios: Nombre del Viaje, Código del Viaje, Nombre del Ítem y Cantidad.');
     }
@@ -138,7 +206,7 @@ export class PackingPlannerComponent implements OnInit {
   togglePackedStatus(entry: PackingEntry): void {
     entry.packed = !entry.packed;
     console.log(`Estado de empacado para "${entry.itemName}" (${entry.tripName}) cambiado a: ${entry.packed ? 'Empacado' : 'No Empacado'}`);
-    // Aquí podrías guardar el cambio en un servicio o base de datos si tuvieras uno
+    this.savePackingEntries(); // Guardar cambios al alternar el estado
   }
 
   /**
@@ -149,7 +217,20 @@ export class PackingPlannerComponent implements OnInit {
   onNotesChange(entry: PackingEntry, event: Event): void {
     const target = event.target as HTMLElement;
     entry.notes = target.innerText;
-    // Aquí podrías guardar el cambio en un servicio o base de datos si tuvieras uno
+    this.savePackingEntries(); // Guardar cambios al editar las notas
     console.log(`Notas actualizadas para ${entry.itemName}: ${entry.notes}`);
+  }
+
+  /**
+   * Elimina una entrada de equipaje de la tabla.
+   * @param entryToRemove La entrada a eliminar.
+   */
+  removePackingEntry(entryToRemove: PackingEntry): void {
+    const index = this.packingEntries.findIndex(entry => entry.id === entryToRemove.id);
+    if (index !== -1) {
+      this.packingEntries.splice(index, 1);
+      this.savePackingEntries(); // Guardar cambios
+      this.calculateNextId(); // Recalcular nextId después de eliminar
+    }
   }
 }

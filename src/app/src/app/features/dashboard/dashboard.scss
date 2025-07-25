@@ -208,3 +208,14 @@
   }
 }
 
+/* CLAVE: Espaciado para separar comments form y task, y bajar task */
+.planning-and-comments-section {
+  /* ... tus estilos existentes para esta sección ... */
+
+  /* Selecciona la tercera tarjeta dentro de esta sección (que contiene app-tasks-section) */
+  & > .section-card:nth-of-type(3) {
+    margin-top: 10rem; /* Ajusta este valor para controlar cuánto quieres bajarlo */
+    /* Puedes usar valores como 2rem, 3rem, 40px, etc. */
+  }
+}
+

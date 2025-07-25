@@ -15,7 +15,7 @@ interface AccommodationEntry {
   currency: string; // Ej: 'USD', 'EUR', 'COP'
   checkInDate: string;
   checkOutDate: string;
-  photoUrl: string | ArrayBuffer | null; // URL de la imagen o base64 para preview
+  photoUrl: string | ArrayBuffer | null; // URL de la imagen o base64 para preview (NO se guardará en localStorage)
   stars: number | null; // 1-5 estrellas
   opinion: string; // Campo editable directamente en la tabla
 }
@@ -54,10 +54,88 @@ export class AccommodationPlannerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // Cargar entradas de ejemplo
+    this.loadAccommodationEntries(); // Cargar datos al inicio
+  }
+
+  /**
+   * Carga las entradas de alojamiento desde localStorage.
+   * Si no hay datos válidos, inicializa con los datos de ejemplo.
+   */
+  private loadAccommodationEntries(): void {
+    const storedEntries = localStorage.getItem('accommodationEntries');
+    let loadedSuccessfully = false;
+
+    if (storedEntries) {
+      try {
+        const parsedEntries: AccommodationEntry[] = JSON.parse(storedEntries);
+        // Verificar si los datos parseados son un array y no está vacío
+        if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
+          this.accommodationEntries = parsedEntries;
+          console.log('Entradas de alojamiento cargadas desde localStorage:', this.accommodationEntries);
+          loadedSuccessfully = true;
+        } else {
+          console.log('LocalStorage de entradas de alojamiento vacío o inválido (array vacío).');
+        }
+      } catch (e) {
+        console.error('Error al parsear entradas de alojamiento desde localStorage:', e);
+        console.log('Error de parseo en localStorage.');
+      }
+    } else {
+      console.log('No hay datos de alojamiento en localStorage.');
+    }
+
+    // Si no se cargaron datos exitosamente, inicializar con datos de ejemplo
+    if (!loadedSuccessfully) {
+      this.initializeExampleData();
+      console.log('Datos de ejemplo de alojamiento inicializados.');
+    }
+
+    // Siempre calcular el nextId después de que this.accommodationEntries esté poblado
+    this.calculateNextId();
+  }
+
+  /**
+   * Calcula el siguiente ID basándose en el ID más alto existente.
+   */
+  private calculateNextId(): void {
+    let maxId = 0;
+    if (this.accommodationEntries.length > 0) {
+      maxId = Math.max(...this.accommodationEntries.map(entry => entry.id));
+    }
+    this.nextId = maxId + 1;
+    console.log(`Calculated nextId for accommodations: ${this.nextId}`);
+  }
+
+  /**
+   * Guarda las entradas de alojamiento en localStorage.
+   * Excluye las URLs de fotos (Base64) para evitar exceder la cuota de localStorage.
+   */
+  private saveAccommodationEntries(): void {
+    // Crear una copia profunda de accommodationEntries para modificarla antes de guardar
+    const entriesToSave = JSON.parse(JSON.stringify(this.accommodationEntries)) as AccommodationEntry[];
+
+    entriesToSave.forEach(entry => {
+      // Establecer photoUrl a null antes de guardar en localStorage.
+      // Esto evita el error de cuota por almacenar imágenes Base64.
+      // La imagen solo se mostrará durante la sesión actual, no persistirá.
+      entry.photoUrl = null;
+    });
+
+    localStorage.setItem('accommodationEntries', JSON.stringify(entriesToSave));
+    console.log('Entradas de alojamiento guardadas en localStorage (sin URLs de fotos Base64).');
+  }
+
+  /**
+   * Inicializa los datos de ejemplo y los asigna a this.accommodationEntries.
+   * Solo se llama si no hay datos válidos en localStorage.
+   */
+  private initializeExampleData(): void {
+    // Usamos un contador temporal para los IDs de los datos de ejemplo
+    let tempNextId = 1;
+
     this.accommodationEntries = [
       {
-        id: this.nextId++,
+        id: tempNextId++,
         type: 'Hotel',
         name: 'Hotel Plaza Mayor',
         url: 'https://hotelplazamayor.com',
@@ -65,12 +143,12 @@ export class AccommodationPlannerComponent implements OnInit {
         currency: 'USD',
         checkInDate: '2024-10-05',
         checkOutDate: '2024-10-10',
-        photoUrl: 'https://placehold.co/60x40/E0E0E0/424242?text=Hotel',
+        photoUrl: 'https://placehold.co/60x40/E0E0E0/424242?text=Hotel', // URL de placeholder
         stars: 4,
         opinion: 'Excelente ubicación, servicio amable.'
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         type: 'Airbnb',
         name: 'Apartamento con vistas al Sena',
         url: 'https://airbnb.com/sena-view',
@@ -78,12 +156,12 @@ export class AccommodationPlannerComponent implements OnInit {
         currency: 'EUR',
         checkInDate: '2024-11-15',
         checkOutDate: '2024-11-20',
-        photoUrl: 'https://placehold.co/60x40/E0E0E0/424242?text=Airbnb',
+        photoUrl: 'https://placehold.co/60x40/E0E0E0/424242?text=Airbnb', // URL de placeholder
         stars: 5,
         opinion: 'Muy acogedor, ideal para parejas.'
       },
       {
-        id: this.nextId++,
+        id: tempNextId++,
         type: 'Hostal',
         name: 'Hostal Viajero Feliz',
         url: 'https://hostalviajero.com',
@@ -91,7 +169,7 @@ export class AccommodationPlannerComponent implements OnInit {
         currency: 'USD',
         checkInDate: '2025-01-01',
         checkOutDate: '2025-01-05',
-        photoUrl: 'https://placehold.co/60x40/E0E0E0/424242?text=Hostal',
+        photoUrl: 'https://placehold.co/60x40/E0E0E0/424242?text=Hostal', // URL de placeholder
         stars: 3,
         opinion: 'Económico y con buen ambiente, pero ruidoso.'
       }
@@ -121,6 +199,7 @@ export class AccommodationPlannerComponent implements OnInit {
    */
   setNewEntryStars(star: number): void {
     this.newEntryStars = star;
+    this.saveAccommodationEntries(); // Guardar cambios al cambiar las estrellas
   }
 
   /**
@@ -129,7 +208,7 @@ export class AccommodationPlannerComponent implements OnInit {
   addAccommodationEntry(): void {
     if (this.newEntryName && this.newEntryUrl && this.newEntryCheckInDate && this.newEntryCheckOutDate) {
       const newEntry: AccommodationEntry = {
-        id: this.nextId++,
+        id: this.nextId++, // Usar el ID actual y luego incrementarlo
         type: this.newEntryType,
         name: this.newEntryName,
         url: this.newEntryUrl,
@@ -137,12 +216,13 @@ export class AccommodationPlannerComponent implements OnInit {
         currency: this.newEntryCurrency,
         checkInDate: this.newEntryCheckInDate,
         checkOutDate: this.newEntryCheckOutDate,
-        photoUrl: this.newEntryPhotoPreviewUrl, // Usamos la URL de previsualización
+        photoUrl: this.newEntryPhotoPreviewUrl, // Usamos la URL de previsualización (se pondrá null al guardar)
         stars: this.newEntryStars,
         opinion: this.newEntryOpinion
       };
       this.accommodationEntries.push(newEntry);
       this.resetForm(); // Limpiar el formulario después de añadir
+      this.saveAccommodationEntries(); // Guardar cambios
     } else {
       alert('Por favor, completa los campos obligatorios: Nombre, URL, Fecha de Entrada y Fecha de Salida.');
     }
@@ -180,7 +260,20 @@ export class AccommodationPlannerComponent implements OnInit {
   onOpinionChange(entry: AccommodationEntry, event: Event): void {
     const target = event.target as HTMLElement;
     entry.opinion = target.innerText;
-    // Aquí podrías guardar el cambio en un servicio o base de datos si tuvieras uno
+    this.saveAccommodationEntries(); // Guardar cambios al editar la opinión
     console.log(`Opinión actualizada para ${entry.name}: ${entry.opinion}`);
+  }
+
+  /**
+   * Elimina una entrada de alojamiento de la tabla.
+   * @param entryToRemove La entrada a eliminar.
+   */
+  removeEntry(entryToRemove: AccommodationEntry): void {
+    const index = this.accommodationEntries.findIndex(entry => entry.id === entryToRemove.id);
+    if (index !== -1) {
+      this.accommodationEntries.splice(index, 1);
+      this.saveAccommodationEntries(); // Guardar cambios
+      this.calculateNextId(); // Recalcular nextId después de eliminar
+    }
   }
 }
