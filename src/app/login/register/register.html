@@ -2,9 +2,9 @@
   <div class="auth-logo">
     <img id="sidebar-logo" src="logo.png" alt="Travel App Logo">
   </div>
-  <h2>Iniciar Sesión</h2>
-  <!-- Añadimos #loginForm="ngForm" para acceder al estado del formulario -->
-  <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+  <h2>Regístrate</h2>
+  <!-- Añadimos #registerForm="ngForm" para acceder al estado del formulario -->
+  <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
     <input
       type="email"
       [(ngModel)]="email"
@@ -28,6 +28,7 @@
       required
       minlength="6"
       #passwordInput="ngModel"
+      (input)="checkPasswordMatch()"
     />
     <!-- Mensajes de validación para la contraseña -->
     <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="validation-message">
@@ -35,11 +36,28 @@
       <div *ngIf="passwordInput.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
     </div>
 
-    <!-- El botón se deshabilita si el formulario no es válido -->
-    <button type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+    <input
+      type="password"
+      [(ngModel)]="confirmPassword"
+      name="confirmPassword"
+      placeholder="Confirmar contraseña"
+      required
+      #confirmPasswordInput="ngModel"
+      (input)="checkPasswordMatch()"
+    />
+    <!-- Mensajes de validación para la confirmación de contraseña -->
+    <div *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="validation-message">
+      <div *ngIf="confirmPasswordInput.errors?.['required']">La confirmación de contraseña es obligatoria.</div>
+    </div>
+    <div *ngIf="passwordMismatch && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="validation-message">
+      Las contraseñas no coinciden.
+    </div>
+
+    <!-- El botón se deshabilita si el formulario no es válido o las contraseñas no coinciden -->
+    <button type="submit" [disabled]="registerForm.invalid || passwordMismatch">Crear cuenta</button>
   </form>
   <p class="switch-link">
-    ¿No tienes cuenta? 
-    <a routerLink="/register">Regístrate</a>
+    ¿Ya tienes cuenta? 
+    <a routerLink="/login">Iniciar sesión</a>
   </p>
 </div>

@@ -2,22 +2,24 @@ import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router'; // Import Router
-import { AuthService } from '../../app/src/app/core/services/auth.service'; // Import AuthService
+import { AuthService } from '../../src/app/core/services/auth.service'; // Import AuthService
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     RouterLink
   ],
-  templateUrl: './login.html',
-  styleUrls: ['./login.scss']
+  templateUrl: './register.html',
+  styleUrls: ['./register.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit, OnDestroy {
   email = '';
   password = '';
+  confirmPassword = '';
+  passwordMismatch: boolean = false;
   logoSrc: string = 'assets/images/logo.png';
 
   private observer: MutationObserver | undefined;
@@ -51,21 +53,26 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  onLogin(form: NgForm): void {
-    form.control.markAllAsTouched(); // Marcar campos como tocados para mostrar validaciones
+  checkPasswordMatch(): void {
+    this.passwordMismatch = this.password !== this.confirmPassword && this.confirmPassword.length > 0;
+  }
 
-    if (form.valid) {
-      // Llama al servicio de autenticación para intentar el login
-      const loginSuccess = this.authService.login(this.email, this.password);
+  onRegister(form: NgForm): void {
+    form.control.markAllAsTouched();
+    this.checkPasswordMatch();
 
-      if (loginSuccess) {
-        alert('¡Inicio de sesión exitoso! Redirigiendo al dashboard.');
-        this.router.navigate(['/dashboard']); // Redirige al dashboard
+    if (form.valid && !this.passwordMismatch) {
+      // Llama al servicio de autenticación para registrar al usuario
+      const registrationSuccess = this.authService.register(this.email, this.password);
+
+      if (registrationSuccess) {
+        alert('¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.');
+        this.router.navigate(['/login']); // Redirige al login
       } else {
-        alert('Error de inicio de sesión: Correo o contraseña incorrectos.');
+        alert('Error al crear la cuenta: El correo electrónico ya está registrado.');
       }
     } else {
-      alert('Formulario inválido. Por favor, revisa los campos.');
+      alert('Error: Por favor, revisa los campos y asegúrate que las contraseñas coincidan.');
     }
   }
 }

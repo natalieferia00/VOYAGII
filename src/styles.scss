@@ -73,9 +73,9 @@ body.dark-mode .sidebar-container {
 
 /* ✅ Logo */
 .sidebar-logo {
-    padding-bottom: 30px;
+    padding-bottom: 10px;
     img {
-        width: 120px;
+        width: 70px;
         height: auto;
     }
 }
@@ -96,10 +96,10 @@ body.dark-mode .sidebar-container {
 .nav-link {
     display: flex;
     align-items: center;
-    padding: 12px 20px;
+    padding: 15px 20px;
     color: #555555;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 200;
     transition: background-color 0.2s ease, color 0.2s ease;
     font-family: 'Roboto', sans-serif;
     white-space: nowrap;
@@ -107,11 +107,11 @@ body.dark-mode .sidebar-container {
 
 .nav-link:hover {
     background-color: #F0F8FF;
-    color: #5f67ff;
+    color: #b4b7ff;
 }
 
 .nav-link.active {
-    background-color: #3A86FF;
+    background-color: hsl(237, 100%, 82%);
     color: #FFFFFF;
     box-shadow: 0 2px 8px rgba(58, 134, 255, 0.2);
 }
@@ -122,11 +122,11 @@ body.dark-mode .nav-link {
 
 body.dark-mode .nav-link:hover {
     background-color: #2a2a2a;
-    color: #6DAFFE;
+    color: #a3ccff;
 }
 
 body.dark-mode .nav-link.active {
-    background-color: #3A86FF;
+    background-color: #96baf9;
     color: #FFFFFF;
     box-shadow: 0 2px 8px rgba(58, 134, 255, 0.3);
 }
@@ -138,7 +138,8 @@ body.dark-mode .nav-link.active {
 }
 
 .nav-text {
-    font-size: 16px;
+    font-size: 17px;
+    font-weight: 200;
     flex-grow: 1;
 }
 
@@ -199,7 +200,7 @@ body.dark-mode .content-area {
 .dashboard-section {
     background: #ffffff;
     color: #333333; /* Texto oscuro en modo día */
-    border-radius: 12px;
+    border-radius: 22px;
     padding: 1.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
@@ -207,7 +208,7 @@ body.dark-mode .content-area {
 
 .dashboard-section .section-title {
     font-size: 1.6rem;
-    font-weight: 600;
+    font-weight: 300;
     margin-bottom: 1rem;
     color: #111111;
     transition: color 0.3s ease;
@@ -301,8 +302,7 @@ input[type="date"]:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: #3A86FF; /* Color de acento azul al enfocar */
-    box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+
 }
 
 /* Flecha del select en modo día */
@@ -343,8 +343,8 @@ body.dark-mode input[type="url"]:focus,
 body.dark-mode input[type="date"]:focus,
 body.dark-mode select:focus,
 body.dark-mode textarea:focus {
-    border-color: #6DAFFE; /* Color de acento azul más claro al enfocar */
-    box-shadow: 0 0 0 3px rgba(109, 175, 254, 0.3);
+    border-color: #ffffff; /* Color de acento azul más claro al enfocar */
+
 }
 
 /* Flecha del select en dark mode */

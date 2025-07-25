@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from '../app/src/app/core/services/auth.guard'; // Importa el AuthGuard
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Redirige la ruta raíz a dashboard
@@ -70,11 +71,6 @@ export const routes: Routes = [
     ),
 },
 
-
-
-
-
-  
   // Ruta para Login
   {
     path: 'login',
@@ -85,7 +81,7 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent: () =>
-      import('./register/register').then(
+      import('../app/login/register/register').then(
         m => m.RegisterComponent
       ),
   },

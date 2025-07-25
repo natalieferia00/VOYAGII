@@ -132,8 +132,7 @@
 .add-entry-form .form-group select:focus,
 .add-entry-form .form-group textarea:focus {
   outline: none;
-  border-color: #e0eaff; /* Azul bebé */
-  box-shadow: 0 0 0 4px #e0eaff; /* Sombra azul bebé más pronunciada */
+  border-color:   #34a853;
    transform: translateX(-10px); 
 }
 
@@ -347,8 +346,7 @@ $icon-color-6: #000000; /* Negro Profundo */
 .add-entry-form .form-group select:focus,
 .add-entry-form .form-group textarea:focus {
   outline: none;
-  border-color: #e0eaff;
-  box-shadow: 0 0 0 4px #e0eaff;
+  border-color:   #34a853;
 }
 
 .add-entry-form .form-group textarea {

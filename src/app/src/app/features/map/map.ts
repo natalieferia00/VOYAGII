@@ -11,7 +11,7 @@ import { TasksSectionComponent } from "../../../../shared/components/tasks-secti
         @Component({
           selector: 'app-map',
           standalone: true,
-          imports: [SidebarComponent, TravelRoutePlannerComponent, TasksSectionComponent],
+          imports: [SidebarComponent, TravelRoutePlannerComponent],
           templateUrl: './map.html',
           styleUrls: ['./map.scss']
         })
