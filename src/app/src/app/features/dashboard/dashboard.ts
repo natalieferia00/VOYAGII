@@ -18,7 +18,10 @@ import { VisitedFormComponent } from "../../../../shared/components/visited-form
 import { GeneralTripInfo } from '../../../../shared/components/interfaces/general-trip-info.interface';
 import { AdditionalGeneralInfo } from '../../../../shared/components/interfaces/additional-general-info.interface';
 import { MetricsComponent } from '../../../../shared/components/metrics/metrics';
-import { WelcomeMessageComponent } from "../../../../welcome-message/welcome-message";
+import { WelcomeMessageComponent } from '../../../../welcome-message/welcome-message';
+import { TransportationStatusChartComponent } from "../../../../shared/components/transportation-status-chart/transportation-status-chart";
+import { FoodStatusChartComponent } from "../../../../shared/components/food-status-chart/food-status-chart";
+import { CountryCardsComponent } from "../../../../shared/components/country-cards/country-cards";
 
 
 
@@ -40,14 +43,20 @@ type CombinedTripInfo = GeneralTripInfo & AdditionalGeneralInfo;
     PlanningSectionComponent,
     PreparationChecklistChartComponent,
     TasksSectionComponent,
-    WelcomeMessageComponent
+    WelcomeMessageComponent,
+    ProgressChartComponent,
+    TransportationStatusChartComponent,
+    FoodStatusChartComponent,
+    CountryCardsComponent
 ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
 export class DashboardComponent implements OnInit {
-   generalTripInfoForMetrics: CombinedTripInfo | null = null;
-  travelerName: string | null = null; // Nuevo: para pasar el nombre al WelcomeMessageComponent
+
+  generalTripInfoForMetrics: CombinedTripInfo | null = null;
+  travelerName: string | null = null; // Para pasar el nombre al WelcomeMessageComponent
+
   constructor() { }
 
   ngOnInit(): void {
@@ -62,9 +71,15 @@ export class DashboardComponent implements OnInit {
     if (storedRegInfo) {
       try {
         loadedRegInfo = JSON.parse(storedRegInfo);
+        // ¡Aquí está la clave! Comprobamos explícitamente que loadedRegInfo no es null
+        // antes de acceder a sus propiedades.
+        if (loadedRegInfo) {
+          this.travelerName = loadedRegInfo.travelerName || null;
+        }
         console.log('Info del registro cargada en Dashboard:', loadedRegInfo);
       } catch (e) {
         console.error('Error al parsear info del registro desde localStorage en Dashboard:', e);
+        loadedRegInfo = null; // Asegurarse de que sea null en caso de error de parseo
       }
     }
 
@@ -75,6 +90,7 @@ export class DashboardComponent implements OnInit {
         console.log('Info adicional cargada en Dashboard:', loadedAddInfo);
       } catch (e) {
         console.error('Error al parsear info adicional desde localStorage en Dashboard:', e);
+        loadedAddInfo = null; // Asegurarse de que sea null en caso de error de parseo
       }
     }
 
@@ -92,14 +108,14 @@ export class DashboardComponent implements OnInit {
         travelMotto: '',
         emergencyContact: '',
         notes: '',
-        transportBudget: null, // Inicializar nuevos campos
+        transportBudget: null,
         foodBudget: null,
         accommodationBudget: null
       };
     } else if (loadedAddInfo) {
-      // Si solo hay info adicional (caso menos común, pero para robustez)
+      // Si solo hay info adicional, y loadedRegInfo es null, necesitamos un travelerName por defecto
       this.generalTripInfoForMetrics = {
-        travelerName: '',
+        travelerName: '', // Valor por defecto si no hay info de registro
         generalBudget: null,
         startDate: '',
         endDate: '',
@@ -111,6 +127,7 @@ export class DashboardComponent implements OnInit {
     } else {
       // Si no hay ninguna información, establecer a null
       this.generalTripInfoForMetrics = null;
+      this.travelerName = null; // Asegúrate de que el nombre también sea null si no hay info
       console.log('No hay información general del viaje ni adicional guardada en localStorage para el Dashboard.');
     }
   }

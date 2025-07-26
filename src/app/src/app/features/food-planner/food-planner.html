@@ -6,7 +6,7 @@
   <section class="budget-summary-section">
     <h2 class="section-heading">Resumen de Presupuesto de Alimentación</h2>
     <div class="budget-info">
-      <p>Presupuesto definido: 
+      <p>Presupuesto definido:
         <span class="budget-value" *ngIf="foodBudget !== null">
           {{ foodBudget | currency:'USD':'symbol':'1.0-0' }}
         </span>
@@ -14,7 +14,7 @@
           No definido
         </span>
       </p>
-      <p>Gasto total en alimentación: 
+      <p>Gasto total en alimentación:
         <span class="total-cost-value">
           {{ totalFoodCost | currency:'USD':'symbol':'1.0-0' }}
         </span>
@@ -92,6 +92,14 @@
         <textarea id="newEntryNotes" name="newEntryNotes" [(ngModel)]="newEntryNotes" rows="2" placeholder="Notas sobre el lugar, platos recomendados, etc."></textarea>
       </div>
 
+      <!-- Nuevo: Selector de estado de alimentación -->
+      <div class="form-group">
+        <label for="newEntryStatus">Estado:</label>
+        <select id="newEntryStatus" name="newEntryStatus" [(ngModel)]="newEntryStatus">
+          <option *ngFor="let status of foodStatusOptions" [value]="status">{{status}}</option>
+        </select>
+      </div>
+
       <div class="form-actions">
         <button type="submit" class="add-entry-button">Añadir Entrada</button>
       </div>
@@ -119,6 +127,7 @@
             <th>Fecha</th>
             <th>URL</th>
             <th>Notas</th>
+            <th>Estado</th> <!-- Nueva columna para el estado -->
             <th>Acciones</th>
           </tr>
         </thead>
@@ -151,6 +160,13 @@
             </td>
             <td contenteditable="true" (input)="onNotesChange(entry, $event)" class="editable-notes-cell">
               {{entry.notes}}
+            </td>
+            <td>
+              <!-- Selector de estado en la tabla -->
+              <select [(ngModel)]="entry.status" (change)="onStatusChange(entry, $event)"
+                      [ngClass]="getFoodStatusClass(entry.status)">
+                <option *ngFor="let status of foodStatusOptions" [value]="status">{{status}}</option>
+              </select>
             </td>
             <td class="action-cell">
               <button type="button" (click)="removeFoodEntry(entry)" class="remove-button">

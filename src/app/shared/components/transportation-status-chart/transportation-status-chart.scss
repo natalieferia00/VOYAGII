@@ -3,37 +3,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 .charts-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajustado minmax para barras */
+  gap: 20px;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   font-family: 'Roboto', sans-serif;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  min-height: 250px;
+  min-height: auto;
 }
 
-
+body.dark-mode .charts-container {
+  background-color: #2a2a2a;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
 .chart-item {
   display: flex;
-  flex-direction: column; /* Cambiado a columna para apilar título y canvas */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
-  width: 100%;
-  max-width: 300px;
-  max-height: 300px;
+  width: auto;
+  max-width: 100%;
+  height: 200px; /* Altura fija para gráficos de barras para consistencia */
 }
 
-/* Estilos para el nuevo título h4 */
+
+
 .chart-item h4 {
   font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 15px; /* Espacio entre el título y el gráfico */
-
+  margin-bottom: 15px;
   text-align: center;
   transition: color 0.3s ease;
 }
@@ -45,24 +50,38 @@ canvas {
   max-height: 100%;
 }
 
-/* Ajustes para el texto de la leyenda y tooltip en modo oscuro */
+/* Ajustes para el texto del tooltip en modo oscuro */
 body.dark-mode .chartjs-render-monitor {
   filter: brightness(1.1);
 }
 
+body.dark-mode .chartjs-tooltip-title,
+body.dark-mode .chartjs-tooltip-body,
+body.dark-mode .chartjs-tooltip-label {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .chartjs-tooltip-label {
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .chartjs-tooltip-point {
+    background-color: #e0e0e0 !important;
+}
 
 
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
   .charts-container {
+    grid-template-columns: 1fr;
     padding: 15px;
-    min-height: 200px;
+    gap: 15px;
   }
 
   .chart-item {
     padding: 10px;
-    max-width: 250px;
-    max-height: 250px;
+    max-width: 100%;
+    height: 180px; /* Ajusta la altura para móviles */
   }
 
   .chart-item h4 {

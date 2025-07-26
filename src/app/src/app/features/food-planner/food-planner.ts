@@ -7,8 +7,11 @@ import { AdditionalGeneralInfo } from '../../../../shared/components/interfaces/
 // Meal types
 type MealType = 'Desayuno' | 'Almuerzo' | 'Cena' | 'Snack' | 'Bebidas' | 'Otro';
 
-// Interface for a food planning entry
-interface FoodEntry {
+// Nuevos estados de alimentación - ¡EXPORTADOS para el gráfico!
+export type FoodStatus = 'Idea' | 'Recomendación' | 'En Espera' | 'Reservado' | 'Visitado' | 'No Aplica';
+
+// Interface for a food planning entry - AHORA CON ESTADO
+export interface FoodEntry {
   id: number;
   tripName: string; // Name of the trip it belongs to (e.g., "Europe Trip 2024")
   tripCode: string; // Code to identify the trip (e.g., "EUR24-001")
@@ -22,6 +25,7 @@ interface FoodEntry {
   date: string; // Date of the meal/planning
   url: string; // URL for reservation, menu, or review
   notes: string; // Editable field directly in the table
+  status: FoodStatus; // Nuevo: Estado de la entrada de comida
 }
 
 @Component({
@@ -56,10 +60,13 @@ export class FoodPlannerComponent implements OnInit {
   newEntryDate: string = new Date().toISOString().substring(0, 10); // Default to current date
   newEntryUrl: string = '';
   newEntryNotes: string = '';
+  newEntryStatus: FoodStatus = 'Idea'; // Nuevo: Estado inicial por defecto
 
   // Options for select inputs
   mealTypes: MealType[] = ['Desayuno', 'Almuerzo', 'Cena', 'Snack', 'Bebidas', 'Otro'];
   currencies: string[] = ['USD', 'EUR', 'COP', 'GBP', 'JPY'];
+  // Opciones de estado para alimentación
+  foodStatusOptions: FoodStatus[] = ['Idea', 'Recomendación', 'En Espera', 'Reservado', 'Visitado', 'No Aplica'];
 
   constructor() { }
 
@@ -162,7 +169,11 @@ export class FoodPlannerComponent implements OnInit {
       try {
         const parsedEntries: FoodEntry[] = JSON.parse(storedEntries);
         if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
-          this.foodEntries = parsedEntries;
+          // Asegúrate de que las entradas cargadas tengan la propiedad 'status'
+          this.foodEntries = parsedEntries.map(entry => ({
+            ...entry,
+            status: entry.status || 'Idea' // Asigna un valor por defecto si no existe
+          }));
           console.log('Entradas de comida cargadas desde localStorage:', this.foodEntries);
           loadedSuccessfully = true;
         } else {
@@ -224,10 +235,11 @@ export class FoodPlannerComponent implements OnInit {
         restaurantName: 'Le Bistrot d\'André',
         cuisine: 'Francesa',
         estimatedCost: 50,
-        currency: 'USD', // Cambiado a USD para que sume al total de ejemplo
+        currency: 'USD',
         date: '2024-09-11',
         url: 'https://lebistrot.com',
-        notes: 'Recomendado por locales, ambiente acogedor.'
+        notes: 'Recomendado por locales, ambiente acogedor.',
+        status: 'Reservado' // Ejemplo: Reservado
       },
       {
         id: tempNextId++,
@@ -239,10 +251,11 @@ export class FoodPlannerComponent implements OnInit {
         restaurantName: 'Trattoria da Enzo al 29',
         cuisine: 'Italiana',
         estimatedCost: 30,
-        currency: 'USD', // Cambiado a USD para que sume al total de ejemplo
+        currency: 'USD',
         date: '2024-09-18',
         url: 'https://enzoal29.it',
-        notes: 'Pasta casera increíble, reservar con antelación.'
+        notes: 'Pasta casera increíble, reservar con antelación.',
+        status: 'En Espera' // Ejemplo: En Espera
       },
       {
         id: tempNextId++,
@@ -254,10 +267,43 @@ export class FoodPlannerComponent implements OnInit {
         restaurantName: 'Ichiran Ramen',
         cuisine: 'Japonesa',
         estimatedCost: 15,
-        currency: 'USD', // Cambiado a USD para que sume al total de ejemplo
+        currency: 'USD',
         date: '2025-04-05',
         url: 'https://ichiran.com',
-        notes: 'Famoso por su ramen, experiencia única.'
+        notes: 'Famoso por su ramen, experiencia única.',
+        status: 'Idea' // Ejemplo: Idea
+      },
+      {
+        id: tempNextId++,
+        tripName: 'Aventura en Asia',
+        tripCode: 'ASIA25-003',
+        country: 'Japón',
+        city: 'Kioto',
+        mealType: 'Snack',
+        restaurantName: 'Mercado de Nishiki',
+        cuisine: 'Local',
+        estimatedCost: 10,
+        currency: 'JPY',
+        date: '2025-04-07',
+        url: '',
+        notes: 'Probar takoyaki y mochi.',
+        status: 'Recomendación' // Ejemplo: Recomendación
+      },
+      {
+        id: tempNextId++,
+        tripName: 'Viaje a Europa 2024',
+        tripCode: 'EUR24-001',
+        country: 'España',
+        city: 'Barcelona',
+        mealType: 'Cena',
+        restaurantName: 'El Quim de la Boqueria',
+        cuisine: 'Española',
+        estimatedCost: 40,
+        currency: 'EUR',
+        date: '2024-09-25',
+        url: 'https://elquimdelaboqueria.com',
+        notes: 'Tapas excelentes, ambiente de mercado.',
+        status: 'Visitado' // Ejemplo: Visitado
       }
     ];
   }
@@ -278,13 +324,14 @@ export class FoodPlannerComponent implements OnInit {
         currency: this.newEntryCurrency,
         date: this.newEntryDate,
         url: this.newEntryUrl,
-        notes: this.newEntryNotes
+        notes: this.newEntryNotes,
+        status: this.newEntryStatus // Asigna el nuevo estado
       };
       this.foodEntries.push(newEntry);
       this.resetForm();
       this.saveFoodEntries(); // Esto también recalcula el total
     } else {
-      alert('Please complete all required fields: Trip Name, Trip Code, Country, City, Restaurant Name, and Date.');
+      alert('Por favor, completa los campos obligatorios: Nombre del Viaje, Código del Viaje, País, Ciudad, Restaurante/Lugar y Fecha.');
     }
   }
 
@@ -301,6 +348,7 @@ export class FoodPlannerComponent implements OnInit {
     this.newEntryDate = new Date().toISOString().substring(0, 10);
     this.newEntryUrl = '';
     this.newEntryNotes = '';
+    this.newEntryStatus = 'Idea'; // Reinicia el estado a por defecto
   }
 
   openUrl(url: string): void {
@@ -314,6 +362,34 @@ export class FoodPlannerComponent implements OnInit {
     entry.notes = target.innerText;
     this.saveFoodEntries(); // Esto también recalcula el total
     console.log(`Notes updated for ${entry.restaurantName}: ${entry.notes}`);
+  }
+
+  // Nuevo método para manejar el cambio de estado de alimentación
+  onStatusChange(entry: FoodEntry, event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    entry.status = target.value as FoodStatus;
+    this.saveFoodEntries(); // Guarda el cambio de estado
+    console.log(`Estado de alimentación actualizado para ${entry.restaurantName}: ${entry.status}`);
+  }
+
+  // Obtiene la clase CSS para el indicador de estado en la tabla
+  getFoodStatusClass(status: FoodStatus): string {
+    switch (status) {
+      case 'Idea':
+        return 'status-idea';
+      case 'Recomendación':
+        return 'status-recomendacion';
+      case 'En Espera':
+        return 'status-en-espera';
+      case 'Reservado':
+        return 'status-reservado';
+      case 'Visitado':
+        return 'status-visitado';
+      case 'No Aplica':
+        return 'status-no-aplica';
+      default:
+        return '';
+    }
   }
 
   removeFoodEntry(entryToRemove: FoodEntry): void {

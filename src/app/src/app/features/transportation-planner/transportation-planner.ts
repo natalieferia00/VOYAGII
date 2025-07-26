@@ -7,8 +7,11 @@ import { AdditionalGeneralInfo } from '../../../../shared/components/interfaces/
 // Tipos de transporte
 type TransportType = 'Vuelo' | 'Tren' | 'Autobús' | 'Metro' | 'Taxi' | 'Otro';
 
-// Interfaz para una entrada de transporte
-interface TransportationEntry {
+// Nuevos estados de transporte
+export type TransportationStatus = 'Solo Visto' | 'En Espera' | 'Reservado'; // Exportamos para el gráfico
+
+// Interfaz para una entrada de transporte - AHORA EXPORTADA con el nuevo estado
+export interface TransportationEntry {
   id: number;
   tripName: string; // Nombre del viaje al que pertenece (ej. "Viaje a Europa 2024")
   tripCode: string; // Código para identificar el viaje (ej. "EUR24-001")
@@ -22,6 +25,7 @@ interface TransportationEntry {
   arrivalDate: string;
   url: string; // URL de la reserva o información
   opinion: string; // Campo editable directamente en la tabla
+  status: TransportationStatus; // Nuevo: Estado del transporte
 }
 
 @Component({
@@ -36,6 +40,10 @@ interface TransportationEntry {
   styleUrls: ['./transportation-planner.scss']
 })
 export class TransportationPlannerComponent implements OnInit {
+  // Eliminado el método removeTransportation ya que no estaba implementado y causaba un error.
+  // removeTransportation(_t143: TransportationEntry) {
+  //   throw new Error('Method not implemented.');
+  // }
   transportationEntries: TransportationEntry[] = [];
   nextId: number = 1;
 
@@ -43,7 +51,7 @@ export class TransportationPlannerComponent implements OnInit {
   transportBudget: number | null = null;
   totalTransportationCost: number = 0; // Nuevo: total gastado en transporte
 
-  // Form properties for new entry
+  // Propiedades para el formulario de nueva entrada
   newEntryTripName: string = '';
   newEntryTripCode: string = '';
   newEntryCountry: string = '';
@@ -56,10 +64,12 @@ export class TransportationPlannerComponent implements OnInit {
   newEntryArrivalDate: string = '';
   newEntryUrl: string = '';
   newEntryOpinion: string = '';
+  newEntryStatus: TransportationStatus = 'Solo Visto'; // Nuevo: Estado por defecto
 
-  // Options for select inputs
+  // Opciones para los selectores
   transportTypes: TransportType[] = ['Vuelo', 'Tren', 'Autobús', 'Metro', 'Taxi', 'Otro'];
   currencies: string[] = ['USD', 'EUR', 'COP', 'GBP', 'JPY'];
+  transportationStatusOptions: TransportationStatus[] = ['Solo Visto', 'En Espera', 'Reservado']; // Opciones de estado
 
   constructor() { }
 
@@ -162,7 +172,11 @@ export class TransportationPlannerComponent implements OnInit {
       try {
         const parsedEntries: TransportationEntry[] = JSON.parse(storedEntries);
         if (Array.isArray(parsedEntries) && parsedEntries.length > 0) {
-          this.transportationEntries = parsedEntries;
+          // Asegúrate de que las entradas cargadas tengan la propiedad 'status'
+          this.transportationEntries = parsedEntries.map(entry => ({
+            ...entry,
+            status: entry.status || 'Solo Visto' // Asigna un valor por defecto si no existe
+          }));
           console.log('Entradas de transporte cargadas desde localStorage:', this.transportationEntries);
           loadedSuccessfully = true;
         } else {
@@ -218,53 +232,56 @@ export class TransportationPlannerComponent implements OnInit {
         id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
-        country: 'España',
-        city: 'Madrid',
+        country: 'Francia',
+        city: 'París',
         transportType: 'Vuelo',
-        company: 'Iberia',
-        price: 450,
-        currency: 'USD', // Asegúrate de que la moneda base coincida con la del presupuesto
+        company: 'Air France',
+        price: 350,
+        currency: 'USD',
         departureDate: '2024-09-10',
         arrivalDate: '2024-09-10',
-        url: 'https://iberia.com/madrid-paris',
-        opinion: 'Vuelo directo, buena experiencia.'
+        url: 'https://airfrance.com/booking123',
+        opinion: 'Vuelo directo, buen servicio a bordo.',
+        status: 'Reservado' // Ejemplo: Reservado
       },
       {
         id: tempNextId++,
         tripName: 'Viaje a Europa 2024',
         tripCode: 'EUR24-001',
-        country: 'Francia',
-        city: 'París',
+        country: 'Italia',
+        city: 'Roma',
         transportType: 'Tren',
-        company: 'SNCF',
-        price: 80,
-        currency: 'USD', // Cambiado a USD para que sume al total de ejemplo
-        departureDate: '2024-09-12',
-        arrivalDate: '2024-09-12',
-        url: 'https://sncf.fr/paris-lyon',
-        opinion: 'Tren de alta velocidad, muy cómodo.'
+        company: 'Trenitalia',
+        price: 75,
+        currency: 'EUR', // Este precio no se sumará si la base es USD
+        departureDate: '2024-09-18',
+        arrivalDate: '2024-09-18',
+        url: 'https://trenitalia.it/ticket456',
+        opinion: 'Cómodo y puntual, vistas bonitas.',
+        status: 'En Espera' // Ejemplo: En Espera
       },
       {
         id: tempNextId++,
-        tripName: 'Escapada a la Playa',
-        tripCode: 'PLAYA25-002',
-        country: 'México',
-        city: 'Cancún',
-        transportType: 'Vuelo',
-        company: 'Aeromexico',
-        price: 300,
-        currency: 'USD',
-        departureDate: '2025-03-01',
-        arrivalDate: '2025-03-01',
-        url: 'https://aeromexico.com/mexico-cancun',
-        opinion: 'Vuelo temprano, sin problemas.'
+        tripName: 'Aventura en Asia',
+        tripCode: 'ASIA25-003',
+        country: 'Japón',
+        city: 'Tokio',
+        transportType: 'Metro',
+        company: 'Tokyo Metro',
+        price: 10,
+        currency: 'JPY', // Este precio no se sumará si la base es USD
+        departureDate: '2025-04-05',
+        arrivalDate: '2025-04-05',
+        url: '',
+        opinion: 'Eficiente y fácil de usar.',
+        status: 'Solo Visto' // Ejemplo: Solo Visto
       }
     ];
   }
 
   addTransportationEntry(): void {
     if (this.newEntryTripName && this.newEntryTripCode && this.newEntryCountry && this.newEntryCity &&
-        this.newEntryCompany && this.newEntryDepartureDate && this.newEntryArrivalDate && this.newEntryUrl) {
+        this.newEntryCompany && this.newEntryDepartureDate && this.newEntryArrivalDate) {
       const newEntry: TransportationEntry = {
         id: this.nextId++,
         tripName: this.newEntryTripName,
@@ -278,13 +295,14 @@ export class TransportationPlannerComponent implements OnInit {
         departureDate: this.newEntryDepartureDate,
         arrivalDate: this.newEntryArrivalDate,
         url: this.newEntryUrl,
-        opinion: this.newEntryOpinion
+        opinion: this.newEntryOpinion,
+        status: this.newEntryStatus // Asigna el nuevo estado
       };
       this.transportationEntries.push(newEntry);
       this.resetForm();
       this.saveTransportationEntries(); // Esto también recalcula el total
     } else {
-      alert('Please complete all required fields: Trip Name, Trip Code, Country, City, Company, Departure Date, Arrival Date, and URL.');
+      alert('Por favor, completa todos los campos obligatorios: Nombre del Viaje, Código del Viaje, País, Ciudad, Compañía, Fecha de Salida y Fecha de Llegada.');
     }
   }
 
@@ -301,20 +319,45 @@ export class TransportationPlannerComponent implements OnInit {
     this.newEntryArrivalDate = '';
     this.newEntryUrl = '';
     this.newEntryOpinion = '';
+    this.newEntryStatus = 'Solo Visto'; // Reinicia el estado a por defecto
   }
 
   openUrl(url: string): void {
-    window.open(url, '_blank');
+    if (url) {
+      window.open(url, '_blank');
+    }
   }
 
   onOpinionChange(entry: TransportationEntry, event: Event): void {
     const target = event.target as HTMLElement;
     entry.opinion = target.innerText;
     this.saveTransportationEntries(); // Esto también recalcula el total
-    console.log(`Opinion updated for ${entry.company} (${entry.transportType}): ${entry.opinion}`);
+    console.log(`Opinión actualizada para ${entry.company}: ${entry.opinion}`);
   }
 
-  removeTransportation(entryToRemove: TransportationEntry): void {
+  // Nuevo método para manejar el cambio de estado de transporte
+  onStatusChange(entry: TransportationEntry, event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    entry.status = target.value as TransportationStatus;
+    this.saveTransportationEntries(); // Guarda el cambio de estado
+    console.log(`Estado de transporte actualizado para ${entry.company}: ${entry.status}`);
+  }
+
+  // Obtiene la clase CSS para el indicador de estado en la tabla
+  getTransportationStatusClass(status: TransportationStatus): string {
+    switch (status) {
+      case 'Solo Visto':
+        return 'status-solo-visto';
+      case 'En Espera':
+        return 'status-en-espera';
+      case 'Reservado':
+        return 'status-reservado';
+      default:
+        return '';
+    }
+  }
+
+  removeEntry(entryToRemove: TransportationEntry): void {
     const index = this.transportationEntries.findIndex(entry => entry.id === entryToRemove.id);
     if (index !== -1) {
       this.transportationEntries.splice(index, 1);

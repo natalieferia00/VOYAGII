@@ -5,7 +5,7 @@
 
   .metrics-title {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 1rem;
     transition: color 0.3s ease;
   }
@@ -35,14 +35,14 @@
 
     h3 {
       font-size: 1.1rem;
-      font-weight: 500;
+      font-weight: 400;
       margin: 0.5rem 0;
       transition: color 0.3s ease;
     }
 
     .metric-value {
       font-size: 1.5rem;
-      font-weight: 600;
+      font-weight: 400;
       transition: color 0.3s ease;
     }
 
@@ -60,7 +60,7 @@
       border-radius: 20%;
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
       border: 1px solid #fff;
-       transform: translateX(18dpx); 
+       transform: translateX(18px); 
     }
   }
 }

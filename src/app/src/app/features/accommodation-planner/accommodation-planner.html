@@ -6,7 +6,7 @@
   <section class="budget-summary-section">
     <h2 class="section-heading">Resumen de Presupuesto de Alojamiento</h2>
     <div class="budget-info">
-      <p>Presupuesto definido: 
+      <p>Presupuesto definido:
         <span class="budget-value" *ngIf="accommodationBudget !== null">
           {{ accommodationBudget | currency:'USD':'symbol':'1.0-0' }}
         </span>
@@ -14,7 +14,7 @@
           No definido
         </span>
       </p>
-      <p>Gasto total en alojamientos: 
+      <p>Gasto total en alojamientos:
         <span class="total-cost-value">
           {{ totalAccommodationCost | currency:'USD':'symbol':'1.0-0' }}
         </span>
@@ -91,6 +91,14 @@
         <textarea id="newEntryOpinion" name="newEntryOpinion" [(ngModel)]="newEntryOpinion" rows="2" placeholder="Tu opinión inicial sobre este alojamiento..."></textarea>
       </div>
 
+      <!-- Nuevo: Selector de estado de alojamiento -->
+      <div class="form-group">
+        <label for="newEntryStatus">Estado:</label>
+        <select id="newEntryStatus" name="newEntryStatus" [(ngModel)]="newEntryStatus">
+          <option *ngFor="let status of accommodationStatusOptions" [value]="status">{{status}}</option>
+        </select>
+      </div>
+
       <div class="form-actions">
         <button type="submit" class="add-entry-button">Añadir Alojamiento</button>
       </div>
@@ -117,7 +125,8 @@
             <th>Foto</th>
             <th>Estrellas</th>
             <th>Opinión</th>
-            <th>Acciones</th> <!-- Nueva columna para el botón de eliminar -->
+            <th>Estado</th> <!-- Nueva columna para el estado -->
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -147,6 +156,13 @@
             </td>
             <td contenteditable="true" (input)="onOpinionChange(entry, $event)" class="editable-opinion-cell">
               {{entry.opinion}}
+            </td>
+            <td>
+              <!-- Selector de estado en la tabla -->
+              <select [(ngModel)]="entry.status" (change)="onStatusChange(entry, $event)"
+                      [ngClass]="getAccommodationStatusClass(entry.status)">
+                <option *ngFor="let status of accommodationStatusOptions" [value]="status">{{status}}</option>
+              </select>
             </td>
             <td>
               <button (click)="removeEntry(entry)" class="remove-entry-button">

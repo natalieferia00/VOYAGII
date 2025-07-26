@@ -9,6 +9,7 @@
   <!-- Sección de Resumen de Métricas -->
   <section class="dashboard-section metrics-section">
     <app-metrics [generalInfo]="generalTripInfoForMetrics"></app-metrics>
+     
   </section>
 
   <!-- Sección de Gráficos y Mapa -->
@@ -16,10 +17,13 @@
     <div class="section-card">
       <h2 class="card-title">Progreso del Checklist</h2>
       <app-preparation-checklist-chart></app-preparation-checklist-chart>
+       <app-transportation-status-chart></app-transportation-status-chart>
+  
     </div>
     <div class="section-card">
       <h2 class="card-title">Mapa de Viaje</h2>
       <app-world-map></app-world-map>
+        <app-country-cards></app-country-cards>
     </div>
   </section>
 
@@ -28,11 +32,14 @@
     <div class="section-card">
       <h2 class="card-title">Sección de Planificación</h2>
       <app-planning-section></app-planning-section>
+          <app-progress-chart></app-progress-chart>
+
     </div>
     <div class="section-card">
       <h2 class="card-title">Comentarios</h2>
       <app-comments-form></app-comments-form>
       <app-tasks-section></app-tasks-section>
+      <app-food-status-chart></app-food-status-chart>
     </div>
   </section>
 </main>

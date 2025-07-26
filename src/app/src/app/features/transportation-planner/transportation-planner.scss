@@ -113,10 +113,10 @@ body.dark-mode .add-entry-form .form-group label {
 .add-entry-form .form-group select,
 .add-entry-form .form-group textarea {
   width: 100%;
-  padding: 14px;
-  border: 1px solid #E0E0E0;
-  border-radius: 0.5rem;
-  font-size: 1.05rem;
+  padding: 12px; /* $spacing-sm */
+  border: 1px solid #E0E0E0; /* $medium-gray-border */
+  border-radius: 0.375rem;
+  font-size: 1rem;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
@@ -396,6 +396,16 @@ body.dark-mode .remove-button:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
+/* Estilos para los selectores de estado en la tabla */
+.planner-table select {
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+ 
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
 
 
 
@@ -414,6 +424,21 @@ body.dark-mode .remove-button:hover {
   transition: color 0.3s ease;
 }
 
+.remove-entry-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.remove-entry-button:hover {
+  background-color: #C0392B;
+  transform: translateY(-1px);
+}
 
 
 .budget-status-message {

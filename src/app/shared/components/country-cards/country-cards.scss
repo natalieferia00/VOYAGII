@@ -1,0 +1,86 @@
+/* src/app/shared/components/country-cards/country-cards.component.scss */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+.country-cards-container {
+  padding: 1rem;
+  background-color: #fefefe;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  font-family: 'Roboto', sans-serif;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .country-cards-container {
+  background-color: #2a2a2a;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.empty-message {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  padding: 1rem;
+}
+
+body.dark-mode .empty-message {
+  color: #aaa;
+}
+
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  gap: 10px; /* Space between cards */
+  justify-content: flex-start; /* Align cards to the start */
+  align-items: flex-start; /* Align cards to the top of the row */
+}
+
+.country-card {
+  background-color: #000000; /* Primary color for cards */
+  color: white;
+  padding: 8px 6px;
+  border-radius: 10px; /* More rounded pills */
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap; /* Prevent text from wrapping inside the card */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  /* --- MODIFICACIÓN CLAVE AQUÍ: 3 columnas por defecto --- */
+  /* Calcular el ancho para que 3 tarjetas quepan en una fila con un gap de 10px */
+  /* (100% - (2 * gap)) / 3  => (100% - 20px) / 3 */
+  flex: 0 0 calc(33.33% - 6.66px); /* Aproximadamente (2 * 10px) / 3 */
+  max-width: calc(33.33% - 6.66px); /* Asegura que no crezca más allá de este ancho */
+  /* --- FIN MODIFICACIÓN CLAVE --- */
+}
+
+body.dark-mode .country-card {
+  background-color: #333333; /* Color for dark mode */
+  color: #e0e0e0;
+}
+
+.country-card:hover {
+  background-color: #007d0c; /* A more vibrant hover color */
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) { /* For example, 2 columns on medium screens */
+    .country-card {
+        flex: 0 0 calc(50% - 5px); /* (100% - (1 * 10px)) / 2 */
+        max-width: calc(50% - 5px);
+    }
+}
+
+@media (max-width: 576px) { /* 1 column on small screens (mobile) */
+  .country-cards-container {
+    padding: 0.8rem;
+  }
+
+  .country-card {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

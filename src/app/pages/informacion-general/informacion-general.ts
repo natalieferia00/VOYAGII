@@ -18,7 +18,6 @@ type CombinedTripInfo = GeneralTripInfo & AdditionalGeneralInfo;
   imports: [
     CommonModule,
     FormsModule,
-    MetricsComponent,
     SidebarComponent
   ],
   templateUrl: './informacion-general.html',
@@ -118,7 +117,8 @@ export class InformacionGeneralComponent implements OnInit {
       endDate: this.endDate,
       numberOfPlannedCountries: this.numberOfPlannedCountries,
       mainDestination: this.mainDestination,
-      tripDurationDays: this.tripDurationDays
+      tripDurationDays: this.tripDurationDays,
+      plannedCountriesList:  this.plannedCountriesList,
     };
     localStorage.setItem('generalTripInfo', JSON.stringify(regInfoToSave));
 

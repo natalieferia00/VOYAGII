@@ -1,0 +1,72 @@
+/* src/app/shared/components/food-status-chart/food-status-chart.scss */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+.chart-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  width: auto;
+  max-width: 700px; /* Tamaño ideal para una dona */
+  height: 350px; /* Ajustado para acomodar la leyenda inferior */
+  font-family: 'Roboto', sans-serif;
+}
+
+body.dark-mode .chart-item {
+  background-color: #3a3a3a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-item h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Ajustes para el texto de la leyenda y tooltip en modo oscuro */
+body.dark-mode .chartjs-render-monitor {
+  filter: brightness(1.1);
+}
+
+body.dark-mode .chartjs-tooltip-title,
+body.dark-mode .chartjs-tooltip-body,
+body.dark-mode .chartjs-tooltip-label {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .chartjs-tooltip-label {
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .chartjs-tooltip-point {
+    background-color: #e0e0e0 !important;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .chart-item {
+    padding: 10px;
+    max-width: 250px;
+    height: 300px; /* Ajusta la altura para móviles */
+  }
+
+  .chart-item h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+}

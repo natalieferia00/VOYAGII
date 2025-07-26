@@ -1,25 +1,9 @@
+<!-- src/app/progress-chart/progress-chart.html -->
 <div class="charts-container">
   <div class="chart-item">
+    <h4>Estado de Alojamientos</h4> <!-- ¡Nuevo título aquí! -->
     <canvas baseChart
-      [data]="documentosChartData"
-      [type]="chartType"
-      [options]="chartOptions">
-    </canvas>
-  </div>
-
-  <div class="chart-item">
-    <h4>Hospedajes</h4>
-    <canvas baseChart
-      [data]="hospedajeChartData"
-      [type]="chartType"
-      [options]="chartOptions">
-    </canvas>
-  </div>
-
-  <div class="chart-item">
-    <h4>Presupuesto</h4>
-    <canvas baseChart
-      [data]="presupuestoChartData"
+      [data]="accommodationStatusChartData"
       [type]="chartType"
       [options]="chartOptions">
     </canvas>

@@ -1,0 +1,12 @@
+<!-- src/app/shared/components/country-cards/country-cards.component.html -->
+<div class="country-cards-container">
+  <div *ngIf="noCountriesEntered" class="empty-message">
+    <p>No countries or keywords have been added yet in "General Information".</p>
+  </div>
+
+  <div *ngIf="!noCountriesEntered" class="cards-wrapper">
+    <div *ngFor="let country of countries" class="country-card">
+      <span>{{ country }}</span>
+    </div>
+  </div>
+</div>

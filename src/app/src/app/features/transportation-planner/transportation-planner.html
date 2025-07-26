@@ -6,7 +6,7 @@
   <section class="budget-summary-section">
     <h2 class="section-heading">Resumen de Presupuesto de Transporte</h2>
     <div class="budget-info">
-      <p>Presupuesto definido: 
+      <p>Presupuesto definido:
         <span class="budget-value" *ngIf="transportBudget !== null">
           {{ transportBudget | currency:'USD':'symbol':'1.0-0' }}
         </span>
@@ -14,7 +14,7 @@
           No definido
         </span>
       </p>
-      <p>Gasto total en transporte: 
+      <p>Gasto total en transportes:
         <span class="total-cost-value">
           {{ totalTransportationCost | currency:'USD':'symbol':'1.0-0' }}
         </span>
@@ -43,11 +43,11 @@
       <div class="form-row">
         <div class="form-group">
           <label for="newEntryCountry">País:</label>
-          <input type="text" id="newEntryCountry" name="newEntryCountry" [(ngModel)]="newEntryCountry" placeholder="Ej. España" required>
+          <input type="text" id="newEntryCountry" name="newEntryCountry" [(ngModel)]="newEntryCountry" placeholder="Ej. Francia" required>
         </div>
         <div class="form-group">
           <label for="newEntryCity">Ciudad:</label>
-          <input type="text" id="newEntryCity" name="newEntryCity" [(ngModel)]="newEntryCity" placeholder="Ej. Madrid" required>
+          <input type="text" id="newEntryCity" name="newEntryCity" [(ngModel)]="newEntryCity" placeholder="Ej. París" required>
         </div>
       </div>
 
@@ -60,14 +60,14 @@
         </div>
         <div class="form-group">
           <label for="newEntryCompany">Compañía:</label>
-          <input type="text" id="newEntryCompany" name="newEntryCompany" [(ngModel)]="newEntryCompany" placeholder="Ej. Iberia" required>
+          <input type="text" id="newEntryCompany" name="newEntryCompany" [(ngModel)]="newEntryCompany" placeholder="Ej. Air France" required>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group price-group">
           <label for="newEntryPrice">Precio:</label>
-          <input type="number" id="newEntryPrice" name="newEntryPrice" [(ngModel)]="newEntryPrice" placeholder="Ej. 450 (opcional)">
+          <input type="number" id="newEntryPrice" name="newEntryPrice" [(ngModel)]="newEntryPrice" placeholder="Ej. 350 (opcional)">
           <select id="newEntryCurrency" name="newEntryCurrency" [(ngModel)]="newEntryCurrency" class="currency-select">
             <option *ngFor="let curr of currencies" [value]="curr">{{curr}}</option>
           </select>
@@ -83,13 +83,21 @@
       </div>
 
       <div class="form-group">
-        <label for="newEntryUrl">URL de Reserva/Info:</label>
-        <input type="url" id="newEntryUrl" name="newEntryUrl" [(ngModel)]="newEntryUrl" placeholder="Ej. https://www.iberia.com/reserva/..." required>
+        <label for="newEntryUrl">URL (Reserva/Info):</label>
+        <input type="url" id="newEntryUrl" name="newEntryUrl" [(ngModel)]="newEntryUrl" placeholder="Ej. https://www.aerolinea.com/reserva" >
       </div>
 
       <div class="form-group">
         <label for="newEntryOpinion">Opinión (Inicial):</label>
         <textarea id="newEntryOpinion" name="newEntryOpinion" [(ngModel)]="newEntryOpinion" rows="2" placeholder="Tu opinión inicial sobre este transporte..."></textarea>
+      </div>
+
+      <!-- Nuevo: Selector de estado de transporte -->
+      <div class="form-group">
+        <label for="newEntryStatus">Estado:</label>
+        <select id="newEntryStatus" name="newEntryStatus" [(ngModel)]="newEntryStatus">
+          <option *ngFor="let status of transportationStatusOptions" [value]="status">{{status}}</option>
+        </select>
       </div>
 
       <div class="form-actions">
@@ -110,39 +118,42 @@
       <table class="planner-table">
         <thead>
           <tr>
+            <th>Viaje</th>
+            <th>País/Ciudad</th>
             <th>Tipo</th>
             <th>Compañía</th>
-            <th>Origen/Destino</th>
-            <th>Fechas</th>
             <th>Precio</th>
+            <th>Fechas</th>
             <th>URL</th>
             <th>Opinión</th>
+            <th>Estado</th> <!-- Nueva columna para el estado -->
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let entry of transportationEntries; let i = index" [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
-            <td>
-              <i class="fas fa-plane trip-icon-fa" *ngIf="entry.transportType === 'Vuelo'"></i>
-              <i class="fas fa-train trip-icon-fa" *ngIf="entry.transportType === 'Tren'"></i>
-              <i class="fas fa-bus trip-icon-fa" *ngIf="entry.transportType === 'Autobús'"></i>
-              <i class="fas fa-subway trip-icon-fa" *ngIf="entry.transportType === 'Metro'"></i>
-              <i class="fas fa-taxi trip-icon-fa" *ngIf="entry.transportType === 'Taxi'"></i>
-              <i class="fas fa-car trip-icon-fa" *ngIf="entry.transportType === 'Otro'"></i>
-              {{entry.transportType}}
-            </td>
+            <td>{{entry.tripName}} <br> <span class="text-sm text-gray-500">{{entry.tripCode}}</span></td>
+            <td>{{entry.country}} <br> {{entry.city}}</td>
+            <td>{{entry.transportType}}</td>
             <td>{{entry.company}}</td>
-            <td>{{entry.city}}, {{entry.country}}</td>
-            <td>{{entry.departureDate}} <br> {{entry.arrivalDate}}</td>
             <td>{{entry.price !== null ? (entry.price | currency:entry.currency:'symbol':'1.0-0') : '-'}}</td>
+            <td>{{entry.departureDate}} <br> {{entry.arrivalDate}}</td>
             <td>
-              <a [href]="entry.url" target="_blank" class="table-url-link">{{entry.url | slice:0:30}}...</a>
+              <a *ngIf="entry.url" [href]="entry.url" target="_blank" class="table-url-link">{{entry.url | slice:0:30}}...</a>
+              <span *ngIf="!entry.url">-</span>
             </td>
             <td contenteditable="true" (input)="onOpinionChange(entry, $event)" class="editable-opinion-cell">
               {{entry.opinion}}
             </td>
             <td>
-              <button (click)="removeTransportation(entry)" class="remove-button">
+              <!-- Selector de estado en la tabla -->
+              <select [(ngModel)]="entry.status" (change)="onStatusChange(entry, $event)"
+                      [ngClass]="getTransportationStatusClass(entry.status)">
+                <option *ngFor="let status of transportationStatusOptions" [value]="status">{{status}}</option>
+              </select>
+            </td>
+            <td>
+              <button (click)="removeEntry(entry)" class="remove-entry-button">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </td>
