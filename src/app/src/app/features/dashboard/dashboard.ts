@@ -22,6 +22,7 @@ import { WelcomeMessageComponent } from '../../../../welcome-message/welcome-mes
 import { TransportationStatusChartComponent } from "../../../../shared/components/transportation-status-chart/transportation-status-chart";
 import { FoodStatusChartComponent } from "../../../../shared/components/food-status-chart/food-status-chart";
 import { CountryCardsComponent } from "../../../../shared/components/country-cards/country-cards";
+import { TripCountdownComponent } from "../../../../shared/components/trip-countdown/trip-countdown";
 
 
 
@@ -47,7 +48,8 @@ type CombinedTripInfo = GeneralTripInfo & AdditionalGeneralInfo;
     ProgressChartComponent,
     TransportationStatusChartComponent,
     FoodStatusChartComponent,
-    CountryCardsComponent
+    CountryCardsComponent,
+    TripCountdownComponent
 ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']

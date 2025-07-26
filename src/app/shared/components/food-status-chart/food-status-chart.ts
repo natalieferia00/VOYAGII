@@ -15,7 +15,7 @@ import { FoodEntry, FoodStatus } from '../../../src/app/features/food-planner/fo
 })
 export class FoodStatusChartComponent implements OnInit, OnDestroy {
 
-  // Opciones para un gráfico CIRCULAR (DOUGHNUT/PIE)
+  // Opciones para un gráfico CIRCULAR (DOUGHNUT)
   chartOptions: ChartOptions<'doughnut'> = { // Tipo de gráfico 'doughnut'
     responsive: true,
     plugins: {
@@ -44,7 +44,7 @@ export class FoodStatusChartComponent implements OnInit, OnDestroy {
         }
       }
     },
-    cutout: '0%' // ¡CAMBIADO AQUÍ! 0% para un gráfico de pastel completo (relleno)
+    cutout: '70%' // Para hacerla una dona
   };
 
   chartType: 'doughnut' = 'doughnut'; // Tipo de gráfico 'doughnut'
@@ -55,8 +55,8 @@ export class FoodStatusChartComponent implements OnInit, OnDestroy {
     datasets: [{
       data: [0, 0, 0, 0, 0, 0], // Seis valores
       // Colores sugeridos: Gris, Marrón claro, Amarillo, Verde, Azul, Gris muy claro
-      backgroundColor: ['#FF6F3C', '#3A86FF', '#2E8B57', '#FFC857', '#6B8E23', '#cdcdcdff'],
-      hoverBackgroundColor: ['#FF6F3C', '#3A86FF', '#2E8B57', '#FFC857', '#6B8E23', '#BDBDBD'],
+      backgroundColor: ['#A9A9A9', '#8D6E63', '#FFC857', '#2E8B57', '#3A86FF', '#E0E0E0'],
+      hoverBackgroundColor: ['#808080', '#795548', '#FFD700', '#3CB371', '#5B9CFF', '#BDBDBD'],
       borderWidth: 0
     }]
   };

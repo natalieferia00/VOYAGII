@@ -9,6 +9,9 @@
   <!-- Sección de Resumen de Métricas -->
   <section class="dashboard-section metrics-section">
     <app-metrics [generalInfo]="generalTripInfoForMetrics"></app-metrics>
+              <app-trip-countdown></app-trip-countdown>
+
+ 
      
   </section>
 
@@ -18,6 +21,7 @@
       <h2 class="card-title">Progreso del Checklist</h2>
       <app-preparation-checklist-chart></app-preparation-checklist-chart>
        <app-transportation-status-chart></app-transportation-status-chart>
+       
   
     </div>
     <div class="section-card">
